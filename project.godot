@@ -23,6 +23,10 @@ window/size/window_width_override=2880
 window/size/window_height_override=1620
 window/stretch/mode="viewport"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 throttle_forward={
@@ -80,6 +84,13 @@ debug_toggle_mouse_capture={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"key_label":0,"unicode":120,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Pickups"
+3d_physics/layer_4="Hostiless"
 
 [physics]
 

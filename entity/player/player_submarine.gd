@@ -5,29 +5,29 @@ class_name PlayerSubmarine
 @onready var crosshair: TextureRect = $Gui/Crosshair
 @onready var direction: TextureRect = $Gui/Direction
 
-@export var saved_state: PlayerState
+@onready var pickup_detector: Area3D = $PickupDetector
 
-var _current_state: PlayerState
-
-## Take these from current state instead
-@export var acceleration := 10.0
-@export var max_health := 100.0
-@export var current_health := 100.0
-@export var health_regen := 0.0
-@export var max_ammo := 100.0
-@export var current_ammo := 100.0
-@export var ammo_regen := 20.0
-@export var core_meltdown_timer := 30.0
-@onready var health := current_health
-@onready var ammo := current_ammo
+@export var current_state: PlayerState
+@export var skill_tree: SkillTree
 
 var mouse_captured = true
-
 var mouse_deltas := Vector2.ZERO
 
-func update_state(delta: float) -> void:
-	health = min(health + health_regen * delta, max_health)
-	ammo = min(ammo + ammo_regen * delta, max_ammo)
+func _ready() -> void:
+	skill_tree.apply_skill_effects(current_state)
+	contact_monitor = true
+	linear_damp = 1.5
+	angular_damp = 3.0
+	direction.position = crosshair.position # this makes arrow position independent of viewport size calculation
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	skill_tree.changed.connect(func(): skill_tree.apply_skill_effects(current_state))
+	current_state.changed.connect(current_state_updated)
+	
+	pickup_detector.area_entered.connect(on_pickup)
+
+func current_state_updated() -> void:
+	pass
 
 func update_gui() -> void:
 	var center = crosshair.position # this makes arrow position independent of viewport size calculation
@@ -42,14 +42,6 @@ func update_gui() -> void:
 		direction.modulate.a = smoothstep(0.0, 1.0, distance / 64.0)
 	else:
 		direction.modulate.a = 1.0
-
-func _ready() -> void:
-	_current_state = PlayerState.new()
-	contact_monitor = true
-	linear_damp = 1.5
-	angular_damp = 3.0
-	direction.position = crosshair.position # this makes arrow position independent of viewport size calculation
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -67,6 +59,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+	var acceleration := current_state.linear_acceleration
 	var overdrive = 1.0
 	if Input.is_action_pressed('throttle_overdrive'):
 		overdrive = 4.0
@@ -86,10 +79,11 @@ func _physics_process(delta: float) -> void:
 	var yaw = mouse_deltas.x
 	var pitch = mouse_deltas.y
 
-	apply_torque(transform.basis.y * (-yaw))
-	apply_torque(transform.basis.x * (-pitch))
+	var a = current_state.angular_acceleration
+	var max_angular_acceleration = Vector3(a, a, a)
+	apply_torque(clamp(transform.basis.y * (-yaw), -max_angular_acceleration, max_angular_acceleration))
+	apply_torque(clamp(transform.basis.x * (-pitch), -max_angular_acceleration, max_angular_acceleration))
 
-	update_state(delta)
 	update_gui()
 
 	mouse_deltas *= 0.5
@@ -100,11 +94,20 @@ func _physics_process(delta: float) -> void:
 	var new_basis = Basis(new_x, Vector3.UP, new_z)
 	global_transform.basis = global_transform.basis.slerp(new_basis, 0.95 * delta)
 
-func heal(amount: float) -> void:
-	health = min(max_health, health + amount)
+func on_pickup(area: Area3D):
+	if area is Pickup:
+		var pickup: Pickup = area
+		var descriptor = pickup.pickup_descriptor()
+	
+		match descriptor.type:
+			Pickup.PickupType.Science:
+				skill_tree.add_science_points(descriptor.get("amount", 1))
+				print("Skill tree science points: ", skill_tree.science_points)
+			Pickup.PickupType.Fuel:
+				pass
+			Pickup.PickupType.Ammo:
+				pass
+			Pickup.PickupType.LogBook:
+				pass
 
-func damage(amount: float) -> void:
-	health = max(0.0, health - amount)
-	if health <= 0.0:
-		await get_tree().create_timer(0.5).timeout
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		pickup.destroy()

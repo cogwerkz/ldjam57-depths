@@ -8,6 +8,9 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vby8d"]
 height = 4.5063
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_f1t2n"]
+radius = 2.0
+
 [node name="PlayerSubmarine" type="RigidBody3D"]
 script = ExtResource("1_vby8d")
 
@@ -20,7 +23,7 @@ shape = SubResource("CapsuleShape3D_vby8d")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 2.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 5.1)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -66,5 +69,10 @@ offset_bottom = 32.0
 pivot_offset = Vector2(16, 16)
 texture = ExtResource("3_f1t2n")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
+[node name="PickupDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupDetector"]
+shape = SubResource("SphereShape3D_f1t2n")
