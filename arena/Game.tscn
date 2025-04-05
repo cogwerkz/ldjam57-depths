@@ -1,11 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=13 format=3 uid="uid://j4iau7hya10u"]
 
-[ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
+[ext_resource type="Script" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
 [ext_resource type="Script" uid="uid://bcua7wbucy3t8" path="res://arena/main_camera.gd" id="1_x3x3p"]
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="2_0yfs5"]
-[ext_resource type="Script" uid="uid://co4n42n7tb66k" path="res://entity/player/player_state_resource.gd" id="2_m1fsu"]
-[ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="3_arpvs"]
 [ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="3_m1fsu"]
 [ext_resource type="Script" uid="uid://c8yoc788wd6p8" path="res://entity/player/light_rays.gd" id="3_x3x3p"]
 [ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
@@ -31,34 +29,6 @@ fog_sun_scatter = 0.05
 fog_density = 0.2
 fog_sky_affect = 0.98
 
-[sub_resource type="Resource" id="Resource_arpvs"]
-script = ExtResource("2_m1fsu")
-max_speed = 50.0
-linear_acceleration = 20.0
-angular_acceleration = 10.0
-max_health = 100.0
-current_health = 100.0
-pressure_resistance = 1000.0
-fuel_max = 100.0
-current_fuel = 100.0
-fuel_efficiency = 75.0
-turret_max_ammo = 10
-turret_current_ammo = 10
-turret_damage = 10.0
-turret_range = 200.0
-turret_cooldown = 0.5
-turret_hit_chance = 60.0
-scanner_range = 300.0
-scanner_decay = 10.0
-scanner_cooldown = 5.0
-tractor_beam_range = 100.0
-tractor_beam_collection_speed = 15.0
-metadata/_custom_type_script = "uid://co4n42n7tb66k"
-
-[sub_resource type="Resource" id="Resource_1ovjp"]
-script = ExtResource("3_arpvs")
-metadata/_custom_type_script = "uid://7ro7qnlxtkct"
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_0yfs5"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
@@ -68,9 +38,9 @@ shader = ExtResource("2_0yfs5")
 shader_parameter/subviewport_tex = SubResource("ViewportTexture_0yfs5")
 shader_parameter/ray_length = 1.0
 shader_parameter/ray_intensity = 0.4
-shader_parameter/light_source_scale = 0.2
+shader_parameter/light_source_scale = 0.4
 shader_parameter/light_source_feather = 2.0
-shader_parameter/noise_strength = 0.0
+shader_parameter/noise_strength = 0.2
 shader_parameter/light_source_pos = Vector2(0, 0)
 shader_parameter/light_source_dir = Vector3(0.5, -1, 0.25)
 shader_parameter/camera_dir = Vector3(-0.5, 1, -0.25)
@@ -88,8 +58,6 @@ environment = SubResource("Environment_kre3w")
 [node name="Player" type="Marker3D" parent="."]
 
 [node name="PlayerSubmarine" parent="Player" instance=ExtResource("1_05u1r")]
-current_state = SubResource("Resource_arpvs")
-skill_tree = SubResource("Resource_1ovjp")
 
 [node name="Pickups" type="Marker3D" parent="."]
 

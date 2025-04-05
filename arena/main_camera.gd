@@ -12,5 +12,4 @@ func _physics_process(delta: float) -> void:
 	if target_camera == null:
 		return
 
-	global_transform.basis = global_transform.basis.slerp(target_camera.global_transform.basis, easing * delta)
-	global_transform.origin = global_transform.origin.lerp(target_camera.global_transform.origin, easing * delta)
+	global_transform = global_transform.interpolate_with(target_camera.global_transform, easing * delta)

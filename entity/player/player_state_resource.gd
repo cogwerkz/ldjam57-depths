@@ -5,8 +5,8 @@ class_name PlayerState
 @export var max_speed: float = 50.0
 
 # Acceleration/Deceleration
-@export var linear_acceleration: float = 20.0
-@export var angular_acceleration: float = 10.0
+@export var linear_acceleration: float = 5.0
+@export var angular_acceleration: float = 15.0
 
 # Structure
 @export var max_health: float = 100.0
@@ -37,7 +37,7 @@ class_name PlayerState
 
 func reset_defaults() -> void:
 	max_speed = 50.0
-	linear_acceleration = 20.0
+	linear_acceleration = 5.0
 	angular_acceleration = 10.0
 	max_health = 100.0
 	pressure_resistance = 1000.0

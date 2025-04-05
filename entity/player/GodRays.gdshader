@@ -14,10 +14,10 @@ uniform vec2 light_source_pos = vec2(0.0, 0.0);
 uniform vec3 light_source_dir = vec3(0.5, -1.0, 0.25);
 uniform vec3 camera_dir = vec3(-0.5, 1.0, -0.25);
 
-const int SAMPLE_COUNT = 128;
+const int SAMPLE_COUNT = 80;
 
 float random (vec2 uv) {
-    return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123);
+    return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123 + TIME);
 }
 
 void fragment() {

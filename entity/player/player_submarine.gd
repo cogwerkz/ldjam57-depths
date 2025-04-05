@@ -7,8 +7,8 @@ class_name PlayerSubmarine
 
 @onready var pickup_detector: Area3D = $PickupDetector
 
-@export var current_state: PlayerState
-@export var skill_tree: SkillTree
+var current_state: PlayerState = PlayerState.new()
+var skill_tree: SkillTree = SkillTree.new()
 
 var mouse_captured = true
 var mouse_deltas := Vector2.ZERO
@@ -16,7 +16,7 @@ var mouse_deltas := Vector2.ZERO
 func _ready() -> void:
 	skill_tree.apply_skill_effects(current_state)
 	contact_monitor = true
-	linear_damp = 1.5
+	linear_damp = 2.5
 	angular_damp = 3.0
 	direction.position = crosshair.position # this makes arrow position independent of viewport size calculation
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -31,7 +31,7 @@ func current_state_updated() -> void:
 
 func update_gui() -> void:
 	var center = crosshair.position # this makes arrow position independent of viewport size calculation
-	direction.position = direction.position.lerp(center + mouse_deltas * 32.0, 0.025)
+	direction.position = direction.position.lerp(center + mouse_deltas * 32.0, 0.02)
 
 	var distance = direction.position.distance_to(center)
 	var away_from_center = direction.position - center
@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-	var acceleration := current_state.linear_acceleration
+	var acceleration := current_state.linear_acceleration * 60.0 * delta
 	var overdrive = 1.0
 	if Input.is_action_pressed('throttle_overdrive'):
 		overdrive = 4.0
@@ -72,15 +72,23 @@ func _physics_process(delta: float) -> void:
 		apply_force(transform.basis.x * -acceleration, Vector3.ZERO)
 	if Input.is_action_pressed('throttle_right'):
 		apply_force(transform.basis.x * acceleration, Vector3.ZERO)
+	if Input.is_action_pressed('roll_left'):
+		apply_torque(transform.basis.z * acceleration * 0.2)
+	if Input.is_action_pressed('roll_right'):
+		apply_torque(transform.basis.z * -acceleration * 0.2)
 
-	var yaw = mouse_deltas.x
-	var pitch = mouse_deltas.y
+	var yaw = mouse_deltas.x / crosshair.position.x * 100000.0 * delta
+	var pitch = mouse_deltas.y / crosshair.position.y * 100000.0 * delta
 
-	var a = current_state.angular_acceleration
-	var max_angular_acceleration = Vector3(a, a, a)
-	apply_torque(clamp(transform.basis.y * (-yaw), -max_angular_acceleration, max_angular_acceleration))
-	apply_torque(clamp(transform.basis.x * (-pitch), -max_angular_acceleration, max_angular_acceleration))
-
+	#var a = current_state.angular_acceleration
+	#var max_angular_acceleration = Vector3(a, a, a)
+	#apply_torque(clamp(transform.basis.y * (-yaw), -max_angular_acceleration, max_angular_acceleration))
+	#apply_torque(clamp(transform.basis.x * (-pitch), -max_angular_acceleration, max_angular_acceleration))
+	
+	apply_torque(transform.basis.y * (-yaw))
+	apply_torque(transform.basis.x * (-pitch))
+	
+	
 	update_gui()
 
 	mouse_deltas *= 0.5
@@ -89,7 +97,7 @@ func _physics_process(delta: float) -> void:
 	var new_x = -global_transform.basis.z.cross(Vector3.UP).normalized()
 	var new_z = new_x.cross(Vector3.UP).normalized()
 	var new_basis = Basis(new_x, Vector3.UP, new_z)
-	global_transform.basis = global_transform.basis.slerp(new_basis, 0.95 * delta)
+	global_transform.basis = global_transform.basis.slerp(new_basis, 0.8 * delta)
 
 func on_pickup(area: Area3D):
 	if area is Pickup:
