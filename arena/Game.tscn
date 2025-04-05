@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=15 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="2_0yfs5"]
 [ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="3_m1fsu"]
 [ext_resource type="Script" uid="uid://c8yoc788wd6p8" path="res://entity/player/light_rays.gd" id="3_x3x3p"]
+[ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="8_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
@@ -28,6 +29,11 @@ fog_light_color = Color(0, 0.113616, 0.184857, 1)
 fog_sun_scatter = 0.05
 fog_density = 0.2
 fog_sky_affect = 0.98
+
+[sub_resource type="Resource" id="Resource_o54ke"]
+resource_local_to_scene = true
+script = ExtResource("8_1ovjp")
+metadata/_custom_type_script = "uid://7ro7qnlxtkct"
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0yfs5"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
@@ -58,6 +64,7 @@ environment = SubResource("Environment_kre3w")
 [node name="Player" type="Marker3D" parent="."]
 
 [node name="PlayerSubmarine" parent="Player" instance=ExtResource("1_05u1r")]
+skill_tree = SubResource("Resource_o54ke")
 
 [node name="Pickups" type="Marker3D" parent="."]
 
@@ -227,5 +234,6 @@ offset_left = 343.0
 offset_top = 170.0
 offset_right = -357.0
 offset_bottom = -187.0
+skill_tree = SubResource("Resource_o54ke")
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]

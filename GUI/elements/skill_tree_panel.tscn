@@ -1,15 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhlx0sw2e3brp"]
+[gd_scene load_steps=2 format=3 uid="uid://bhlx0sw2e3brp"]
 
-[ext_resource type="Texture2D" uid="uid://cwjgdx6skev20" path="res://assets/raw/panel-000.png" id="1_metvl"]
 [ext_resource type="Script" uid="uid://biuads252vtlw" path="res://GUI/elements/skill_tree_panel.gd" id="1_u8u0r"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fqcm"]
-texture = ExtResource("1_metvl")
-texture_margin_left = 48.0
-texture_margin_top = 48.0
-texture_margin_right = 48.0
-texture_margin_bottom = 48.0
-modulate_color = Color(0.447059, 0.541176, 0.568627, 0.823529)
 
 [node name="SkillTreePanel" type="Panel"]
 texture_filter = 1
@@ -18,7 +9,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_8fqcm")
 script = ExtResource("1_u8u0r")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -40,15 +30,16 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HeaderControl"]
+[node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HeaderControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 36
-text = "Upgrades"
+theme_override_font_sizes/bold_font_size = 36
+bbcode_enabled = true
+text = "[b]Upgrades[/b]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -82,16 +73,43 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="SciencePointsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "0 Science Points"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
 
 [node name="SkillNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "Skill name"
 horizontal_alignment = 1
+
+[node name="SkillLevelLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Level"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="SkillDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -101,17 +119,19 @@ text = "Description"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="SkillLevelLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Level"
-horizontal_alignment = 1
+theme_override_constants/separation = 12
 
 [node name="SkillUpgradeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "1 Science point"
+
+[node name="HSeparator5" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="SkillLevelDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

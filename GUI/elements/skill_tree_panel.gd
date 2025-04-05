@@ -4,6 +4,7 @@ const INIT_SKILL_SELECTED = "fuel_efficiency"
 
 @onready var skills_box = %SkillsBoxContainer
 
+@onready var science_points_label: Label = %SkillNameLabel
 @onready var skill_name: Label = %SkillNameLabel
 @onready var skill_description: Label = %SkillDescriptionLabel
 @onready var skill_level: Label = %SkillLevelLabel
@@ -15,6 +16,8 @@ const INIT_SKILL_SELECTED = "fuel_efficiency"
 func _ready() -> void:
 	if !skill_tree:
 		skill_tree = SkillTree.new()
+		
+	skill_tree.changed.connect(func(): science_points_label.text = "%d Science Points" % skill_tree.science_points)
 	
 	var skills_button_group = ButtonGroup.new()
 	skills_button_group.allow_unpress = false
