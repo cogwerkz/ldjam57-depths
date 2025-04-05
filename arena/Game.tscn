@@ -154,8 +154,9 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.810
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.789495, 3.52591, 3.97271)
 
 [node name="MainCamera" type="Camera3D" parent="."]
+current = true
 script = ExtResource("1_x3x3p")
-easing = 6666.0
+easing = 8.0
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="MainCamera"]
 remote_path = NodePath("../../SubViewportContainer/SubViewport/PostProcessCamera")
@@ -200,4 +201,3 @@ render_target_clear_mode = 2
 render_target_update_mode = 4
 
 [node name="PostProcessCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-current = true

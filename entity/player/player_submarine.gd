@@ -30,8 +30,7 @@ func update_state(delta: float) -> void:
 	ammo = min(ammo + ammo_regen * delta, max_ammo)
 
 func update_gui() -> void:
-	var center_offset = Vector2(16, 16)
-	var center = get_viewport().size * 0.5 - center_offset
+	var center = crosshair.position # this makes arrow position independent of viewport size calculation
 	direction.position = direction.position.lerp(center + mouse_deltas * 32.0, 0.025)
 
 	var distance = direction.position.distance_to(center)
@@ -49,9 +48,7 @@ func _ready() -> void:
 	contact_monitor = true
 	linear_damp = 1.5
 	angular_damp = 3.0
-	var target = direction
-	var center = get_viewport().size * 0.5
-	target.position = center
+	direction.position = crosshair.position # this makes arrow position independent of viewport size calculation
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent) -> void:
