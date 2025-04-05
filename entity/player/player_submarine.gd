@@ -30,23 +30,19 @@ func update_state(delta: float) -> void:
 	ammo = min(ammo + ammo_regen * delta, max_ammo)
 
 func update_gui() -> void:
-	var target = direction
+	var center_offset = Vector2(16, 16)
+	var center = get_viewport().size * 0.5 - center_offset
+	direction.position = direction.position.lerp(center + mouse_deltas * 32.0, 0.025)
 
-	var center = get_viewport().size * 0.5
-	target.position = target.position.lerp(center + mouse_deltas * 32.0, 0.025)
-	
-	print("Center: ", center)
-	print("Mouse deltas: ", mouse_deltas)
+	var distance = direction.position.distance_to(center)
+	var away_from_center = direction.position - center
 
-	var distance = target.position.distance_to(center)
-	var away_from_center = target.position - center
-
-	target.rotation = away_from_center.angle() + deg_to_rad(90.0)
+	direction.rotation = away_from_center.angle() + deg_to_rad(90.0)
 
 	if distance < 64:
-		target.modulate.a = 1.0 # xsmoothstep(0.0, 1.0, distance / 64.0)
+		direction.modulate.a = smoothstep(0.0, 1.0, distance / 64.0)
 	else:
-		target.modulate.a = 1.0
+		direction.modulate.a = 1.0
 
 func _ready() -> void:
 	_current_state = PlayerState.new()
@@ -90,12 +86,6 @@ func _physics_process(delta: float) -> void:
 		apply_force(transform.basis.x * -acceleration, Vector3.ZERO)
 	if Input.is_action_pressed('throttle_right'):
 		apply_force(transform.basis.x * acceleration, Vector3.ZERO)
-	
-	# TODO: if we want to implement roll
-	# if Input.is_action_pressed('roll_left'):
-	#	add_torque(transform.basis.z * acceleration * 0.2)
-	# if Input.is_action_pressed('roll_right'):
-	#	add_torque(transform.basis.z * -acceleration * 0.2)
 
 	var yaw = mouse_deltas.x
 	var pitch = mouse_deltas.y
@@ -107,6 +97,12 @@ func _physics_process(delta: float) -> void:
 	update_gui()
 
 	mouse_deltas *= 0.5
+	
+	# Always point Y axis up - "auto-leveling"
+	var new_x = -global_transform.basis.z.cross(Vector3.UP).normalized()
+	var new_z = new_x.cross(Vector3.UP).normalized()
+	var new_basis = Basis(new_x, Vector3.UP, new_z)
+	global_transform.basis = global_transform.basis.slerp(new_basis, 0.95 * delta)
 
 func heal(amount: float) -> void:
 	health = min(max_health, health + amount)
