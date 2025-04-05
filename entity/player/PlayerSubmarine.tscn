@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cad4krsh3wyd8"]
 
-[ext_resource type="Script" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
+[ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="Texture2D" uid="uid://civxmtuwakep8" path="res://assets/raw/crosshair.png" id="2_xs68m"]
 [ext_resource type="Texture2D" uid="uid://c34y5ght4fxfo" path="res://assets/raw/direction.png" id="3_f1t2n"]
 
@@ -51,10 +51,3 @@ offset_right = 32.0
 offset_bottom = 32.0
 pivot_offset = Vector2(16, 16)
 texture = ExtResource("3_f1t2n")
-
-[node name="Panel" type="Panel" parent="Camera3D/Gui"]
-layout_mode = 0
-offset_left = 76.0
-offset_top = 84.0
-offset_right = 1803.0
-offset_bottom = 1007.0
