@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=16 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
@@ -53,6 +53,9 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_dan0s"]
 material = SubResource("StandardMaterial3D_vka5r")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x8ejc"]
+radius = 30.0
 
 [node name="PlayerSubmarine" type="RigidBody3D"]
 script = ExtResource("1_vby8d")
@@ -120,10 +123,19 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupDetector"]
 shape = SubResource("SphereShape3D_f1t2n")
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+[node name="BubbleParticles" type="GPUParticles3D" parent="."]
 amount = 4096
 lifetime = 4.0
+preprocess = 1.0
 randomness = 0.5
 visibility_aabb = AABB(-64, -64, -64, 128, 128, 128)
 process_material = SubResource("ParticleProcessMaterial_6lrfa")
 draw_pass_1 = SubResource("QuadMesh_dan0s")
+
+[node name="Scanner" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scanner"]
+shape = SubResource("SphereShape3D_x8ejc")
