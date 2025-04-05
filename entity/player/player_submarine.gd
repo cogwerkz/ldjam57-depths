@@ -16,7 +16,7 @@ var scanner_charge := SCANNER_COOLDOWN
 var scanner_decay := SCANNER_COOLDOWN * 0.6
 
 @export var current_state: PlayerState = PlayerState.new()
-@export var skill_tree: SkillTree = SkillTree.new()
+@export var skill_tree: SkillTree
 
 var mouse_captured = true
 var mouse_deltas := Vector2.ZERO

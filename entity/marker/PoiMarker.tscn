@@ -22,6 +22,33 @@ particles_anim_loop = false
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_bjgrx")
 
+[sub_resource type="Animation" id="Animation_8eowh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Marker3D/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Marker3D/MeshInstance3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_fxbgl"]
 resource_name = "bob"
 loop_mode = 1
@@ -50,33 +77,6 @@ tracks/1/keys = {
 "values": [Vector3(1, 1, 1), Vector3(1.2, 1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id="Animation_8eowh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Marker3D/MeshInstance3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Marker3D/MeshInstance3D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8eowh"]
 _data = {
 &"RESET": SubResource("Animation_8eowh"),
@@ -101,6 +101,7 @@ no_depth_test = true
 texture_filter = 0
 text = "#TODO"
 font_size = 64
+outline_size = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

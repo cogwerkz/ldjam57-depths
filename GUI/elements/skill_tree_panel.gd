@@ -4,7 +4,7 @@ const INIT_SKILL_SELECTED = "fuel_efficiency"
 
 @onready var skills_box = %SkillsBoxContainer
 
-@onready var science_points_label: Label = %SkillNameLabel
+@onready var science_points_label: Label = %SciencePointsLabel
 @onready var skill_name: Label = %SkillNameLabel
 @onready var skill_description: Label = %SkillDescriptionLabel
 @onready var skill_level: Label = %SkillLevelLabel
@@ -14,10 +14,9 @@ const INIT_SKILL_SELECTED = "fuel_efficiency"
 @export var skill_tree: SkillTree
 
 func _ready() -> void:
-	if !skill_tree:
-		skill_tree = SkillTree.new()
-		
-	skill_tree.changed.connect(func(): science_points_label.text = "%d Science Points" % skill_tree.science_points)
+	skill_tree.changed.connect(func(): 
+		science_points_label.set_text("%d Science Points" % skill_tree.science_points)
+	)
 	
 	var skills_button_group = ButtonGroup.new()
 	skills_button_group.allow_unpress = false
@@ -32,6 +31,11 @@ func _ready() -> void:
 		skill_button.button_group = skills_button_group
 		skill_button.set_pressed(INIT_SKILL_SELECTED == skill_key)
 		skills_box.add_child(skill_button)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("upgrades"):
+		await get_tree().process_frame
+		visible = false
 
 func _on_selected_skill_changed(button: Button):
 	var skill_key = button.get_meta("skill_key")
@@ -54,3 +58,7 @@ func _on_selected_skill_changed(button: Button):
 
 func _on_close_button_pressed() -> void:
 	visible = false
+	
+func _on_visibility_changed() -> void:
+	if self.is_node_ready() and visible:
+		science_points_label.set_text("%d Science Points" % skill_tree.science_points)

@@ -30,8 +30,7 @@ fog_sun_scatter = 0.05
 fog_density = 0.2
 fog_sky_affect = 0.98
 
-[sub_resource type="Resource" id="Resource_o54ke"]
-resource_local_to_scene = true
+[sub_resource type="Resource" id="Resource_1ovjp"]
 script = ExtResource("8_1ovjp")
 metadata/_custom_type_script = "uid://7ro7qnlxtkct"
 
@@ -64,7 +63,7 @@ environment = SubResource("Environment_kre3w")
 [node name="Player" type="Marker3D" parent="."]
 
 [node name="PlayerSubmarine" parent="Player" instance=ExtResource("1_05u1r")]
-skill_tree = SubResource("Resource_o54ke")
+skill_tree = SubResource("Resource_1ovjp")
 
 [node name="Pickups" type="Marker3D" parent="."]
 
@@ -234,6 +233,6 @@ offset_left = 343.0
 offset_top = 170.0
 offset_right = -357.0
 offset_bottom = -187.0
-skill_tree = SubResource("Resource_o54ke")
+skill_tree = SubResource("Resource_1ovjp")
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]
