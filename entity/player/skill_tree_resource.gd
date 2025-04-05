@@ -5,114 +5,132 @@ var science_points: int = 0
 
 var skills = {
 	"fuel_efficiency": {
-		"name": "Fuel efficiency",
+		"name": "Fuel Efficiency",
+		"description": "Reduces the amount of fuel consumed while moving, allowing for longer explorations.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"fuel_efficiency": 5.0
-				}
+				},
+				"description": "Decreases fuel consumption by 5%."
 			}
 		]
 	},
 	"max_speed": {
-		"name": "Submarine speed",
+		"name": "Submarine Speed",
+		"description": "Increases the maximum speed of your submarine, allowing you to travel faster across the ocean.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"max_speed" : 5.0
-				}
+				},
+				"description": "Increases maximum speed by 5 units."
 			}
 		]
 	},
 	"hull_strenght": {
-		"name": "Hull Strenght",
+		"name": "Hull Strength",
+		"description": "Improves the structural integrity of your submarine, increasing its maximum health and resistance to damage.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"max_health" : 5.0
-				}
+				},
+				"description": "Increases maximum hull health by 5 points."
 			}
 		]
 	},
 	"pressure_resistance": {
 		"name": "Pressure Resistance",
+		"description": "Enhances the submarine's ability to withstand the crushing pressure of the deep ocean, allowing you to dive to greater depths without taking damage.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"pressure_resistance" : 5.0
-				}
+				},
+				"description": "Increases maximum safe diving depth by 5 units."
 			}
 		]
 	},
 	"targeting_system": {
 		"name": "Turret Targeting System",
+		"description": "Improves the accuracy of your submarine's turrets, increasing the chance of hitting hostile targets.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
-					"turret_hit_chance" : 5.0
-				}
+					"turret_hit_chance" : 5.0 
+				},
+				"description": "Increases turret hit chance by 5%."
 			}
 		]
 	},
 	"turret_range": {
 		"name": "Turret Range",
+		"description": "Extends the effective firing range of your submarine's turrets, allowing you to engage threats from a safer distance.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"turret_range" : 5.0
-				}
+				},
+				"description": "Increases turret firing range by 5 units."
 			}
 		]
 	},
 	"ammo_capacity": {
 		"name": "Turret Ammo Storage",
+		"description": "Increases the maximum amount of ammunition your submarine can carry for its turrets, allowing for sustained combat.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"turret_max_ammo" : 5.0
-				}
+				},
+				"description": "Increases maximum turret ammo capacity by 5 rounds."
 			}
 		]
 	},
 	"scanner_boost": {
-		"name": "Scanner range",
+		"name": "Scanner Range",
+		"description": "Increases the detection range of your submarine's scanner, allowing you to identify points of interest and threats from further away.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
 					"scanner_range" : 5.0
-				}
+				},
+				"description": "Increases scanner detection range by 5 units."
 			}
 		]
 	},
 	"scanner_efficiency": {
 		"name": "Scanner Cooldown",
+		"description": "Reduces the cooldown time between scanner uses, allowing you to scan your surroundings more frequently.",
 		"current_level": 0,
 		"levels": [
 			{
 				"cost": 1,
 				"effects": {
-					"scanner_cooldown" : 5.0
-				}
+					"scanner_cooldown" : 5.0 
+				},
+				"description": "Reduces scanner cooldown time by 5%."
 			}
 		]
 	}
-}
+};
 
 func add_science_points(amount: int) -> void:
 	science_points += amount
