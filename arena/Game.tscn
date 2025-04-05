@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=17 format=3 uid="uid://j4iau7hya10u"]
 
+[ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
 [ext_resource type="Script" uid="uid://bcua7wbucy3t8" path="res://arena/main_camera.gd" id="1_x3x3p"]
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="2_0yfs5"]
@@ -7,6 +8,7 @@
 [ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="3_arpvs"]
 [ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="3_m1fsu"]
 [ext_resource type="Script" uid="uid://c8yoc788wd6p8" path="res://entity/player/light_rays.gd" id="3_x3x3p"]
+[ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -74,6 +76,7 @@ shader_parameter/light_source_dir = Vector3(0.5, -1, 0.25)
 shader_parameter/camera_dir = Vector3(-0.5, 1, -0.25)
 
 [node name="Game" type="Node3D"]
+script = ExtResource("1_1ovjp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -240,3 +243,16 @@ render_target_clear_mode = 2
 render_target_update_mode = 4
 
 [node name="PostProcessCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SkillTreePanel" parent="CanvasLayer" instance=ExtResource("8_3ym2b")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+offset_left = 343.0
+offset_top = 170.0
+offset_right = -357.0
+offset_bottom = -187.0
+
+[connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]

@@ -1,94 +1,122 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhlx0sw2e3brp"]
+[gd_scene load_steps=4 format=3 uid="uid://bhlx0sw2e3brp"]
 
+[ext_resource type="Texture2D" uid="uid://cwjgdx6skev20" path="res://assets/raw/panel-000.png" id="1_metvl"]
 [ext_resource type="Script" uid="uid://biuads252vtlw" path="res://GUI/elements/skill_tree_panel.gd" id="1_u8u0r"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fqcm"]
+texture = ExtResource("1_metvl")
+texture_margin_left = 48.0
+texture_margin_top = 48.0
+texture_margin_right = 48.0
+texture_margin_bottom = 48.0
+modulate_color = Color(0.447059, 0.541176, 0.568627, 0.823529)
+
 [node name="SkillTreePanel" type="Panel"]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_8fqcm")
 script = ExtResource("1_u8u0r")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 56
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 56
+theme_override_constants/margin_bottom = 56
 
-[node name="HeaderControl" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1920, 64)
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HeaderControl"]
+[node name="HeaderControl" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HeaderControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 36
 text = "Upgrades"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CloseButton" type="Button" parent="VBoxContainer/HeaderControl"]
-layout_mode = 2
-offset_left = 1856.0
-offset_right = 1920.0
-offset_bottom = 64.0
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HeaderControl"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "X"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="SkillsBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="SkillsBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="SkillNameLabel" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SkillNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Skill name"
 horizontal_alignment = 1
 
-[node name="SkillDescriptionLabel" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SkillDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Description"
 horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="SkillLevelLabel" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SkillLevelLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Level"
 horizontal_alignment = 1
 
-[node name="SkillUpgradeButton" type="Button" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SkillUpgradeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "1 Science point"
 
-[node name="SkillLevelDescriptionLabel" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SkillLevelDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Effects"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/HeaderControl/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HeaderControl/CloseButton" to="." method="_on_close_button_pressed"]

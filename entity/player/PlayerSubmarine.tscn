@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=7 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
