@@ -2,8 +2,8 @@ extends RigidBody3D
 class_name PlayerSubmarine
 
 @onready var camera: Camera3D = $Camera3D
-@onready var crosshair: TextureRect = $Camera3D/Gui/Crosshair
-@onready var direction: TextureRect = $Camera3D/Gui/Direction
+@onready var crosshair: TextureRect = $Gui/Crosshair
+@onready var direction: TextureRect = $Gui/Direction
 
 @export var saved_state: PlayerState
 
@@ -46,7 +46,6 @@ func update_gui() -> void:
 
 func _ready() -> void:
 	_current_state = PlayerState.new()
-		
 	contact_monitor = true
 	linear_damp = 1.5
 	angular_damp = 3.0
