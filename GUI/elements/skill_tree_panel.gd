@@ -45,6 +45,7 @@ func _input(event: InputEvent) -> void:
 func _on_selected_skill_changed(button: Button):
 	var skill_key = button.get_meta("skill_key")
 	selected_skill_key = skill_key
+	_update_gui()
 
 func _update_gui() -> void:
 	science_points_label.set_text("%d Science Points" % skill_tree.science_points)
