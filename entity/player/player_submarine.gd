@@ -15,6 +15,9 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 
 @onready var propellor_animator: AnimationPlayer = $Thrust/AnimationPlayer
 
+@onready var engine1 = $Thrust/Source/GPUParticles3D
+@onready var engine2 = $Thrust/Source/GPUParticles3D2
+
 
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
@@ -74,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	var overdrive = 1.0
 	if Input.is_action_pressed('throttle_overdrive'):
 		overdrive = 4.0
-	if current_state.current_fuel == 0:
+	if current_state.current_fuel <= 0.01:
 		overdrive = 0.0
 	if Input.is_action_pressed('throttle_forward'):
 		apply_force(transform.basis.z * -acceleration * overdrive, Vector3.ZERO)
@@ -112,12 +115,14 @@ func _physics_process(delta: float) -> void:
 	var speed = linear_velocity.length()
 	var fuel_efficiency = current_state.fuel_efficiency
 	if speed > 0.0:
-		var fuel_consumption = fuel_efficiency * speed * delta / 1000
+		var fuel_consumption = fuel_efficiency * speed * delta / 100
 		current_state.current_fuel -= fuel_consumption
-		if current_state.current_fuel < 0.0:
+		if current_state.current_fuel <= 0.01:
 			current_state.current_fuel = 0.0
 			linear_velocity = linear_velocity.lerp(Vector3.ZERO, 0.1)
 			angular_velocity = angular_velocity.lerp(Vector3.ZERO, 0.1)
+			engine1.emitting = false
+			engine2.emitting = false
 		current_state.changed.emit()
 	
 	update_gui()
