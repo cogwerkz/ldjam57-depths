@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=34 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -23,7 +23,10 @@
 [ext_resource type="Resource" uid="uid://ddg2tqd370pa0" path="res://terrein/data.hterrain" id="16_guibl"]
 [ext_resource type="Texture2D" uid="uid://twq3xsi8ywat" path="res://assets/raw/fuel.png" id="16_p28hi"]
 [ext_resource type="Texture2D" uid="uid://dsqahgcvn8mvu" path="res://assets/raw/signall.png" id="17_8s4g8"]
+[ext_resource type="Texture2D" uid="uid://c4f2dxffsmrus" path="res://assets/raw/hp_over.png" id="17_q3mki"]
 [ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="17_xmuta"]
+[ext_resource type="Texture2D" uid="uid://spcu8p4dcyit" path="res://assets/raw/fuel_over.png" id="19_3eua4"]
+[ext_resource type="Texture2D" uid="uid://7ohc5rsqrdm8" path="res://assets/raw/signal_overl.png" id="21_loj0u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -312,6 +315,7 @@ player_state = ExtResource("5_8s4g8")
 player = NodePath("../../../Player/PlayerSubmarine")
 
 [node name="HealthProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/HUD"]
+modulate = Color(1, 1, 1, 0.564)
 texture_filter = 1
 layout_mode = 2
 offset_right = 96.0
@@ -322,6 +326,7 @@ step = 0.01
 value = 100.0
 fill_mode = 4
 texture_under = ExtResource("15_p28hi")
+texture_over = ExtResource("17_q3mki")
 texture_progress = ExtResource("15_trfv1")
 tint_under = Color(1, 0.346577, 0.280009, 1)
 
@@ -333,6 +338,7 @@ offset_top = -6.0
 offset_right = 315.0
 offset_bottom = 98.0
 step = 0.01
+texture_over = ExtResource("19_3eua4")
 texture_progress = ExtResource("16_p28hi")
 
 [node name="ScannerProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/HUD/HealthProgressBar"]
@@ -344,6 +350,7 @@ offset_right = 315.0
 offset_bottom = 96.0
 max_value = 1.0
 step = 0.01
+texture_over = ExtResource("21_loj0u")
 texture_progress = ExtResource("17_8s4g8")
 
 [node name="SkillTreePanel" parent="CanvasLayer" instance=ExtResource("8_3ym2b")]
