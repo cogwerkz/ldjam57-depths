@@ -158,12 +158,13 @@ func scan() -> void:
 	(scanner_collider.shape as SphereShape3D).radius = current_state.scanner_range
 	
 	# Perform scan pulse animation
+	var material = scanner_sphere.get_active_material(0)
+	scanner_sphere.scale = Vector3(0.1, 0.1, 0.1)
+	material.set("shader_parameter/color2", Color(0,8,0,1))
 	var tween = get_tree().create_tween()
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.set_trans(Tween.TRANS_CIRC)
 	var sr = current_state.scanner_range
 	tween.tween_property(scanner_sphere, "scale", Vector3(sr, sr, sr), 3.0)
-	tween.tween_property(scanner_sphere, "scale", Vector3(0.1, 0.1, 0.1), 1.0)
+	tween.tween_property(material, "shader_parameter/color2", Color.TRANSPARENT, 0.2)
 	await tween.finished	
 	
 	for area in scanner.get_overlapping_areas():

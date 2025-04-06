@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c34y5ght4fxfo" path="res://assets/raw/direction.png" id="3_f1t2n"]
 [ext_resource type="Texture2D" uid="uid://btskdn3i6epjr" path="res://assets/raw/bubble.png" id="5_x8ejc"]
 [ext_resource type="PackedScene" uid="uid://bk71fgpxlstc5" path="res://assets/raw/turret.glb" id="6_0yxng"]
-[ext_resource type="Shader" uid="uid://c6aupc3mwlgn1" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
+[ext_resource type="Shader" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vby8d"]
 height = 4.5063
@@ -103,7 +103,6 @@ shadow_normal_bias = 1.1
 shadow_reverse_cull_face = true
 shadow_blur = 2.0
 distance_fade_enabled = true
-spot_range = 60.0
 
 [node name="Gui" type="Control" parent="."]
 layout_mode = 3
