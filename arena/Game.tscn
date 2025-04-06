@@ -1,15 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=18 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
 [ext_resource type="Script" uid="uid://bcua7wbucy3t8" path="res://arena/main_camera.gd" id="1_x3x3p"]
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="2_0yfs5"]
-[ext_resource type="Texture2D" uid="uid://7us4b7jd0a5t" path="res://arena/sky_map.tres" id="2_1ovjp"]
+[ext_resource type="Texture2D" uid="uid://cbdmdy2uh5gxo" path="res://arena/sky_map.tres" id="2_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="3_m1fsu"]
-[ext_resource type="Texture2D" uid="uid://nhxn14xvjxwb" path="res://arena/depth_map.tres" id="3_o54ke"]
+[ext_resource type="Texture2D" uid="uid://bffu5vs6wteke" path="res://arena/depth_map.tres" id="3_o54ke"]
 [ext_resource type="Script" uid="uid://c8yoc788wd6p8" path="res://entity/player/light_rays.gd" id="3_x3x3p"]
 [ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="8_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
+[ext_resource type="Script" uid="uid://dj02ya6ts5hg4" path="res://arena/instructons_label.gd" id="10_7jjc4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -232,6 +233,31 @@ render_target_update_mode = 4
 [node name="PostProcessCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="DepthLabel" type="Label" parent="CanvasLayer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text = "-100 m"
+horizontal_alignment = 1
+
+[node name="InstructonsLabel" type="Label" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Move: WASD | Roll: E/Q | Boost: Shift | Scan: MMB | Upgrades: I"
+script = ExtResource("10_7jjc4")
 
 [node name="SkillTreePanel" parent="CanvasLayer" instance=ExtResource("8_3ym2b")]
 unique_name_in_owner = true

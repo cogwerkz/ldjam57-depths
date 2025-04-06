@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var player_submarine = $Player/PlayerSubmarine
 @onready var skill_tree_panel = %SkillTreePanel
+@onready var depth_label = %DepthLabel
 
 @export var sky_map: GradientTexture1D
 @export var depth_map: GradientTexture1D
@@ -25,6 +26,8 @@ func _on_skill_tree_panel_visibility_changed() -> void:
 
 func _process(_delta: float) -> void:
 	var depth = player_submarine.global_position.y
+	depth_label.text = "%d m" % int(round(depth))
+	
 	var t = absf(clampf(depth, -100.0, 0.0)) / 100.0
 	var depth_color = depth_map.gradient.sample(t)
 	var sky_color = sky_map.gradient.sample(t)
