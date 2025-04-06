@@ -36,7 +36,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	pickup_detector.area_entered.connect(on_pickup)
-
+	
 func current_state_updated() -> void:
 	pass	
 
@@ -152,6 +152,7 @@ func process_scanner(delta: float) -> void:
 			is_charged = true
 	
 func scan() -> void:
+	scanner_charge_updated.emit(0.0)
 	is_scanning = true
 	is_charged = false
 	scanner_charge_level = current_state.scanner_cooldown

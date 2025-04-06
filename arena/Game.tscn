@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=35 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -16,7 +16,12 @@
 [ext_resource type="Shader" uid="uid://xm1vktjo1fbx" path="res://arena/compass_scroll.gdshader" id="10_syall"]
 [ext_resource type="Script" uid="uid://cmbwrkyn4psw7" path="res://arena/compass.gd" id="11_bbfp7"]
 [ext_resource type="Script" uid="uid://oujuluo7x3km" path="res://addons/zylann.hterrain/hterrain.gd" id="15_0bjfm"]
+[ext_resource type="Script" uid="uid://8xsxi16cxuba" path="res://arena/hud.gd" id="15_8s4g8"]
+[ext_resource type="Texture2D" uid="uid://c7bffe8hm3pcb" path="res://assets/raw/heath.png" id="15_p28hi"]
+[ext_resource type="Texture2D" uid="uid://coawo5rec6e1u" path="res://assets/raw/hp.png" id="15_trfv1"]
 [ext_resource type="Resource" uid="uid://ddg2tqd370pa0" path="res://terrein/data.hterrain" id="16_guibl"]
+[ext_resource type="Texture2D" uid="uid://twq3xsi8ywat" path="res://assets/raw/fuel.png" id="16_p28hi"]
+[ext_resource type="Texture2D" uid="uid://dsqahgcvn8mvu" path="res://assets/raw/signall.png" id="17_8s4g8"]
 [ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="17_xmuta"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
@@ -42,7 +47,7 @@ fog_density = 0.1
 fog_sky_affect = 0.98
 fog_depth_curve = 0.0824694
 
-[sub_resource type="Resource" id="Resource_guibl"]
+[sub_resource type="Resource" id="Resource_8s4g8"]
 resource_local_to_scene = true
 script = ExtResource("5_guibl")
 max_speed = 50.0
@@ -92,7 +97,32 @@ shader = ExtResource("10_syall")
 shader_parameter/scroll_offset = 0.0
 shader_parameter/fade_width_normalized = 0.1
 
-[sub_resource type="Resource" id="Resource_xmuta"]
+[sub_resource type="Resource" id="Resource_g07k2"]
+resource_local_to_scene = true
+script = ExtResource("5_guibl")
+max_speed = 50.0
+linear_acceleration = 5.0
+angular_acceleration = 15.0
+max_health = 100.0
+current_health = 100.0
+pressure_resistance = 1000.0
+fuel_max = 100.0
+current_fuel = 100.0
+fuel_efficiency = 75.0
+turret_max_ammo = 10
+turret_current_ammo = 10
+turret_damage = 10.0
+turret_range = 200.0
+turret_cooldown = 0.5
+turret_hit_chance = 60.0
+scanner_range = 300.0
+scanner_decay = 10.0
+scanner_cooldown = 5.0
+tractor_beam_range = 100.0
+tractor_beam_collection_speed = 15.0
+metadata/_custom_type_script = "uid://co4n42n7tb66k"
+
+[sub_resource type="Resource" id="Resource_q3mki"]
 resource_local_to_scene = true
 script = ExtResource("5_guibl")
 max_speed = 50.0
@@ -140,7 +170,7 @@ environment = SubResource("Environment_kre3w")
 
 [node name="PlayerSubmarine" parent="Player" node_paths=PackedStringArray("compass") instance=ExtResource("1_05u1r")]
 compass = NodePath("../../CanvasLayer/MarginContainer/VBoxContainer/Compass")
-current_state = SubResource("Resource_guibl")
+current_state = SubResource("Resource_8s4g8")
 skill_tree = SubResource("Resource_1ovjp")
 
 [node name="Pickups" type="Marker3D" parent="."]
@@ -346,6 +376,47 @@ size_flags_vertical = 8
 text = "Move: WASD | Roll: E/Q | Boost: Shift | Scan: MMB | Upgrades: I"
 script = ExtResource("10_7jjc4")
 
+[node name="HUD" type="Control" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("player")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("15_8s4g8")
+player_state = SubResource("Resource_g07k2")
+player = NodePath("../../../Player/PlayerSubmarine")
+
+[node name="HealthProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/HUD"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 96.0
+offset_bottom = 96.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 100.0
+fill_mode = 4
+texture_under = ExtResource("15_p28hi")
+texture_progress = ExtResource("15_trfv1")
+tint_under = Color(1, 0.346577, 0.280009, 1)
+
+[node name="FuelProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/HUD/HealthProgressBar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -5.0
+offset_top = -6.0
+offset_right = 315.0
+offset_bottom = 98.0
+texture_progress = ExtResource("16_p28hi")
+
+[node name="ScannerProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/HUD/HealthProgressBar"]
+texture_filter = 1
+layout_mode = 1
+offset_left = -5.0
+offset_top = -8.0
+offset_right = 315.0
+offset_bottom = 96.0
+max_value = 1.0
+step = 0.01
+texture_progress = ExtResource("17_8s4g8")
+
 [node name="SkillTreePanel" parent="CanvasLayer" instance=ExtResource("8_3ym2b")]
 unique_name_in_owner = true
 process_mode = 2
@@ -355,7 +426,12 @@ offset_top = 170.0
 offset_right = -357.0
 offset_bottom = -187.0
 skill_tree = SubResource("Resource_1ovjp")
-player_state = SubResource("Resource_xmuta")
+player_state = SubResource("Resource_q3mki")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+fill_mode = 4
 
 [node name="HTerrain" type="Node3D" parent="."]
 script = ExtResource("15_0bjfm")
