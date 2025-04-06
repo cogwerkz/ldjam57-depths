@@ -10,6 +10,7 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 
 @onready var pickup_detector: Area3D = $PickupDetector
 @onready var scanner: Area3D = $Scanner
+@onready var scanner_collider: CollisionShape3D = $Scanner/CollisionShape3D
 @onready var scanner_sphere: MeshInstance3D = $Scanner/MeshInstance3D
 
 
@@ -154,6 +155,7 @@ func scan() -> void:
 	is_scanning = true
 	is_charged = false
 	scanner_charge_level = current_state.scanner_cooldown
+	(scanner_collider.shape as SphereShape3D).radius = current_state.scanner_range
 	
 	# Perform scan pulse animation
 	var tween = get_tree().create_tween()
