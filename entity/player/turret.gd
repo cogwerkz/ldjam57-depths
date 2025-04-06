@@ -23,7 +23,7 @@ const PROJECTILE = preload("res://entity/player/Projectile.tscn")
 @export var turret_min_pitch_angle = -20.0
 
 
-@onready var indicator: TargetIndicator = TARGET_INDICATOR.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+@onready var indicator: TargetIndicator = TARGET_INDICATOR.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
 var locked_target: Node3D
 
 # Update turret priorities every TURRET_TICK seconds
@@ -94,7 +94,7 @@ func lock(target: Node3D) -> void:
 		indicator.visible = true
 
 func shoot() -> void:
-	var proj: Projectile = PROJECTILE.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	var proj: Projectile = PROJECTILE.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
 	proj.projectile_velocity = -action_point.global_basis.z * 10.0
 	add_child(proj)
 	proj.global_position = action_point.global_position

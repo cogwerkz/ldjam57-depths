@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkqiu07ceqvxd"]
+[gd_scene load_steps=7 format=3 uid="uid://bkqiu07ceqvxd"]
 
 [ext_resource type="Script" uid="uid://cloydfociss04" path="res://entity/enemies/piranha_sub/piranha_sub.gd" id="1_5coy6"]
 [ext_resource type="PackedScene" uid="uid://be7yd38m87a3d" path="res://assets/raw/enemy_sub.glb" id="1_ka111"]
 [ext_resource type="PackedScene" uid="uid://cwj5s2q8kkac6" path="res://entity/kitbash/indicator_light/IndicatorLight.tscn" id="3_5jupr"]
+[ext_resource type="PackedScene" uid="uid://v2b48vpdivs2" path="res://effects/Thrust.tscn" id="4_52xir"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cugye"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ka111"]
 radius = 30.0
 
-[node name="PiranhaSub" type="RigidBody3D"]
+[node name="PiranhaSub" type="RigidBody3D" groups=["player"]]
 collision_layer = 9
 collision_mask = 27
 script = ExtResource("1_5coy6")
@@ -39,3 +40,6 @@ debug_color = Color(1, 0, 0, 0.419608)
 [node name="IndicatorLight" parent="Lights" instance=ExtResource("3_5jupr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -2.1)
 color = Color(12, 0, 0, 1)
+
+[node name="Thrust" parent="." instance=ExtResource("4_52xir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.9)

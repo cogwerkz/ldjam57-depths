@@ -7,3 +7,7 @@ func get_player_state() -> PlayerState:
 func get_skill_tree() -> SkillTree:
 	var state_node: GlobalState = get_tree().get_nodes_in_group("state")[0]
 	return state_node.skill_tree
+
+func get_player() -> PlayerSubmarine:
+	var state_node: GlobalState = get_tree().get_nodes_in_group("state")[0]
+	return state_node.player
