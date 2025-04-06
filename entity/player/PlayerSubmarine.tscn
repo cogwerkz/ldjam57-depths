@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=31 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c34y5ght4fxfo" path="res://assets/raw/direction.png" id="3_f1t2n"]
 [ext_resource type="Texture2D" uid="uid://btskdn3i6epjr" path="res://assets/raw/bubble.png" id="5_x8ejc"]
 [ext_resource type="PackedScene" uid="uid://bk71fgpxlstc5" path="res://assets/raw/turret.glb" id="6_0yxng"]
-[ext_resource type="Shader" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
+[ext_resource type="Shader" uid="uid://c6aupc3mwlgn1" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
+[ext_resource type="Shader" uid="uid://c1lk784eqw63w" path="res://entity/player/TrailShader.gdshader" id="8_dan0s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vby8d"]
 height = 4.5063
@@ -81,6 +82,92 @@ material = SubResource("ShaderMaterial_6lrfa")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0yxng"]
 radius = 30.0
+
+[sub_resource type="Curve" id="Curve_dan0s"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.248031, 0.447902), 0.0, 0.0, 0, 0, Vector2(0.677165, 0.26685), -0.340646, -0.340646, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_sicxe"]
+curve = SubResource("Curve_dan0s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dan0s"]
+emission_shape_offset = Vector3(0, 0.128, 0)
+velocity_pivot = Vector3(1, 0, 0)
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.2
+gravity = Vector3(0, 0, 0.5)
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_sicxe")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 1.0
+collision_use_scale = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dan0s"]
+render_priority = 0
+shader = ExtResource("8_dan0s")
+shader_parameter/color = Color(2, 2, 2, 0.1)
+shader_parameter/fresnel_sharpness = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_6lrfa"]
+material = SubResource("ShaderMaterial_dan0s")
+radial_segments = 16
+rings = 8
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sicxe"]
+emission_shape_offset = Vector3(0, -0.128, 0)
+velocity_pivot = Vector3(1, 0, 0)
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.2
+gravity = Vector3(0, 0, 0.5)
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_sicxe")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 1.0
+
+[sub_resource type="Animation" id="Animation_dan0s"]
+resource_name = "RotatePropeller"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Source:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -3.14159), Vector3(0, 0, -6.28319)]
+}
+
+[sub_resource type="Animation" id="Animation_sicxe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Source:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sicxe"]
+_data = {
+&"RESET": SubResource("Animation_sicxe"),
+&"RotatePropeller": SubResource("Animation_dan0s")
+}
 
 [node name="PlayerSubmarine" type="RigidBody3D"]
 script = ExtResource("1_vby8d")
@@ -186,3 +273,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="turret" parent="TurretMount/Yaw/Pitch" instance=ExtResource("6_0yxng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.6, 0.8)
+
+[node name="Thrust" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.268242, 1.9)
+
+[node name="SphereCollider" type="GPUParticlesCollisionSphere3D" parent="Thrust"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, -0.908688)
+layers = 32
+cull_mask = 4293918752
+
+[node name="Source" type="Marker3D" parent="Thrust"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Thrust/Source"]
+layers = 32
+amount = 128
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 24)
+trail_lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_dan0s")
+draw_pass_1 = SubResource("SphereMesh_6lrfa")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="Thrust/Source"]
+layers = 32
+amount = 128
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 24)
+trail_lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_sicxe")
+draw_pass_1 = SubResource("SphereMesh_6lrfa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Thrust"]
+libraries = {
+&"": SubResource("AnimationLibrary_sicxe")
+}
+autoplay = "RotatePropeller"

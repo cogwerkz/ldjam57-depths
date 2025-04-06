@@ -13,6 +13,8 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 @onready var scanner_collider: CollisionShape3D = $Scanner/CollisionShape3D
 @onready var scanner_sphere: MeshInstance3D = $Scanner/MeshInstance3D
 
+@onready var propellor_animator: AnimationPlayer = $Thrust/AnimationPlayer
+
 
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
@@ -92,6 +94,16 @@ func _physics_process(delta: float) -> void:
 	var yaw = mouse_deltas.x / crosshair.position.x * 100000.0 * overdrive * delta
 	var pitch = mouse_deltas.y / crosshair.position.y * 100000.0 * overdrive * delta
 	
+	if linear_velocity.length() > current_state.max_speed:
+		linear_velocity = linear_velocity.normalized() * current_state.max_speed
+	
+	# Adjust propellor speed
+	var velocity := linear_velocity.length()
+	if velocity > 0.0:
+		var going_backwards = -global_basis.z.normalized().dot(linear_velocity.normalized()) > 0
+		var speed_scale = max(0.1, 8.0 * linear_velocity.length() / current_state.max_speed)
+		propellor_animator.speed_scale = speed_scale if not going_backwards else -speed_scale	
+			
 	apply_torque(transform.basis.y * (-yaw))
 	apply_torque(transform.basis.x * (-pitch))
 	
@@ -113,7 +125,6 @@ func on_pickup(area: Area3D):
 		match descriptor.type:
 			Pickup.PickupType.Science:
 				skill_tree.add_science_points(descriptor.get("amount", 1))
-				print("Skill tree science points: ", skill_tree.science_points)
 			Pickup.PickupType.Fuel:
 				pass
 			Pickup.PickupType.Ammo:
