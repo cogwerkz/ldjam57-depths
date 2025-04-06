@@ -8,8 +8,11 @@ class_name Compass
 # Container to hold the POI dots
 @onready var poi_container: Node2D = Node2D.new()
 
-# Store active POIs: {'node': ColorRect, 'target_position': Vector3, 'type': Pickup.PickupType, 'life': float}
+# Store active POIs: {'node': TextureRect, 'target_position': Vector3, 'type': Pickup.PickupType, 'life': float}
 var pois: Array[Dictionary] = []
+
+# Texture for the POI dots
+var circle_texture: ImageTexture
 
 # Define colors for different pickup types (adjust as needed)
 const POI_COLORS = {
@@ -28,8 +31,27 @@ func _ready():
 		return
 
 	texture_repeat = TextureRepeat.TEXTURE_REPEAT_ENABLED
+	# Generate the circle texture
+	circle_texture = _create_circle_texture(8, Color.WHITE) # Create a 8x8 white circle
 	# Add the container for dots
 	add_child(poi_container)
+
+
+# Generates a simple circle texture
+func _create_circle_texture(diameter: int, color: Color) -> ImageTexture:
+	var radius = diameter / 2.0
+	var center = Vector2(radius, radius)
+	var image = Image.create(diameter, diameter, false, Image.FORMAT_RGBA8)
+	image.fill(Color(0,0,0,0)) # Fill with transparent
+
+	for y in range(diameter):
+		for x in range(diameter):
+			var point = Vector2(x, y)
+			if point.distance_to(center) <= radius:
+				image.set_pixel(x, y, color)
+
+	var img_texture = ImageTexture.create_from_image(image) # Renamed variable
+	return img_texture
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,11 +103,11 @@ func _process(delta):
 		var poi_global_angle_rad = Vector2.UP.angle_to(poi_direction_xz)
 
 		# Convert to degrees and normalize 0-360
-		var player_global_angle_deg = fposmod(rad_to_deg(player_global_angle_rad), 360.0)
+		var _player_global_angle_deg = fposmod(rad_to_deg(player_global_angle_rad), 360.0) # Prefixed unused variable
 		var poi_global_angle_deg = fposmod(rad_to_deg(poi_global_angle_rad), 360.0)
 
 		# Calculate the POI's position relative to the player's current view center angle
-		var relative_angle_deg = fposmod(poi_global_angle_deg - player_angle_deg + 180.0, 360.0) - 180.0 # Angle in range -180 to 180 relative to center
+		var _relative_angle_deg = fposmod(poi_global_angle_deg - player_angle_deg + 180.0, 360.0) - 180.0 # Prefixed unused variable
 
 		# Convert relative angle to normalized position (0.0 = left edge, 0.5 = center, 1.0 = right edge)
 		# The compass shows roughly 180 degrees? Let's assume the shader scroll logic handles the view window correctly.
@@ -104,22 +126,23 @@ func _process(delta):
 		poi.node.position = Vector2(display_x, compass_center_y)
 
 		# Update visibility based on fade areas
-		var is_visible = (display_x > fade_width_pixels) and (display_x < compass_width - fade_width_pixels)
-		poi.node.visible = is_visible
+		var dot_is_visible = (display_x > fade_width_pixels) and (display_x < compass_width - fade_width_pixels) # Renamed variable
+		poi.node.visible = dot_is_visible
 
 
 # Function called by PlayerSubmarine to add a POI marker to the compass
-func add_poi(position: Vector3, type: Pickup.PickupType, lifetime: float) -> void:
-	var dot = ColorRect.new()
-	dot.size = Vector2(5, 5) # Adjust size as needed
+func add_poi(poi_world_position: Vector3, type: Pickup.PickupType, lifetime: float) -> void: # Renamed parameter
+	var dot = TextureRect.new()
+	dot.texture = circle_texture
+	dot.size = circle_texture.get_size() # Use texture size
 	dot.pivot_offset = dot.size / 2.0 # Center pivot for positioning
-	dot.color = POI_COLORS.get(type, Color.WHITE) # Use type color or default white
+	dot.modulate = POI_COLORS.get(type, Color.WHITE) # Use modulate for color
 
 	poi_container.add_child(dot)
 
 	pois.append({
 		'node': dot,
-		'target_position': position,
+		'target_position': poi_world_position, # Use renamed parameter
 		'type': type,
 		'life': lifetime
 	})
