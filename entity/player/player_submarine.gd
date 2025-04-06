@@ -225,3 +225,17 @@ func scan() -> void:
 				printerr("PlayerSubmarine: Compass node not assigned!")
 			
 	is_scanning = false
+
+
+func _on_pickup_detector_area_entered(area: Area3D) -> void:
+	print("AAAAAAAAAAAA")
+	if area is BiomTrigger:
+		print("BBBBBBBBBBBBBB")
+		BiomUtils.set_biom(area.biom)
+
+
+func _on_pickup_detector_area_exited(area: Area3D) -> void:
+	print("CCCCCCCCCCCCCccc")
+	if area is BiomTrigger:
+		print("DDDDDDDDDDDDDDDdd")
+		BiomUtils.set_biom("")

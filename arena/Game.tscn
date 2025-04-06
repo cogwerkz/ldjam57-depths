@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=45 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -15,11 +15,19 @@
 [ext_resource type="Script" uid="uid://dj02ya6ts5hg4" path="res://arena/instructons_label.gd" id="10_7jjc4"]
 [ext_resource type="Texture2D" uid="uid://bqiuswppe8xfo" path="res://assets/raw/compass.png" id="10_pfw8f"]
 [ext_resource type="Shader" uid="uid://xm1vktjo1fbx" path="res://arena/compass_scroll.gdshader" id="10_syall"]
+[ext_resource type="Script" uid="uid://btldmjs4n5151" path="res://arena/biom_trigger.gd" id="10_unpcd"]
+[ext_resource type="PackedScene" uid="uid://ct3xxersnb86b" path="res://assets/raw/Coral1.fbx" id="10_vcnyp"]
+[ext_resource type="PackedScene" uid="uid://ctuj540ev5h5x" path="res://assets/raw/Coral2.fbx" id="11_31no7"]
 [ext_resource type="Script" uid="uid://cmbwrkyn4psw7" path="res://arena/compass.gd" id="11_bbfp7"]
+[ext_resource type="PackedScene" uid="uid://dtmkpxqwq4yvq" path="res://assets/raw/Coral3.fbx" id="12_unpcd"]
+[ext_resource type="PackedScene" uid="uid://dld8het2euiby" path="res://assets/raw/Coral4.fbx" id="13_m8cug"]
+[ext_resource type="PackedScene" uid="uid://crkdy0tapoyl6" path="res://assets/raw/Coral5.fbx" id="14_nqrx7"]
 [ext_resource type="Script" uid="uid://oujuluo7x3km" path="res://addons/zylann.hterrain/hterrain.gd" id="15_0bjfm"]
 [ext_resource type="Script" uid="uid://8xsxi16cxuba" path="res://arena/hud.gd" id="15_8s4g8"]
+[ext_resource type="PackedScene" uid="uid://bnfxt8ib5k0iu" path="res://assets/raw/Coral6.fbx" id="15_hoesm"]
 [ext_resource type="Texture2D" uid="uid://c7bffe8hm3pcb" path="res://assets/raw/heath.png" id="15_p28hi"]
 [ext_resource type="Texture2D" uid="uid://coawo5rec6e1u" path="res://assets/raw/hp.png" id="15_trfv1"]
+[ext_resource type="PackedScene" uid="uid://dmcmx62iq8f00" path="res://assets/raw/Coral.fbx" id="16_3r4lv"]
 [ext_resource type="Resource" uid="uid://ddg2tqd370pa0" path="res://terrein/data.hterrain" id="16_guibl"]
 [ext_resource type="Texture2D" uid="uid://twq3xsi8ywat" path="res://assets/raw/fuel.png" id="16_p28hi"]
 [ext_resource type="Texture2D" uid="uid://dsqahgcvn8mvu" path="res://assets/raw/signall.png" id="17_8s4g8"]
@@ -51,6 +59,9 @@ fog_sun_scatter = 0.05
 fog_density = 0.1
 fog_sky_affect = 0.98
 fog_depth_curve = 0.0824694
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1jian"]
+radius = 49.3508
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0yfs5"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
@@ -100,6 +111,7 @@ environment = SubResource("Environment_kre3w")
 [node name="Player" type="Marker3D" parent="."]
 
 [node name="PlayerSubmarine" parent="Player" node_paths=PackedStringArray("compass") instance=ExtResource("1_05u1r")]
+transform = Transform3D(-0.239652, 0, 0.970859, 0, 1, 0, -0.970859, 0, -0.239652, 0, -29.2519, 0)
 compass = NodePath("../../CanvasLayer/MarginContainer/VBoxContainer/Compass")
 
 [node name="Pickups" type="Marker3D" parent="."]
@@ -117,104 +129,65 @@ amount = 50
 [node name="PiranhaSub" parent="Enemies" instance=ExtResource("8_g07k2")]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 2, -17)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+[node name="Areas" type="Node3D" parent="."]
 
-[node name="CSGBox3D11" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.83702, 3.5577, 4.0522)
+[node name="CoralValley" type="Node3D" parent="Areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.59445, -0.320259, -3.69901)
 
-[node name="CSGBox3D12" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.58445, 6.466, 4.59878)
+[node name="Trigger" type="Area3D" parent="Areas/CoralValley"]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("10_unpcd")
+biom = "Coral Valley"
 
-[node name="CSGBox3D13" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.48544, 6.466, 0.920911)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/CoralValley/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.9121, -51.1206, 18.0392)
+shape = SubResource("SphereShape3D_1jian")
 
-[node name="CSGBox3D14" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.837018, 6.9083, 6.61939)
+[node name="Items" type="Node3D" parent="Areas/CoralValley"]
 
-[node name="CSGBox3D15" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.6253, 6.9083, 2.94152)
+[node name="Coral1" parent="Areas/CoralValley/Items" instance=ExtResource("10_vcnyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.5843, -61.79, 0.415483)
 
-[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.71041, 4, 2.4554)
+[node name="Coral2" parent="Areas/CoralValley/Items" instance=ExtResource("11_31no7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.1794, -48.1554, 1.46783)
 
-[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.11041, 4, 8.68937)
+[node name="Coral3" parent="Areas/CoralValley/Items" instance=ExtResource("12_unpcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82.893, -44.4226, 20.279)
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.489591, 4, 0.37281)
+[node name="Coral4" parent="Areas/CoralValley" instance=ExtResource("13_m8cug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.2221, -44.1072, 10.4291)
 
-[node name="CSGBox3D16" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.56252, 7.08361, 12.2097)
+[node name="Coral5" parent="Areas/CoralValley" instance=ExtResource("14_nqrx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9403, -55.5161, 13.4469)
 
-[node name="CSGBox3D17" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.10909, 9.99191, 8.95716)
+[node name="Coral6" parent="Areas/CoralValley" instance=ExtResource("15_hoesm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.9136, -53.4915, 17.8218)
 
-[node name="CSGBox3D18" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.431223, 9.99191, 3.88727)
+[node name="Coral" parent="Areas/CoralValley" instance=ExtResource("16_3r4lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.7784, -46.6526, 24.6535)
 
-[node name="CSGBox3D19" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -6.1297, 10.4342, 7.20973)
+[node name="Coral7" parent="Areas/CoralValley" instance=ExtResource("13_m8cug")]
+transform = Transform3D(-0.704473, 0, -0.709731, 0, 1, 0, 0.709731, 0, -0.704473, -91.9567, -59.4259, -23.3627)
 
-[node name="CSGBox3D20" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2.45183, 10.4342, 10.998)
+[node name="Coral3" parent="Areas/CoralValley" instance=ExtResource("12_unpcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6995, -61.7414, -7.57581)
 
-[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.96571, 7.52591, -0.337696)
+[node name="Coral2" parent="Areas/CoralValley" instance=ExtResource("11_31no7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.6156, -49.9513, -3.65519)
 
-[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -8.19968, 7.52591, 3.26231)
+[node name="Coral8" parent="Areas/CoralValley" instance=ExtResource("14_nqrx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3359, -59.2636, -10.6874)
 
-[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.116878, 7.52591, 6.8623)
+[node name="Coral1" parent="Areas/CoralValley" instance=ExtResource("10_vcnyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2958, -55.8664, 13.285)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02061, -0.442297, -1.74743)
+[node name="Coral9" parent="Areas/CoralValley" instance=ExtResource("14_nqrx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.4863, -53.7002, 8.16469)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47403, 2.466, 1.50515)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1519, 2.466, 6.57503)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.546578, 2.9083, 3.25257)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13129, 2.9083, -0.535714)
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.61741, 0, 10.8)
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61655, 0, 7.2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7, 0, 3.6)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.13692, 3.08361, 7.65211)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.88435, 5.99191, 8.19868)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.18554, 5.99191, 4.52081)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.13692, 6.43421, 10.2193)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.92521, 6.43421, 6.54142)
-
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.41051, 3.52591, 6.0553)
-
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.81051, 3.52591, 12.2893)
-
-[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.789495, 3.52591, 3.97271)
+[node name="Coral10" parent="Areas/CoralValley" instance=ExtResource("12_unpcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.1033, -43.9174, -34.8703)
 
 [node name="MainCamera" type="Camera3D" parent="."]
 current = true
@@ -356,6 +329,14 @@ step = 0.01
 texture_over = ExtResource("21_loj0u")
 texture_progress = ExtResource("17_8s4g8")
 
+[node name="BiomLabel" type="Label" parent="CanvasLayer/MarginContainer/HUD"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 47.0
+offset_right = 272.0
+offset_bottom = 68.0
+text = "Biom: Unknown"
+
 [node name="SkillTreePanel" parent="CanvasLayer" instance=ExtResource("8_3ym2b")]
 unique_name_in_owner = true
 process_mode = 2
@@ -384,5 +365,17 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = null
 shader_params/u_tile_reduction = null
 metadata/_custom_type_script = "uid://oujuluo7x3km"
+
+[node name="Coral6" parent="." instance=ExtResource("15_hoesm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.8215, -50.9366, 32.8581)
+
+[node name="Coral4" parent="." instance=ExtResource("13_m8cug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.6903, -52.8184, -22.2658)
+
+[node name="Coral1" parent="." instance=ExtResource("10_vcnyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.4713, -58.6398, -7.64949)
+
+[node name="Coral2" parent="." instance=ExtResource("11_31no7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.79591, -35.0941, -6.0238)
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]

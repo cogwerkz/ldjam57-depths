@@ -3,6 +3,7 @@ extends Control
 @onready var health = $HealthProgressBar
 @onready var fuel = $HealthProgressBar/FuelProgressBar
 @onready var scanner = $HealthProgressBar/ScannerProgressBar
+@onready var biom_label = $BiomLabel
 
 @export var player: PlayerSubmarine
 @export var TWEEN_DURATION: float = 0.2
@@ -33,7 +34,7 @@ func _ready() -> void:
 	player.scanner_ready.connect(_on_scanner_ready)
 	_update_hud()
 	_on_scanner_ready()
-	print(player_state)
+	BiomUtils.biom_changed.connect(_on_biom_changed)
 
 func _update_hud():
 	# Update Health with Tween
@@ -69,3 +70,12 @@ func _on_scanner_ready():
 	var scanner_tween = create_tween().parallel()
 	scanner_tween.tween_property(scanner, "tint_progress", SCANNER_READY, TWEEN_DURATION)
 	scanner_tween.tween_property(scanner, "value", 100, TWEEN_DURATION)
+
+func _on_biom_changed(biom: String):
+	if biom == "":
+		biom_label.text = "Biom: Unknown"
+	else:
+		biom_label.text = "Biom: %s" % biom
+	biom_label.visible_ratio = 0
+	if get_tree():
+		get_tree().create_tween().tween_property(biom_label, "visible_ratio", 1, 0.5)
