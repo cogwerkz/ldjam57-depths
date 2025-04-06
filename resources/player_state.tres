@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="PlayerState" load_steps=2 format=3 uid="uid://dha7wi7lftjpi"]
+
+[ext_resource type="Script" uid="uid://co4n42n7tb66k" path="res://entity/player/player_state_resource.gd" id="1_v7jfw"]
+
+[resource]
+script = ExtResource("1_v7jfw")
+max_speed = 50.0
+linear_acceleration = 5.0
+angular_acceleration = 15.0
+max_health = 100.0
+current_health = 100.0
+pressure_resistance = 1000.0
+fuel_max = 100.0
+current_fuel = 100.0
+fuel_efficiency = 75.0
+turret_max_ammo = 10
+turret_current_ammo = 10
+turret_damage = 10.0
+turret_range = 200.0
+turret_cooldown = 0.5
+turret_hit_chance = 60.0
+scanner_range = 300.0
+scanner_decay = 10.0
+scanner_cooldown = 5.0
+tractor_beam_range = 100.0
+tractor_beam_collection_speed = 15.0
+metadata/_custom_type_script = "uid://co4n42n7tb66k"

@@ -19,7 +19,7 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
 
-@export var current_state: PlayerState = PlayerState.new()
+@export var current_state: PlayerState
 @export var skill_tree: SkillTree
 
 var mouse_captured = true
@@ -74,6 +74,8 @@ func _physics_process(delta: float) -> void:
 	var overdrive = 1.0
 	if Input.is_action_pressed('throttle_overdrive'):
 		overdrive = 4.0
+	if current_state.current_fuel == 0:
+		overdrive = 0.0
 	if Input.is_action_pressed('throttle_forward'):
 		apply_force(transform.basis.z * -acceleration * overdrive, Vector3.ZERO)
 	if Input.is_action_pressed('throttle_backward'):
@@ -106,6 +108,17 @@ func _physics_process(delta: float) -> void:
 			
 	apply_torque(transform.basis.y * (-yaw))
 	apply_torque(transform.basis.x * (-pitch))
+
+	var speed = linear_velocity.length()
+	var fuel_efficiency = current_state.fuel_efficiency
+	if speed > 0.0:
+		var fuel_consumption = fuel_efficiency * speed * delta / 1000
+		current_state.current_fuel -= fuel_consumption
+		if current_state.current_fuel < 0.0:
+			current_state.current_fuel = 0.0
+			linear_velocity = linear_velocity.lerp(Vector3.ZERO, 0.1)
+			angular_velocity = angular_velocity.lerp(Vector3.ZERO, 0.1)
+		current_state.changed.emit()
 	
 	update_gui()
 

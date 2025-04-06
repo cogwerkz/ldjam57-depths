@@ -31,6 +31,7 @@ func _ready() -> void:
 	player.scanner_ready.connect(_on_scanner_ready)
 	_update_hud()
 	_on_scanner_ready()
+	print(player_state)
 
 func _update_hud():
 	# Update Health with Tween
@@ -45,6 +46,7 @@ func _update_hud():
 	else:
 		health.tint_progress = HEALTH_CRITICAL
 
+	print("Current Fuel: ", player_state.get_fuel_percentage())
 	# Update Fuel with Tween
 	var fuel_tween = create_tween()
 	fuel_tween.tween_property(fuel, "value", player_state.get_fuel_percentage(), TWEEN_DURATION)
