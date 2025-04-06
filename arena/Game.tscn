@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=22 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="8_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
 [ext_resource type="Script" uid="uid://dj02ya6ts5hg4" path="res://arena/instructons_label.gd" id="10_7jjc4"]
+[ext_resource type="Texture2D" uid="uid://bqiuswppe8xfo" path="res://assets/raw/compass.png" id="10_pfw8f"]
+[ext_resource type="Shader" uid="uid://xm1vktjo1fbx" path="res://arena/compass_scroll.gdshader" id="10_syall"]
+[ext_resource type="Script" uid="uid://cmbwrkyn4psw7" path="res://arena/compass.gd" id="11_bbfp7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -54,6 +57,11 @@ shader_parameter/noise_strength = 0.2
 shader_parameter/light_source_pos = Vector2(0, 0)
 shader_parameter/light_source_dir = Vector3(0.5, -1, 0.25)
 shader_parameter/camera_dir = Vector3(-0.5, 1, -0.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nun0l"]
+shader = ExtResource("10_syall")
+shader_parameter/scroll_offset = 0.0
+shader_parameter/fade_width_normalized = 0.1
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("environment", "sun")]
 script = ExtResource("1_1ovjp")
@@ -245,9 +253,27 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="DepthLabel" type="Label" parent="CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Compass" type="TextureRect" parent="CanvasLayer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("player")]
+material = SubResource("ShaderMaterial_nun0l")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_pfw8f")
+script = ExtResource("11_bbfp7")
+player = NodePath("../../../../Player/PlayerSubmarine")
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DepthLabel" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "-100 m"
 horizontal_alignment = 1
