@@ -6,3 +6,6 @@ class_name TargetIndicator
 func _process(delta: float) -> void:
 	if follow_target != null and is_instance_valid(follow_target):
 		global_position = follow_target.global_position
+	else:
+		follow_target = null
+		visible = false

@@ -1,7 +1,7 @@
-@tool
 extends Marker3D
 
 const TARGET_INDICATOR = preload("res://entity/marker/TargetIndicator.tscn")
+const PROJECTILE = preload("res://entity/player/Projectile.tscn")
 
 
 @onready var target_finder: Area3D = $Area3D
@@ -48,7 +48,15 @@ func _process(delta: float) -> void:
 	if tick <= 0.0:
 		tick = TURRET_TICK
 		tick_turret()
-		
+	
+	if player != null and player.current_state != null:
+		if cooldown < player.current_state.turret_cooldown:
+			cooldown += delta
+		if cooldown >= player.current_state.turret_cooldown:
+			if Input.is_action_pressed("primary_action") and locked_target != null:
+				cooldown -= player.current_state.turret_cooldown
+				shoot()
+				
 	track_target(delta)
 
 func update_turret_state() -> void:
@@ -59,7 +67,7 @@ func tick_turret() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	var possible_target: Node3D = locked_target
+	var possible_target: Node3D = locked_target if is_instance_valid(locked_target) else null
 	var distance_to_possible_target = global_position.distance_to(locked_target.global_position) if locked_target != null else -1.0
 	for target in target_finder.get_overlapping_bodies():
 		if target.has_method("enemy_descriptor"):
@@ -86,7 +94,16 @@ func lock(target: Node3D) -> void:
 		indicator.visible = true
 
 func shoot() -> void:
-	pass
+	var proj: Projectile = PROJECTILE.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	proj.projectile_velocity = -action_point.global_basis.z * 10.0
+	add_child(proj)
+	proj.global_position = action_point.global_position
+	proj.hit_enemy.connect(on_hit_enemy)
+
+func on_hit_enemy(projectile: Projectile, enemy: Node3D) -> void:
+	projectile.destroy()
+	if enemy.has_method("take_damage"):
+		enemy.take_damage(player.current_state.turret_damage)
 
 func update_yaw(delta: float, target_position: Vector3) -> void:
 	var yaw_dir = (yaw.global_transform.inverse() * target_position - yaw.position).normalized()

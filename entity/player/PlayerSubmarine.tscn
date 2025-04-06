@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=36 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
@@ -90,7 +90,7 @@ radius = 30.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.248031, 0.447902), 0.0, 0.0, 0, 0, Vector2(0.677165, 0.26685), -0.340646, -0.340646, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_sicxe"]
+[sub_resource type="CurveTexture" id="CurveTexture_vv06u"]
 curve = SubResource("Curve_dan0s")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dan0s"]
@@ -103,22 +103,29 @@ initial_velocity_max = 0.2
 gravity = Vector3(0, 0, 0.5)
 scale_min = 0.2
 scale_max = 0.2
-scale_curve = SubResource("CurveTexture_sicxe")
+scale_curve = SubResource("CurveTexture_vv06u")
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 1.0
 collision_use_scale = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dan0s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0uysx"]
 render_priority = 0
 shader = ExtResource("8_dan0s")
 shader_parameter/color = Color(2, 2, 2, 0.1)
 shader_parameter/fresnel_sharpness = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_6lrfa"]
-material = SubResource("ShaderMaterial_dan0s")
+material = SubResource("ShaderMaterial_0uysx")
 radial_segments = 16
 rings = 8
+
+[sub_resource type="Curve" id="Curve_udsqw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.248031, 0.447902), 0.0, 0.0, 0, 0, Vector2(0.677165, 0.26685), -0.340646, -0.340646, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_sicxe"]
+curve = SubResource("Curve_udsqw")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sicxe"]
 emission_shape_offset = Vector3(0, -0.128, 0)
@@ -266,6 +273,8 @@ mesh = SubResource("SphereMesh_0yxng")
 
 [node name="Turret" type="Marker3D" parent="."]
 script = ExtResource("7_vv06u")
+turret_max_yaw_speed = 360.0
+turret_max_pitch_speed = 360.0
 
 [node name="Area3D" type="Area3D" parent="Turret"]
 collision_layer = 0
