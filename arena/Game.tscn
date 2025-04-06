@@ -79,7 +79,8 @@ environment = SubResource("Environment_kre3w")
 
 [node name="Player" type="Marker3D" parent="."]
 
-[node name="PlayerSubmarine" parent="Player" instance=ExtResource("1_05u1r")]
+[node name="PlayerSubmarine" parent="Player" node_paths=PackedStringArray("compass") instance=ExtResource("1_05u1r")]
+compass = NodePath("../../CanvasLayer/MarginContainer/VBoxContainer/Compass")
 skill_tree = SubResource("Resource_1ovjp")
 
 [node name="Pickups" type="Marker3D" parent="."]

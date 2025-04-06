@@ -10,6 +10,9 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 @onready var pickup_detector: Area3D = $PickupDetector
 @onready var scanner: Area3D = $Scanner
 
+# Add reference to the compass node (assign in editor)
+@export var compass: Compass
+
 # TODO: use cd and range for scanner from state
 const SCANNER_COOLDOWN := 10.0
 var scanner_charge := SCANNER_COOLDOWN
@@ -41,13 +44,27 @@ func scan() -> void:
 	for area in scanner.get_overlapping_areas():
 		if area is Pickup:
 			var pickup: Pickup = area
+			var descriptor = pickup.pickup_descriptor() # Get descriptor early
+
+			# --- Create screen marker ---
 			var marker = MARKER.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
-			marker.text = pickup.pickup_descriptor().name
+			marker.text = descriptor.name # Use name from descriptor
 			marker.life = scanner_decay
 			marker.anchor = self
-			area.add_child(marker)
+			# Parent marker to the pickup itself initially, so it moves with it if needed
+			# But set top_level so it renders correctly relative to camera
+			pickup.add_child(marker)
 			marker.global_position = pickup.global_position + Vector3(0.0, 1.5, 0.0)
-			marker.top_level = true
+			marker.top_level = true # Make sure it renders above everything
+
+			# --- Add compass marker ---
+			if is_instance_valid(compass):
+				# Check if descriptor has a type, default if not
+				var pickup_type = descriptor.get("type", Pickup.PickupType.Science) # Provide a default if type might be missing
+				compass.add_poi(pickup.global_position, pickup_type, scanner_decay)
+			else:
+				printerr("PlayerSubmarine: Compass node not assigned!")
+
 
 func update_gui() -> void:
 	var center = crosshair.position # this makes arrow position independent of viewport size calculation
