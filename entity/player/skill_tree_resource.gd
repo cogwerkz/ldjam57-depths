@@ -12,10 +12,39 @@ var skills = {
 			{
 				"cost": 1,
 				"effects": {
-					"fuel_efficiency": 5.0
+					"fuel_efficiency": 0.9
 				},
-				"description": "Decreases fuel consumption by 5%."
+				"description": "Reduces fuel consumption by 10%."
+			},
+			{
+				"cost": 2,
+				"effects": {
+					"fuel_efficiency": 0.8
+				},
+				"description": "Reduces fuel consumption by 20%."
+			},
+			{
+				"cost": 3,
+				"effects": {
+					"fuel_efficiency": 0.7
+				},
+				"description": "Reduces fuel consumption by 30%."
+			},
+			{
+				"cost": 4,
+				"effects": {
+					"fuel_efficiency": 0.6
+				},
+				"description": "Reduces fuel consumption by 40%."
+			},
+			{
+				"cost": 5,
+				"effects": {
+					"fuel_efficiency": 0.5
+				},
+				"description": "Reduces fuel consumption by 50%."
 			}
+
 		]
 	},
 	"max_speed": {
