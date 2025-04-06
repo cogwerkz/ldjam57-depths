@@ -1,11 +1,18 @@
 extends Area3D
 class_name Pickup
 
+@onready var bullet = $Model/Bullets
+@onready var health = $Model/Health
+@onready var log_book = $Model/LogBook
+@onready var science = $Model/Science
+@onready var fuel = $Model/GasCan
+
 enum PickupType {
 	Science,
 	Fuel,
 	Ammo,
 	LogBook,
+	Health
 }
 
 const NAMES = {
@@ -19,6 +26,24 @@ const NAMES = {
 @export var amount: int = 1
 # This should only exist for log books
 @export var log_book_entry: String = ""
+
+func _ready() -> void:
+	bullet.visible = false
+	health.visible = false
+	log_book.visible = false
+	science.visible = false
+	fuel.visible = false
+	match type:
+		PickupType.Science:
+			science.visible = true
+		PickupType.Fuel:
+			fuel.visible = true
+		PickupType.Ammo:
+			bullet.visible = true
+		PickupType.LogBook:
+			log_book.visible = true
+		PickupType.Health:
+			health.visible = true
 
 func pickup_descriptor() -> Dictionary:
 	var ret = { "type": type, "name": NAMES[type] }
