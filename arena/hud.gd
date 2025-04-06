@@ -4,7 +4,6 @@ extends Control
 @onready var fuel = $HealthProgressBar/FuelProgressBar
 @onready var scanner = $HealthProgressBar/ScannerProgressBar
 
-@export var player_state: PlayerState
 @export var player: PlayerSubmarine
 @export var TWEEN_DURATION: float = 0.2
 
@@ -24,8 +23,11 @@ const FUEL_CRITICAL = Color("#FF0000")
 const SCANNER_NORMAL = Color("#FFFFFF")
 const SCANNER_READY = Color("#00FF00")
 
+var player_state: PlayerState
 
 func _ready() -> void:
+	player_state = State.get_player_state()
+	
 	player_state.changed.connect(_update_hud)
 	player.scanner_charge_updated.connect(_on_scanner_charge_level)
 	player.scanner_ready.connect(_on_scanner_ready)
@@ -46,7 +48,6 @@ func _update_hud():
 	else:
 		health.tint_progress = HEALTH_CRITICAL
 
-	print("Current Fuel: ", player_state.get_fuel_percentage())
 	# Update Fuel with Tween
 	var fuel_tween = create_tween()
 	fuel_tween.tween_property(fuel, "value", player_state.get_fuel_percentage(), TWEEN_DURATION)

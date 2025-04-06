@@ -22,7 +22,7 @@ class_name PlayerState
 @export var turret_max_ammo: int = 10
 @export var turret_current_ammo: int = 10
 @export var turret_damage: float = 10.0
-@export var turret_range: float = 200.0
+@export var turret_range: float = 30.0
 @export var turret_cooldown: float = 0.5
 @export_range(0, 100) var turret_hit_chance: float = 60.0
 
@@ -45,7 +45,7 @@ func reset_defaults() -> void:
 	fuel_efficiency = 75.0
 	turret_max_ammo = 10
 	turret_damage = 10.0
-	turret_range = 200.0
+	turret_range = 30.0
 	turret_cooldown = 0.5
 	turret_hit_chance = 60.0
 	scanner_range = 300.0

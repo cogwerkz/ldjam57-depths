@@ -11,11 +11,14 @@ const INIT_SKILL_SELECTED = "fuel_efficiency"
 @onready var skill_level_description: Label = %SkillLevelDescriptionLabel
 @onready var skill_upgrade: Button= %SkillUpgradeButton
 
-@export var skill_tree: SkillTree
-@export var player_state: PlayerState
+var skill_tree: SkillTree
+var player_state: PlayerState
 var selected_skill_key: String = INIT_SKILL_SELECTED
 
 func _ready() -> void:
+	skill_tree = State.get_skill_tree()
+	player_state = State.get_player_state()
+	
 	skill_tree.changed.connect(func(): 
 		_update_gui()
 	)

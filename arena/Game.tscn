@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=36 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="17_xmuta"]
 [ext_resource type="Texture2D" uid="uid://spcu8p4dcyit" path="res://assets/raw/fuel_over.png" id="19_3eua4"]
 [ext_resource type="Texture2D" uid="uid://7ohc5rsqrdm8" path="res://assets/raw/signal_overl.png" id="21_loj0u"]
+[ext_resource type="Script" uid="uid://ct0yl08ioccxa" path="res://arena/global_state.gd" id="25_q3mki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -84,6 +85,11 @@ depth_map = ExtResource("3_o54ke")
 environment = NodePath("WorldEnvironment")
 sun = NodePath("DirectionalLight3D")
 
+[node name="GlobalState" type="Node" parent="." groups=["state"]]
+script = ExtResource("25_q3mki")
+player_state = ExtResource("5_8s4g8")
+skill_tree = ExtResource("6_8s4g8")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
@@ -95,8 +101,6 @@ environment = SubResource("Environment_kre3w")
 
 [node name="PlayerSubmarine" parent="Player" node_paths=PackedStringArray("compass") instance=ExtResource("1_05u1r")]
 compass = NodePath("../../CanvasLayer/MarginContainer/VBoxContainer/Compass")
-current_state = ExtResource("5_8s4g8")
-skill_tree = ExtResource("6_8s4g8")
 
 [node name="Pickups" type="Marker3D" parent="."]
 
@@ -311,7 +315,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("15_8s4g8")
-player_state = ExtResource("5_8s4g8")
 player = NodePath("../../../Player/PlayerSubmarine")
 
 [node name="HealthProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/HUD"]
@@ -361,8 +364,6 @@ offset_left = 343.0
 offset_top = 170.0
 offset_right = -357.0
 offset_bottom = -187.0
-skill_tree = ExtResource("6_8s4g8")
-player_state = ExtResource("5_8s4g8")
 
 [node name="HTerrain" type="Node3D" parent="."]
 script = ExtResource("15_0bjfm")

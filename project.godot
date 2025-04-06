@@ -15,12 +15,16 @@ run/main_scene="uid://j4iau7hya10u"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+State="*res://utils/state.gd"
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/window_width_override=2880
-window/size/window_height_override=1620
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="viewport"
 
 [editor_plugins]
@@ -30,6 +34,10 @@ enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
 [filesystem]
 
 import/blender/enabled=false
+
+[global_group]
+
+state=""
 
 [gui]
 

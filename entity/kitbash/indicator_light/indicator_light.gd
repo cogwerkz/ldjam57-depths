@@ -13,7 +13,10 @@ class_name IndicatorLight
 		light_phase_offset = val
 		if not is_node_ready():
 			await ready
-		animator.seek(light_phase_offset * animator.get_animation(animator.current_animation).length)
+		if animator.current_animation != "":
+			var anim := animator.get_animation(animator.current_animation)
+			if anim != null:
+				animator.seek(light_phase_offset * anim.length)
 	get():
 		return light_phase_offset
 

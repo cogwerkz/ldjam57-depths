@@ -22,17 +22,19 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
 
-@export var current_state: PlayerState
-@export var skill_tree: SkillTree
+var current_state: PlayerState
+var skill_tree: SkillTree
 
 var mouse_captured = true
 var mouse_deltas := Vector2.ZERO
 
 func _ready() -> void:
-	if skill_tree != null:
-		skill_tree.apply_skill_effects(current_state)
-		skill_tree.changed.connect(func(): skill_tree.apply_skill_effects(current_state))
-		current_state.changed.connect(current_state_updated)
+	skill_tree = State.get_skill_tree()
+	current_state = State.get_player_state()
+	
+	skill_tree.apply_skill_effects(current_state)
+	skill_tree.changed.connect(func(): skill_tree.apply_skill_effects(current_state))
+	current_state.changed.connect(current_state_updated)
 	
 	contact_monitor = true
 	linear_damp = 2.5
@@ -154,11 +156,11 @@ func on_pickup(area: Area3D):
 		
 		var tween = get_tree().create_tween().parallel()
 		tween.tween_property(pickup, "global_position", global_position, 0.2)
-		tween.tween_property(pickup, "scale", Vector3.ZERO, 0.2)
+		tween.tween_property(pickup, "scale", Vector3(0.1, 0.1, 0.1), 0.2)
 		tween.set_ease(Tween.EASE_OUT)
 		tween.play()
 		await tween.finished
-		pickup.destroy()
+		pickup.queue_free()
 
 # ============= #
 # == Scanner == #
