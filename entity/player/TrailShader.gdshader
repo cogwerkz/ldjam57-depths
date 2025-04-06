@@ -6,7 +6,7 @@ uniform float fresnel_sharpness = 1.0;
 
 void fragment() {
 	float fresnel = pow(1.0 - dot(VIEW, NORMAL), fresnel_sharpness);
-	
+
 	ALBEDO = color.rgb;
 	ALPHA = color.a + fresnel;
 }

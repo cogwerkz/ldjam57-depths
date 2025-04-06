@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwj5s2q8kkac6"]
+
+[ext_resource type="Texture2D" uid="uid://ct4wbkggd4fr" path="res://assets/raw/star_05.png" id="1_8stem"]
+[ext_resource type="Script" uid="uid://4g7utx6uly6u" path="res://entity/kitbash/indicator_light/indicator_light.gd" id="1_ea8e1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_61xh6"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_8stem")
+disable_receive_shadows = true
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_61xh6"]
+material = SubResource("StandardMaterial3D_61xh6")
+
+[node name="IndicatorLight" type="Node3D"]
+script = ExtResource("1_ea8e1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_61xh6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

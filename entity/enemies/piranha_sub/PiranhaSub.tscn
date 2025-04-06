@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkqiu07ceqvxd"]
+
+[ext_resource type="Script" uid="uid://cloydfociss04" path="res://entity/enemies/piranha_sub/piranha_sub.gd" id="1_5coy6"]
+[ext_resource type="PackedScene" uid="uid://be7yd38m87a3d" path="res://assets/raw/enemy_sub.glb" id="1_ka111"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cugye"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ka111"]
+radius = 30.0
+
+[node name="PiranhaSub" type="RigidBody3D"]
+script = ExtResource("1_5coy6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_cugye")
+debug_color = Color(0.860766, 0, 0.237732, 0.42)
+
+[node name="MeshContainer" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="enemy_sub" parent="MeshContainer" instance=ExtResource("1_ka111")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_ka111")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -2.2)
+light_color = Color(1, 0.644936, 0.621582, 1)
+light_energy = 8.0
+spot_range = 30.0
+spot_angle = 20.0
