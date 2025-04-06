@@ -131,5 +131,11 @@ func on_pickup(area: Area3D):
 				pass
 			Pickup.PickupType.LogBook:
 				pass
-
+		
+		var tween = get_tree().create_tween().parallel()
+		tween.tween_property(pickup, "global_position", global_position, 0.2)
+		tween.tween_property(pickup, "scale", Vector3.ZERO, 0.2)
+		tween.set_ease(Tween.EASE_OUT)
+		tween.play()
+		await tween.finished
 		pickup.destroy()

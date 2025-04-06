@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bm21va6drumxc"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://bm21va6drumxc"]
 
 [ext_resource type="Texture2D" uid="uid://cwjgdx6skev20" path="res://assets/raw/panel-000.png" id="2_s0n0b"]
 
@@ -79,8 +79,6 @@ texture_margin_bottom = 48.0
 region_rect = Rect2(0, 0, 192, 192)
 modulate_color = Color(0.172549, 0.243137, 0.313726, 0.941176)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oloyy"]
-
 [resource]
 Button/font_sizes/font_size = 24
 Button/styles/focus = SubResource("StyleBoxEmpty_0cjyw")
@@ -90,4 +88,4 @@ Button/styles/normal = SubResource("StyleBoxFlat_s0n0b")
 Button/styles/pressed = SubResource("StyleBoxFlat_oloyy")
 HSeparator/styles/separator = SubResource("StyleBoxEmpty_s0n0b")
 Panel/styles/panel = SubResource("StyleBoxTexture_eojn4")
-VSeparator/styles/separator = SubResource("StyleBoxEmpty_oloyy")
+VSeparator/styles/separator = null
