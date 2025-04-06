@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
 [ext_resource type="Script" uid="uid://bcua7wbucy3t8" path="res://arena/main_camera.gd" id="1_x3x3p"]
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="2_0yfs5"]
+[ext_resource type="Texture2D" uid="uid://7us4b7jd0a5t" path="res://arena/sky_map.tres" id="2_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="3_m1fsu"]
+[ext_resource type="Texture2D" uid="uid://nhxn14xvjxwb" path="res://arena/depth_map.tres" id="3_o54ke"]
 [ext_resource type="Script" uid="uid://c8yoc788wd6p8" path="res://entity/player/light_rays.gd" id="3_x3x3p"]
 [ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="8_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
@@ -12,6 +14,7 @@
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
 sky_horizon_color = Color(0.328597, 0.448317, 0.508163, 1)
+sky_energy_multiplier = 0.0
 ground_bottom_color = Color(2.10572e-08, 0.0748081, 0.139041, 1)
 ground_horizon_color = Color(0.328597, 0.448317, 0.508163, 1)
 
@@ -21,14 +24,15 @@ sky_material = SubResource("ProceduralSkyMaterial_tsql1")
 [sub_resource type="Environment" id="Environment_kre3w"]
 background_mode = 2
 sky = SubResource("Sky_05u1r")
-tonemap_mode = 2
+tonemap_mode = 4
 glow_enabled = true
 glow_bloom = 0.3
 fog_enabled = true
 fog_light_color = Color(0, 0.113616, 0.184857, 1)
 fog_sun_scatter = 0.05
-fog_density = 0.2
+fog_density = 0.1
 fog_sky_affect = 0.98
+fog_depth_curve = 0.0824694
 
 [sub_resource type="Resource" id="Resource_1ovjp"]
 script = ExtResource("8_1ovjp")
@@ -50,8 +54,12 @@ shader_parameter/light_source_pos = Vector2(0, 0)
 shader_parameter/light_source_dir = Vector3(0.5, -1, 0.25)
 shader_parameter/camera_dir = Vector3(-0.5, 1, -0.25)
 
-[node name="Game" type="Node3D"]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("environment", "sun")]
 script = ExtResource("1_1ovjp")
+sky_map = ExtResource("2_1ovjp")
+depth_map = ExtResource("3_o54ke")
+environment = NodePath("WorldEnvironment")
+sun = NodePath("DirectionalLight3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
