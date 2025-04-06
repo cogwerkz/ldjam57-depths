@@ -64,7 +64,7 @@ func update_gui() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if mouse_captured:
-			mouse_deltas += event.relative * 150.0 * 1.0 / Vector2(get_viewport().size)
+			mouse_deltas += event.screen_relative * 0.1
 
 func _physics_process(delta: float) -> void:
 	process_scanner(delta)
@@ -98,8 +98,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed('roll_right'):
 		apply_torque(transform.basis.z * -acceleration * overdrive * 0.2)
 
-	var yaw = mouse_deltas.x / crosshair.position.x * 100000.0 * overdrive * delta
-	var pitch = mouse_deltas.y / crosshair.position.y * 100000.0 * overdrive * delta
+	var yaw = mouse_deltas.x / crosshair.position.x * 100000.0 * delta
+	var pitch = mouse_deltas.y / crosshair.position.y * 100000.0 * delta
 	
 	if linear_velocity.length() > current_state.max_speed:
 		linear_velocity = linear_velocity.normalized() * current_state.max_speed

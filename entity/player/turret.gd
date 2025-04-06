@@ -3,6 +3,7 @@ extends Marker3D
 
 const TARGET_INDICATOR = preload("res://entity/marker/TargetIndicator.tscn")
 
+
 @onready var target_finder: Area3D = $Area3D
 @onready var target_finder_collision_shape: CollisionShape3D = $Area3D/CollisionShape3D
 @onready var yaw: Node3D = $Yaw
@@ -22,12 +23,14 @@ const TARGET_INDICATOR = preload("res://entity/marker/TargetIndicator.tscn")
 @export var turret_min_pitch_angle = -20.0
 
 
+@onready var indicator: TargetIndicator = TARGET_INDICATOR.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 var locked_target: Node3D
-var current_target_indicator: TargetIndicator
 
 # Update turret priorities every TURRET_TICK seconds
 const TURRET_TICK = 1.0
 var tick = TURRET_TICK
+
+var cooldown := 0.0
 
 var yaw_angle := 0.0
 var pitch_angle := 0.0
@@ -35,6 +38,10 @@ var pitch_angle := 0.0
 func _ready() -> void:
 	if player.has_method("current_state") and player.current_state != null:
 		player.current_state.changed.connect(update_turret_state)
+		
+	indicator.visible = false
+	add_child(indicator)
+	indicator.top_level = true
 
 func _process(delta: float) -> void:
 	tick -= delta
@@ -63,28 +70,23 @@ func tick_turret() -> void:
 
 	# Loose lock if target too far away
 	if locked_target != null:
-		print("Dist: %.2f / %.2f" % [global_position.distance_to(locked_target.global_position), player.current_state.turret_range])
 		if global_position.distance_to(locked_target.global_position) > player.current_state.turret_range:
-			print("Should unlock")
 			lock(null)
 	else:
 		# Finally, pick the new clossest target, if any
 		lock(possible_target)
-		print("locking, distance: %.2f" % distance_to_possible_target)
-	
+		
 func lock(target: Node3D) -> void:
 	locked_target = target
 	if locked_target == null:
-		if current_target_indicator != null:
-			current_target_indicator.queue_free()
-			current_target_indicator = null
+		indicator.visible = false
+		indicator.follow_target = null
 	else:
-		print("Locking target: %s" % target.enemy_descriptor().name)
-		if current_target_indicator == null:
-			current_target_indicator = TARGET_INDICATOR.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
-			add_child(current_target_indicator)
-			current_target_indicator.top_level = true
-		current_target_indicator.follow_target = locked_target
+		indicator.follow_target = locked_target
+		indicator.visible = true
+
+func shoot() -> void:
+	pass
 
 func update_yaw(delta: float, target_position: Vector3) -> void:
 	var yaw_dir = (yaw.global_transform.inverse() * target_position - yaw.position).normalized()
