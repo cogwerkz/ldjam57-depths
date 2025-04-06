@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://cg46b4r1k4mvm"]
+
+[ext_resource type="Script" uid="uid://dce8ege12sr5t" path="res://entity/enemies/piranha_sub/enemy_projectile.gd" id="1_xyx70"]
+[ext_resource type="PackedScene" uid="uid://dqfgrdfhw5vxo" path="res://assets/raw/shell.glb" id="2_tm3qv"]
+[ext_resource type="Shader" uid="uid://c1lk784eqw63w" path="res://entity/player/TrailShader.gdshader" id="3_o7v6r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5naxi"]
+
+[sub_resource type="Curve" id="Curve_gertm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330344, 0.79459), 0.0, 0.0, 0, 0, Vector2(0.817638, 0.282807), -0.340646, -0.340646, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_udsqw"]
+curve = SubResource("Curve_gertm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tgslg"]
+velocity_pivot = Vector3(1, 0, 0)
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.2
+gravity = Vector3(0, 0, 0.5)
+scale_min = 0.2
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_udsqw")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 1.0
+collision_use_scale = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghivv"]
+render_priority = 0
+shader = ExtResource("3_o7v6r")
+shader_parameter/color = Color(2, 2, 2, 0.1)
+shader_parameter/fresnel_sharpness = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_bh621"]
+material = SubResource("ShaderMaterial_ghivv")
+radial_segments = 16
+rings = 8
+
+[node name="EnemyProjectile" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_xyx70")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_5naxi")
+
+[node name="shell" parent="." instance=ExtResource("2_tm3qv")]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, -0.0233745, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.257587)
+layers = 32
+amount = 128
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 24)
+trail_lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_tgslg")
+draw_pass_1 = SubResource("SphereMesh_bh621")

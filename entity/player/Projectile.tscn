@@ -10,7 +10,7 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.330344, 0.79459), 0.0, 0.0, 0, 0, Vector2(0.817638, 0.282807), -0.340646, -0.340646, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_udsqw"]
+[sub_resource type="CurveTexture" id="CurveTexture_kbwyx"]
 curve = SubResource("Curve_kbwyx")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ejif5"]
@@ -22,20 +22,20 @@ initial_velocity_max = 0.2
 gravity = Vector3(0, 0, 0.5)
 scale_min = 0.2
 scale_max = 0.2
-scale_curve = SubResource("CurveTexture_udsqw")
+scale_curve = SubResource("CurveTexture_kbwyx")
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 1.0
 collision_use_scale = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghivv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_udsqw"]
 render_priority = 0
 shader = ExtResource("3_kbwyx")
 shader_parameter/color = Color(2, 2, 2, 0.1)
 shader_parameter/fresnel_sharpness = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_c20on"]
-material = SubResource("ShaderMaterial_ghivv")
+material = SubResource("ShaderMaterial_udsqw")
 radial_segments = 16
 rings = 8
 

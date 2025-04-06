@@ -18,15 +18,40 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 @onready var engine1 = $Thrust/Source/GPUParticles3D
 @onready var engine2 = $Thrust/Source/GPUParticles3D2
 
-
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
+
+signal game_over()
 
 var current_state: PlayerState
 var skill_tree: SkillTree
 
 var mouse_captured = true
 var mouse_deltas := Vector2.ZERO
+
+func player_descriptor() -> Dictionary:
+	return {
+		"name": "player"
+	}
+	
+func take_damage(amount: float) -> void:
+	current_state.current_health -= amount
+	if current_state.current_health <= 0.0:
+		die()
+
+func die() -> void:
+	# TODO: FxManager emit boom effect
+	$CollisionShape3D.set_deferred("disabled", true)
+	$Turret/Area3D/CollisionShape3D.set_deferred("disabled", true)
+	var rand_dir = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5))
+	var rand_force = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 30.0
+	var rand_torque = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 60.0
+	apply_force(rand_dir, rand_force)
+	apply_torque(rand_torque)
+	await get_tree().create_timer(2.0).timeout
+	# TODO: show game over scren
+	game_over.emit()
+	print("ded")
 
 func _ready() -> void:
 	skill_tree = State.get_skill_tree()
@@ -67,6 +92,9 @@ func _input(event: InputEvent) -> void:
 			mouse_deltas += event.screen_relative * 0.1
 
 func _physics_process(delta: float) -> void:
+	if not current_state.is_alive():
+		return
+
 	process_scanner(delta)
 	if Input.is_action_just_pressed('debug_toggle_mouse_capture'):
 		mouse_captured = !mouse_captured
@@ -113,8 +141,6 @@ func _physics_process(delta: float) -> void:
 			
 	apply_torque(transform.basis.y * (-yaw))
 	apply_torque(transform.basis.x * (-pitch))
-
-
 	
 	update_gui()
 

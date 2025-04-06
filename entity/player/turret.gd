@@ -64,7 +64,7 @@ func update_turret_state() -> void:
 	# TODO: reflect other state vars as well
 
 func tick_turret() -> void:
-	if Engine.is_editor_hint():
+	if not player.current_state.is_alive():
 		return
 
 	var possible_target: Node3D = locked_target if is_instance_valid(locked_target) else null

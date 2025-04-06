@@ -1,8 +1,12 @@
 extends RigidBody3D
 
+const ENEMY_PROJECTILE := preload("res://entity/enemies/piranha_sub/EnemyProjectile.tscn")
+
 const MAX_SPEED := 50.0
 const MAX_HEALTH := 50.0
 const PATROL_THRESHOLD := 5.0
+const WEAPON_COOLDOWN := 3.0
+const DAMAGE := 20.0
 
 @export var health: float = MAX_HEALTH
 @export var pursue_range: float = 15.0
@@ -15,10 +19,13 @@ enum ActivityState {
 	Flee,
 }
 
+@onready var action_point: Marker3D = $ActionPoint
 
 @onready var target_marker_index: int = 0 
 var current_state: ActivityState = ActivityState.Patrol
 @onready var player: PlayerSubmarine = State.get_player()
+
+var cooldown:= WEAPON_COOLDOWN
 
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -47,6 +54,12 @@ func _physics_process(delta: float) -> void:
 				linear_velocity = linear_velocity.normalized() * MAX_SPEED
 				
 		ActivityState.Pursue:
+			if cooldown > 0.0:
+				cooldown -= delta
+			if cooldown <= 0.0:
+				if try_shoot():
+					cooldown = WEAPON_COOLDOWN
+			
 			var target_dir := player.global_position - global_position
 			var current_dir := -global_basis.z
 			var diff := target_dir - current_dir
@@ -79,6 +92,28 @@ func enemy_descriptor() -> Dictionary:
 	return {
 		"name": "Pirahna",
 	}
+	
+func try_shoot() -> bool:
+	var target_dir := player.global_position - global_position
+	var current_dir := -global_basis.z
+	
+	var angle = target_dir.normalized().angle_to(current_dir.normalized())
+	
+	if angle < 0.5:
+		var proj: EnemyProjectile = ENEMY_PROJECTILE.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
+		proj.projectile_velocity = target_dir.normalized() * 15.0
+		add_child(proj)
+		proj.global_position = action_point.global_position
+		proj.hit_player.connect(on_hit_player)
+		return true
+
+	return false
+
+func on_hit_player(projectile: EnemyProjectile, player: Node3D) -> void:
+	projectile.destroy()
+	if player.has_method("take_damage"):
+		player.take_damage(DAMAGE)
+
 	
 func take_damage(amount: float) -> void:
 	health -= amount
