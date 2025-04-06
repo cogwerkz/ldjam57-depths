@@ -12,10 +12,12 @@ const INIT_SKILL_SELECTED = "fuel_efficiency"
 @onready var skill_upgrade: Button= %SkillUpgradeButton
 
 @export var skill_tree: SkillTree
+@export var player_state: PlayerState
+var selected_skill_key: String = INIT_SKILL_SELECTED
 
 func _ready() -> void:
 	skill_tree.changed.connect(func(): 
-		science_points_label.set_text("%d Science Points" % skill_tree.science_points)
+		_update_gui()
 	)
 	
 	var skills_button_group = ButtonGroup.new()
@@ -39,18 +41,26 @@ func _input(event: InputEvent) -> void:
 
 func _on_selected_skill_changed(button: Button):
 	var skill_key = button.get_meta("skill_key")
-	var skill = skill_tree.skills[skill_key]
+	selected_skill_key = skill_key
+
+func _update_gui() -> void:
+	science_points_label.set_text("%d Science Points" % skill_tree.science_points)
+
+	var skill = skill_tree.skills[selected_skill_key]
 	
 	skill_name.text = skill["name"]
 	skill_description.text = skill["description"]
 	skill_level.text = "Level: %d" % skill["current_level"]
-	
+	skill_upgrade.pressed.connect(func():
+		if skill_tree.upgrade_skill(selected_skill_key, player_state):
+			_update_gui()
+	)
 	var current_level = skill["current_level"]
 	if current_level < skill["levels"].size():
 		var next_level = skill["levels"][current_level]
 		skill_level_description.text = next_level["description"]
-		skill_upgrade.disabled = false
 		skill_upgrade.text = "Upgrade (%d SP)" % next_level["cost"]
+		skill_upgrade.disabled = not skill_tree.can_upgrade_skill(selected_skill_key)
 	else:
 		skill_level_description.text = "Max Level Reached"
 		skill_upgrade.disabled = true
@@ -61,4 +71,4 @@ func _on_close_button_pressed() -> void:
 	
 func _on_visibility_changed() -> void:
 	if self.is_node_ready() and visible:
-		science_points_label.set_text("%d Science Points" % skill_tree.science_points)
+		_update_gui()
