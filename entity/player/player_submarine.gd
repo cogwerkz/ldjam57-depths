@@ -112,6 +112,18 @@ func _physics_process(delta: float) -> void:
 	apply_torque(transform.basis.y * (-yaw))
 	apply_torque(transform.basis.x * (-pitch))
 
+
+	
+	update_gui()
+
+	mouse_deltas *= 0.5
+	
+	# Always point Y axis up - "auto-leveling"
+	var new_x = -global_transform.basis.z.cross(Vector3.UP).normalized()
+	var new_z = new_x.cross(Vector3.UP).normalized()
+	var new_basis = Basis(new_x, Vector3.UP, new_z)
+	global_transform.basis = global_transform.basis.slerp(new_basis, 0.8 * delta)
+	
 	var speed = linear_velocity.length()
 	var fuel_efficiency = current_state.fuel_efficiency
 	if speed > 0.0:
@@ -124,16 +136,6 @@ func _physics_process(delta: float) -> void:
 			engine1.emitting = false
 			engine2.emitting = false
 		current_state.changed.emit()
-	
-	update_gui()
-
-	mouse_deltas *= 0.5
-	
-	# Always point Y axis up - "auto-leveling"
-	var new_x = -global_transform.basis.z.cross(Vector3.UP).normalized()
-	var new_z = new_x.cross(Vector3.UP).normalized()
-	var new_basis = Basis(new_x, Vector3.UP, new_z)
-	global_transform.basis = global_transform.basis.slerp(new_basis, 0.8 * delta)
 
 func on_pickup(area: Area3D):
 	if area is Pickup:
