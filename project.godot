@@ -23,6 +23,10 @@ window/size/window_width_override=2880
 window/size/window_height_override=1620
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
+
 [filesystem]
 
 import/blender/enabled=false

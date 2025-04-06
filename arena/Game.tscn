@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=26 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://bqiuswppe8xfo" path="res://assets/raw/compass.png" id="10_pfw8f"]
 [ext_resource type="Shader" uid="uid://xm1vktjo1fbx" path="res://arena/compass_scroll.gdshader" id="10_syall"]
 [ext_resource type="Script" uid="uid://cmbwrkyn4psw7" path="res://arena/compass.gd" id="11_bbfp7"]
+[ext_resource type="Script" uid="uid://oujuluo7x3km" path="res://addons/zylann.hterrain/hterrain.gd" id="15_0bjfm"]
+[ext_resource type="Resource" uid="uid://ddg2tqd370pa0" path="res://terrein/data.hterrain" id="16_guibl"]
+[ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="17_xmuta"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -62,6 +65,11 @@ shader_parameter/camera_dir = Vector3(-0.5, 1, -0.25)
 shader = ExtResource("10_syall")
 shader_parameter/scroll_offset = 0.0
 shader_parameter/fade_width_normalized = 0.1
+
+[sub_resource type="Resource" id="Resource_11wws"]
+script = ExtResource("17_xmuta")
+mode = 0
+textures = [[], []]
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("environment", "sun")]
 script = ExtResource("1_1ovjp")
@@ -295,5 +303,25 @@ offset_top = 170.0
 offset_right = -357.0
 offset_bottom = -187.0
 skill_tree = SubResource("Resource_1ovjp")
+
+[node name="HTerrain" type="Node3D" parent="."]
+script = ExtResource("15_0bjfm")
+centered = true
+_terrain_data = ExtResource("16_guibl")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_11wws")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = null
+shader_params/u_tile_reduction = null
+metadata/_custom_type_script = "uid://oujuluo7x3km"
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]
