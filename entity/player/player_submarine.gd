@@ -1,6 +1,7 @@
 extends RigidBody3D
 class_name PlayerSubmarine
 
+
 const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 
 @onready var camera: Camera3D = $Camera3D
@@ -9,14 +10,11 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 
 @onready var pickup_detector: Area3D = $PickupDetector
 @onready var scanner: Area3D = $Scanner
+@onready var scanner_sphere: MeshInstance3D = $Scanner/MeshInstance3D
+
 
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
-
-# TODO: use cd and range for scanner from state
-const SCANNER_COOLDOWN := 10.0
-var scanner_charge := SCANNER_COOLDOWN
-var scanner_decay := SCANNER_COOLDOWN * 0.6
 
 @export var current_state: PlayerState = PlayerState.new()
 @export var skill_tree: SkillTree
@@ -25,46 +23,21 @@ var mouse_captured = true
 var mouse_deltas := Vector2.ZERO
 
 func _ready() -> void:
-	skill_tree.apply_skill_effects(current_state)
+	if skill_tree != null:
+		skill_tree.apply_skill_effects(current_state)
+		skill_tree.changed.connect(func(): skill_tree.apply_skill_effects(current_state))
+		current_state.changed.connect(current_state_updated)
+	
 	contact_monitor = true
 	linear_damp = 2.5
 	angular_damp = 3.0
 	direction.position = crosshair.position # this makes arrow position independent of viewport size calculation
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	skill_tree.changed.connect(func(): skill_tree.apply_skill_effects(current_state))
-	current_state.changed.connect(current_state_updated)
-	
 	pickup_detector.area_entered.connect(on_pickup)
 
 func current_state_updated() -> void:
-	pass
-	
-func scan() -> void:
-	for area in scanner.get_overlapping_areas():
-		if area is Pickup:
-			var pickup: Pickup = area
-			var descriptor = pickup.pickup_descriptor() # Get descriptor early
-
-			# --- Create screen marker ---
-			var marker = MARKER.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
-			marker.text = descriptor.name # Use name from descriptor
-			marker.life = scanner_decay
-			marker.anchor = self
-			# Parent marker to the pickup itself initially, so it moves with it if needed
-			# But set top_level so it renders correctly relative to camera
-			pickup.add_child(marker)
-			marker.global_position = pickup.global_position + Vector3(0.0, 1.5, 0.0)
-			marker.top_level = true # Make sure it renders above everything
-
-			# --- Add compass marker ---
-			if is_instance_valid(compass):
-				# Check if descriptor has a type, default if not
-				var pickup_type = descriptor.get("type", Pickup.PickupType.Science) # Provide a default if type might be missing
-				compass.add_poi(pickup.global_position, pickup_type, scanner_decay)
-			else:
-				printerr("PlayerSubmarine: Compass node not assigned!")
-
+	pass	
 
 func update_gui() -> void:
 	var center = crosshair.position # this makes arrow position independent of viewport size calculation
@@ -86,6 +59,7 @@ func _input(event: InputEvent) -> void:
 			mouse_deltas += event.relative * 150.0 * 1.0 / Vector2(get_viewport().size)
 
 func _physics_process(delta: float) -> void:
+	process_scanner(delta)
 	if Input.is_action_just_pressed('debug_toggle_mouse_capture'):
 		mouse_captured = !mouse_captured
 		if mouse_captured:
@@ -113,9 +87,6 @@ func _physics_process(delta: float) -> void:
 		apply_torque(transform.basis.z * acceleration * overdrive * 0.2)
 	if Input.is_action_pressed('roll_right'):
 		apply_torque(transform.basis.z * -acceleration * overdrive * 0.2)
-		
-	if Input.is_action_just_released("tertiary_action"):
-		scan()
 
 	var yaw = mouse_deltas.x / crosshair.position.x * 100000.0 * overdrive * delta
 	var pitch = mouse_deltas.y / crosshair.position.y * 100000.0 * overdrive * delta
@@ -156,3 +127,64 @@ func on_pickup(area: Area3D):
 		tween.play()
 		await tween.finished
 		pickup.destroy()
+
+# ============= #
+# == Scanner == #
+# ============= #
+signal scanner_ready()
+signal scanner_charge_updated(charge_percentage: float)
+var scanner_charge_level: float = 0
+var is_scanning: bool = false
+var is_charged: bool = true
+	
+func process_scanner(delta: float) -> void:
+	if Input.is_action_just_released("tertiary_action") and is_charged:
+		scan()
+
+	if !is_scanning and scanner_charge_level > 0.0:
+		scanner_charge_level -= delta
+		var charge_percentage = 1.0 - (scanner_charge_level/current_state.scanner_cooldown)
+		scanner_charge_updated.emit(charge_percentage)
+		if scanner_charge_level <= 0.0:
+			scanner_charge_updated.emit(1.0)
+			scanner_ready.emit()
+			is_charged = true
+	
+func scan() -> void:
+	is_scanning = true
+	is_charged = false
+	scanner_charge_level = current_state.scanner_cooldown
+	
+	# Perform scan pulse animation
+	var tween = get_tree().create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CIRC)
+	var sr = current_state.scanner_range
+	tween.tween_property(scanner_sphere, "scale", Vector3(sr, sr, sr), 3.0)
+	tween.tween_property(scanner_sphere, "scale", Vector3(0.1, 0.1, 0.1), 1.0)
+	await tween.finished	
+	
+	for area in scanner.get_overlapping_areas():
+		if area is Pickup:
+			var pickup: Pickup = area
+			var descriptor: Dictionary = pickup.pickup_descriptor()
+			# --- Create screen marker ---
+			var marker = MARKER.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+			marker.text = descriptor.name # Use name from descriptor
+			marker.life = current_state.scanner_decay
+			marker.anchor = self
+			# Parent marker to the pickup itself initially, so it moves with it if needed
+			# But set top_level so it renders correctly relative to camera
+			pickup.add_child(marker)
+			marker.global_position = pickup.global_position + Vector3(0.0, 1.5, 0.0)
+			marker.top_level = true # Make sure it renders above everything
+			
+			# --- Add compass marker ---
+			if is_instance_valid(compass):
+				# Check if descriptor has a type, default if not
+				var pickup_type = descriptor.get("type", Pickup.PickupType.Science) # Provide a default if type might be missing
+				compass.add_poi(pickup.global_position, pickup_type, current_state.scanner_decay)
+			else:
+				printerr("PlayerSubmarine: Compass node not assigned!")
+			
+	is_scanning = false

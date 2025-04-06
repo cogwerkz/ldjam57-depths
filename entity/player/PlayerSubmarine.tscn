@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=21 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c34y5ght4fxfo" path="res://assets/raw/direction.png" id="3_f1t2n"]
 [ext_resource type="Texture2D" uid="uid://btskdn3i6epjr" path="res://assets/raw/bubble.png" id="5_x8ejc"]
 [ext_resource type="PackedScene" uid="uid://bk71fgpxlstc5" path="res://assets/raw/turret.glb" id="6_0yxng"]
+[ext_resource type="Shader" uid="uid://c6aupc3mwlgn1" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vby8d"]
 height = 4.5063
@@ -64,6 +65,19 @@ material = SubResource("StandardMaterial3D_vka5r")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x8ejc"]
 radius = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6lrfa"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_6lrfa")
+shader_parameter/color1 = Color(0, 8, 0, 0.004)
+shader_parameter/color2 = Color(0, 8, 0, 1)
+shader_parameter/threshold = 0.7
+shader_parameter/fresnel_sharpness = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_0yxng"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_6lrfa")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0yxng"]
 radius = 30.0
@@ -150,6 +164,10 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Scanner"]
 shape = SubResource("SphereShape3D_x8ejc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Scanner"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_0yxng")
 
 [node name="TurretMount" type="Marker3D" parent="."]
 
