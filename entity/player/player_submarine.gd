@@ -115,7 +115,7 @@ func _physics_process(delta: float) -> void:
 	var speed = linear_velocity.length()
 	var fuel_efficiency = current_state.fuel_efficiency
 	if speed > 0.0:
-		var fuel_consumption = fuel_efficiency * speed * delta / 100
+		var fuel_consumption = fuel_efficiency * speed * delta / 1000
 		current_state.current_fuel -= fuel_consumption
 		if current_state.current_fuel <= 0.01:
 			current_state.current_fuel = 0.0
