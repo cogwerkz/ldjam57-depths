@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=32 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://dha7wi7lftjpi" path="res://resources/player_state.tres" id="5_8s4g8"]
 [ext_resource type="Resource" uid="uid://bi5c8rvnv8ael" path="res://resources/skill_tree.tres" id="6_8s4g8"]
 [ext_resource type="PackedScene" uid="uid://bhlx0sw2e3brp" path="res://GUI/elements/skill_tree_panel.tscn" id="8_3ym2b"]
+[ext_resource type="PackedScene" uid="uid://bkqiu07ceqvxd" path="res://entity/enemies/piranha_sub/PiranhaSub.tscn" id="8_g07k2"]
 [ext_resource type="Script" uid="uid://dj02ya6ts5hg4" path="res://arena/instructons_label.gd" id="10_7jjc4"]
 [ext_resource type="Texture2D" uid="uid://bqiuswppe8xfo" path="res://assets/raw/compass.png" id="10_pfw8f"]
 [ext_resource type="Shader" uid="uid://xm1vktjo1fbx" path="res://arena/compass_scroll.gdshader" id="10_syall"]
@@ -103,6 +104,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4, 3.3, -6)
 type = 2
 amount = 50
+
+[node name="Enemies" type="Marker3D" parent="."]
+
+[node name="PiranhaSub" parent="Enemies" instance=ExtResource("8_g07k2")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 2, -17)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)

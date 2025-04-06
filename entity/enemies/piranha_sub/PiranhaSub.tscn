@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkqiu07ceqvxd"]
+[gd_scene load_steps=6 format=3 uid="uid://bkqiu07ceqvxd"]
 
 [ext_resource type="Script" uid="uid://cloydfociss04" path="res://entity/enemies/piranha_sub/piranha_sub.gd" id="1_5coy6"]
 [ext_resource type="PackedScene" uid="uid://be7yd38m87a3d" path="res://assets/raw/enemy_sub.glb" id="1_ka111"]
+[ext_resource type="PackedScene" uid="uid://cwj5s2q8kkac6" path="res://entity/kitbash/indicator_light/IndicatorLight.tscn" id="3_5jupr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cugye"]
 
@@ -31,9 +32,9 @@ monitorable = false
 shape = SubResource("SphereShape3D_ka111")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -2.2)
-light_color = Color(1, 0.644936, 0.621582, 1)
-light_energy = 8.0
-spot_range = 30.0
-spot_angle = 20.0
+[node name="Lights" type="Marker3D" parent="."]
+
+[node name="IndicatorLight" parent="Lights" instance=ExtResource("3_5jupr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -2.1)
+light_phase_offset = 0.0
+color = Color(12, 0, 0, 1)
