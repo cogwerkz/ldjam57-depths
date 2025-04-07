@@ -11,17 +11,8 @@ class_name Compass
 # Store active POIs: {'node': TextureRect, 'target_position': Vector3, 'type': Pickup.PickupType, 'life': float}
 var pois: Array[Dictionary] = []
 
-# Texture for the POI dots
-var circle_texture: ImageTexture
-
-# Define colors for different pickup types (adjust as needed)
-const POI_COLORS = {
-	Pickup.PickupType.Science: Color.BLUE,
-	Pickup.PickupType.Fuel: Color.GREEN,
-	Pickup.PickupType.Ammo: Color.RED,
-	Pickup.PickupType.LogBook: Color.YELLOW,
-	# Add default or other types if necessary
-}
+# Texture for the POI icon (assign in the editor)
+@export var poi_icon: Texture2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,27 +22,14 @@ func _ready():
 		return
 
 	texture_repeat = TextureRepeat.TEXTURE_REPEAT_ENABLED
-	# Generate the circle texture
-	circle_texture = _create_circle_texture(8, Color.WHITE) # Create a 8x8 white circle
+
+	if not poi_icon:
+		printerr("Compass: POI icon texture not assigned!")
+		set_process(false)
+		return
+
 	# Add the container for dots
 	add_child(poi_container)
-
-
-# Generates a simple circle texture
-func _create_circle_texture(diameter: int, color: Color) -> ImageTexture:
-	var radius = diameter / 2.0
-	var center = Vector2(radius, radius)
-	var image = Image.create(diameter, diameter, false, Image.FORMAT_RGBA8)
-	image.fill(Color(0,0,0,0)) # Fill with transparent
-
-	for y in range(diameter):
-		for x in range(diameter):
-			var point = Vector2(x, y)
-			if point.distance_to(center) <= radius:
-				image.set_pixel(x, y, color)
-
-	var img_texture = ImageTexture.create_from_image(image) # Renamed variable
-	return img_texture
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -126,17 +104,29 @@ func _process(delta):
 		poi.node.position = Vector2(display_x, compass_center_y)
 
 		# Update visibility based on fade areas
-		var dot_is_visible = (display_x > fade_width_pixels) and (display_x < compass_width - fade_width_pixels) # Renamed variable
+		var dot_is_visible = (display_x > fade_width_pixels) and (display_x < compass_width - fade_width_pixels)
 		poi.node.visible = dot_is_visible
+
+		# --- Pulsing Logic ---
+		if dot_is_visible:
+			var pulse_speed = 0.004 
+			var pulse_amplitude = 0.25 
+			var current_time_ms = Time.get_ticks_msec()
+			var pulse_factor = 1.0 + sin(current_time_ms * pulse_speed + i * 0.75) * pulse_amplitude 
+			poi.node.scale = Vector2(pulse_factor, pulse_factor)
+		else:
+			poi.node.scale = Vector2(1.0, 1.0)
 
 
 # Function called by PlayerSubmarine to add a POI marker to the compass
-func add_poi(poi_world_position: Vector3, type: Pickup.PickupType, lifetime: float) -> void: # Renamed parameter
+func add_poi(poi_world_position: Vector3, type: Pickup.PickupType, lifetime: float) -> void:
+	if not poi_icon: return # Don't add if icon isn't loaded
+
 	var dot = TextureRect.new()
-	dot.texture = circle_texture
-	dot.size = circle_texture.get_size() # Use texture size
-	dot.pivot_offset = dot.size / 2.0 # Center pivot for positioning
-	dot.modulate = POI_COLORS.get(type, Color.WHITE) # Use modulate for color
+	dot.texture = poi_icon
+	dot.size = poi_icon.get_size() # Use icon size
+	dot.pivot_offset = dot.size / 2.0 # Center pivot for positioning and scaling
+	dot.modulate = Color.WHITE # Use modulate for color
 
 	poi_container.add_child(dot)
 

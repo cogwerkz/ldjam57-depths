@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=46 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="17_xmuta"]
 [ext_resource type="Texture2D" uid="uid://spcu8p4dcyit" path="res://assets/raw/fuel_over.png" id="19_3eua4"]
 [ext_resource type="Texture2D" uid="uid://7ohc5rsqrdm8" path="res://assets/raw/signal_overl.png" id="21_loj0u"]
+[ext_resource type="Texture2D" uid="uid://dlu8a0nk1oo0q" path="res://assets/raw/poi.png" id="24_m8cug"]
 [ext_resource type="Script" uid="uid://ct0yl08ioccxa" path="res://arena/global_state.gd" id="25_q3mki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
@@ -276,6 +277,7 @@ size_flags_vertical = 4
 texture = ExtResource("10_pfw8f")
 script = ExtResource("11_bbfp7")
 player = NodePath("../../../../Player/PlayerSubmarine")
+poi_icon = ExtResource("24_m8cug")
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
