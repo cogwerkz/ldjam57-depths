@@ -47,9 +47,13 @@
 [ext_resource type="PackedScene" uid="uid://dme5xr5ynbb6f" path="res://assets/raw/Rock3.fbx" id="25_0ekom"]
 [ext_resource type="Script" uid="uid://ct0yl08ioccxa" path="res://arena/global_state.gd" id="25_q3mki"]
 [ext_resource type="PackedScene" uid="uid://4b2v3q343hxo" path="res://assets/raw/Rock.fbx" id="26_qgirc"]
+[ext_resource type="PackedScene" uid="uid://c62ruk83rh7yd" path="res://assets/raw/Geodesic Dome.glb" id="28_6m87p"]
+[ext_resource type="PackedScene" uid="uid://cq470754ijcf2" path="res://assets/raw/Cupola module.glb" id="29_nrjos"]
+[ext_resource type="PackedScene" uid="uid://bimj4y1kliovd" path="res://assets/raw/House Cylinder.glb" id="30_jr3of"]
 [ext_resource type="Script" uid="uid://bj1l1kokcsuxs" path="res://arena/logbook_panel.gd" id="35_nqrx7"]
 [ext_resource type="Shader" uid="uid://naeieiwf7inn" path="res://arena/Noise.gdshader" id="38_nqrx7"]
 [ext_resource type="Script" uid="uid://t3reqyw8w5xh" path="res://arena/game_over.gd" id="40_3r4lv"]
+[ext_resource type="PackedScene" uid="uid://dfnptne37rtqk" path="res://entity/moons.tscn" id="48_5igl3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -154,13 +158,11 @@ amount = 50
 
 [node name="Enemies" type="Marker3D" parent="."]
 
-[node name="PiranhaSub" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
+[node name="PiranhaSub" parent="Enemies" instance=ExtResource("8_g07k2")]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 2, -17)
-patrol_markers = [NodePath("../PatrolRoute/A"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A3")]
 
-[node name="PiranhaSub2" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
+[node name="PiranhaSub2" parent="Enemies" instance=ExtResource("8_g07k2")]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 8.98847, 11.4517, -14.5948)
-patrol_markers = [NodePath("../PatrolRoute/A"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A3")]
 
 [node name="PatrolRoute" type="Node3D" parent="Enemies"]
 
@@ -335,10 +337,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -215.885, -59.8721, -208.558)
 transform = Transform3D(0.290468, 0.956885, 0, -0.956885, 0.290468, 0, 0, 0, 1, -218.073, -56.6868, -192.362)
 
 [node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
-current = true
-script = ExtResource("1_x3x3p")
-easing = 8.0
-player = NodePath("../Player/PlayerSubmarine")
+[node name="Moons" type="Node3D" parent="Areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -172.668, 0, 184.663)
+
+[node name="Moons" parent="Areas/Moons" instance=ExtResource("48_5igl3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.09215, -28.8669, -34.4319)
+
+[node name="Trigger" type="Area3D" parent="Areas/Moons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1129, -49.7339, -50.3327)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("10_unpcd")
+biom = "The Spiral Garden"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Moons/Trigger"]
+shape = SubResource("SphereShape3D_1jian")
+
+[node name="Pickup" parent="Areas/Moons" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3148, -36.9883, -33.0695)
+type = 3
+log_book_entry = "3"
+
+[node name="Gov" type="Node3D" parent="Areas"]
+
+[node name="Root Scene" parent="Areas/Gov" instance=ExtResource("28_6m87p")]
+transform = Transform3D(1, 0, 0, 0, 0.98928, 0.146031, 0, -0.146031, 0.98928, 186.148, -40.8751, 183.429)
+
+[node name="Cupola module" parent="Areas/Gov" instance=ExtResource("29_nrjos")]
+transform = Transform3D(-0.985589, -0.0349827, 0.165503, -0.0621018, 0.984893, -0.161644, -0.157349, -0.169593, -0.972872, 176.631, -37.5517, 195.05)
+
+[node name="Cupola module2" parent="Areas/Gov" instance=ExtResource("29_nrjos")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.515, -41.7878, 172.553)
+
+[node name="Root Scene2" parent="Areas/Gov" instance=ExtResource("30_jr3of")]
+transform = Transform3D(0.957047, -0.289934, 0, 0.289934, 0.957047, 0, 0, 0, 1, 177.881, -42.3958, 175.971)
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="MainCamera"]
 remote_path = NodePath("../../SubViewportContainer/SubViewport/PostProcessCamera")

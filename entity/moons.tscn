@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfnptne37rtqk"]
+
+[ext_resource type="Script" uid="uid://msc32b28txy5" path="res://entity/moons.gd" id="1_4pl6u"]
+[ext_resource type="PackedScene" uid="uid://ckv53u7ky7ev7" path="res://assets/raw/Moon.glb" id="1_65j7e"]
+
+[node name="Moons" type="Node3D"]
+script = ExtResource("1_4pl6u")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Moon2" parent="Node3D" instance=ExtResource("1_65j7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+
+[node name="Moon1" parent="Node3D" instance=ExtResource("1_65j7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
