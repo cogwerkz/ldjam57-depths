@@ -1,8 +1,7 @@
-[gd_scene load_steps=62 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=66 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
-[ext_resource type="Script" uid="uid://bcua7wbucy3t8" path="res://arena/main_camera.gd" id="1_x3x3p"]
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="2_0yfs5"]
 [ext_resource type="Texture2D" uid="uid://cbdmdy2uh5gxo" path="res://arena/sky_map.tres" id="2_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="3_m1fsu"]
@@ -50,6 +49,7 @@
 [ext_resource type="PackedScene" uid="uid://c62ruk83rh7yd" path="res://assets/raw/Geodesic Dome.glb" id="28_6m87p"]
 [ext_resource type="PackedScene" uid="uid://cq470754ijcf2" path="res://assets/raw/Cupola module.glb" id="29_nrjos"]
 [ext_resource type="PackedScene" uid="uid://bimj4y1kliovd" path="res://assets/raw/House Cylinder.glb" id="30_jr3of"]
+[ext_resource type="Script" uid="uid://bcua7wbucy3t8" path="res://arena/main_camera.gd" id="31_0ekom"]
 [ext_resource type="Script" uid="uid://bj1l1kokcsuxs" path="res://arena/logbook_panel.gd" id="35_nqrx7"]
 [ext_resource type="Shader" uid="uid://naeieiwf7inn" path="res://arena/Noise.gdshader" id="38_nqrx7"]
 [ext_resource type="Script" uid="uid://t3reqyw8w5xh" path="res://arena/game_over.gd" id="40_3r4lv"]
@@ -336,7 +336,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -215.885, -59.8721, -208.558)
 [node name="Rock17" parent="Areas/The Great Arch/Items" instance=ExtResource("25_0ekom")]
 transform = Transform3D(0.290468, 0.956885, 0, -0.956885, 0.290468, 0, 0, 0, 1, -218.073, -56.6868, -192.362)
 
-[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 [node name="Moons" type="Node3D" parent="Areas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -172.668, 0, 184.663)
 
@@ -372,6 +371,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.515, -41.7878, 172.553)
 
 [node name="Root Scene2" parent="Areas/Gov" instance=ExtResource("30_jr3of")]
 transform = Transform3D(0.957047, -0.289934, 0, 0.289934, 0.957047, 0, 0, 0, 1, 177.881, -42.3958, 175.971)
+
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+current = true
+script = ExtResource("31_0ekom")
+easing = 8.0
+player = NodePath("../Player/PlayerSubmarine")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="MainCamera"]
 remote_path = NodePath("../../SubViewportContainer/SubViewport/PostProcessCamera")
