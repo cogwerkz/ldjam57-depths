@@ -161,33 +161,55 @@ amount = 50
 
 [node name="Enemies" type="Marker3D" parent="."]
 
+[node name="Node3D" type="Node3D" parent="Enemies"]
+transform = Transform3D(0.719109, 0, -0.694897, 0, 1, 0, 0.694897, 0, 0.719109, -177.14, -31.6983, 139.556)
+
+[node name="Marker3D" type="Marker3D" parent="Enemies/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.468613, 0, -1.3502)
+
+[node name="Marker3D2" type="Marker3D" parent="Enemies/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0301, 0, 9.92014)
+
+[node name="Marker3D3" type="Marker3D" parent="Enemies/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5882, 0, 22.8888)
+
 [node name="Pufferfish" parent="Enemies" instance=ExtResource("9_nrjos")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3758, -29.2764, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -217.853, -55.2714, -211.913)
 
 [node name="Pufferfish2" parent="Enemies" instance=ExtResource("9_nrjos")]
-transform = Transform3D(-0.168627, 0, -0.98568, 0, 1, 0, 0.98568, 0, -0.168627, -43.2212, -29.2764, 6.85683)
+transform = Transform3D(-0.168627, 0, -0.98568, 0, 1, 0, 0.98568, 0, -0.168627, -206.35, -60.7294, -217.154)
 
 [node name="Pufferfish3" parent="Enemies" instance=ExtResource("9_nrjos")]
-transform = Transform3D(0.474657, 0, -0.880171, 0, 1, 0, 0.880171, 0, 0.474657, -43.2212, -27.1918, 4.44543)
+transform = Transform3D(0.653645, 0, 0.756801, 0, 1, 0, -0.756801, 0, 0.653645, -211.678, -56.6076, -212.578)
 
 [node name="PiranhaSub" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
-transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 2, -17)
-patrol_markers = [NodePath("../PatrolRoute/A"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -179.461, -31.478, 137.103)
+patrol_markers = [NodePath("../Node3D/Marker3D"), NodePath("../Node3D/Marker3D2"), NodePath("../Node3D/Marker3D3")]
 
 [node name="PiranhaSub2" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
-transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 8.98847, 11.4517, -14.5948)
-patrol_markers = [NodePath("../PatrolRoute/A3"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A")]
+transform = Transform3D(0.719109, 0, -0.694897, 0, 1, 0, 0.694897, 0, 0.719109, -174.253, -31.6983, 139.556)
+patrol_markers = [NodePath("../Node3D/Marker3D"), NodePath("../Node3D/Marker3D2"), NodePath("../Node3D/Marker3D3")]
 
-[node name="PatrolRoute" type="Node3D" parent="Enemies"]
+[node name="Pufferfish4" parent="Enemies" instance=ExtResource("9_nrjos")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180.308, -30.2208, 165.068)
 
-[node name="A" type="Marker3D" parent="Enemies/PatrolRoute"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.7844, 0, -12.4945)
+[node name="Pufferfish5" parent="Enemies" instance=ExtResource("9_nrjos")]
+transform = Transform3D(-0.608387, 0, 0.79364, 0, 1, 0, -0.79364, 0, -0.608387, 185.932, -26.5444, 192.498)
 
-[node name="A2" type="Marker3D" parent="Enemies/PatrolRoute"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58991, 9.53674e-07, -17.9343)
+[node name="Pufferfish6" parent="Enemies" instance=ExtResource("9_nrjos")]
+transform = Transform3D(0.580703, 0, -0.814116, 0, 1, 0, 0.814116, 0, 0.580703, 195.366, -27.5372, 177.686)
 
-[node name="A3" type="Marker3D" parent="Enemies/PatrolRoute"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.80686, 7.99509, -38.2799)
+[node name="PiranhaSub3" parent="Enemies" instance=ExtResource("8_g07k2")]
+transform = Transform3D(-0.247574, 0, 0.968869, 0, 1, 0, -0.968869, 0, -0.247574, 170.78, -29.373, 184.503)
+
+[node name="PiranhaSub4" parent="Enemies" instance=ExtResource("8_g07k2")]
+transform = Transform3D(0.286859, 0, 0.957973, 0, 1, 0, -0.957973, 0, 0.286859, 171.933, -23.4668, 175.607)
+
+[node name="PiranhaSub5" parent="Enemies" instance=ExtResource("8_g07k2")]
+transform = Transform3D(-0.818541, 0, 0.574448, 0, 1, 0, -0.574448, 0, -0.818541, 191.391, -24.7668, 195.243)
+
+[node name="PiranhaSub6" parent="Enemies" instance=ExtResource("8_g07k2")]
+transform = Transform3D(0.843757, 0, -0.536725, 0, 1, 0, 0.536725, 0, 0.843757, 182.882, -30.3224, 166.274)
 
 [node name="Fish" type="Marker3D" parent="."]
 
