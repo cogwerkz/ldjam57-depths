@@ -48,7 +48,6 @@ func die() -> void:
 	var fx := EXPLOSION_FX.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
 	FxManager.add_fx(fx)
 	fx.global_position = global_position
-
 	$CollisionShape3D.set_deferred("disabled", true)
 	$Turret/Area3D/CollisionShape3D.set_deferred("disabled", true)
 	var rand_dir = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5))
@@ -57,9 +56,8 @@ func die() -> void:
 	apply_force(rand_dir, rand_force)
 	apply_torque(rand_torque)
 	await get_tree().create_timer(2.0).timeout
-	# TODO: show game over scren
 	game_over.emit()
-	print("ded")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready() -> void:
 	skill_tree = State.get_skill_tree()
@@ -102,8 +100,7 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if not current_state.is_alive():
 		return
-
-	process_scanner(delta)
+		
 	if Input.is_action_just_pressed('debug_toggle_mouse_capture'):
 		mouse_captured = !mouse_captured
 		if mouse_captured:
@@ -111,10 +108,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+	process_scanner(delta)
 	var acceleration := current_state.linear_acceleration * 60.0 * delta
 	var overdrive = 2.0
-	# if Input.is_action_pressed('throttle_overdrive'):
-	#dwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                                                                                                                                                                         	overdrive = 4.0
+	if Input.is_action_pressed('throttle_overdrive'):
+		overdrive = 4.0
 	if current_state.current_fuel <= 0.01:
 		overdrive = 0.0
 	if Input.is_action_pressed('throttle_forward'):

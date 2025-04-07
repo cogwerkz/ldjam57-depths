@@ -33,7 +33,7 @@ var cooldown:= WEAPON_COOLDOWN
 func _physics_process(delta: float) -> void:
 	match current_state:
 		ActivityState.Patrol:
-			if player.global_position.distance_to(global_position) < pursue_range and player.current_state.is_alive():
+			if player != null and player.global_position.distance_to(global_position) < pursue_range and player.current_state.is_alive():
 				current_state = ActivityState.Pursue
 				return
 				

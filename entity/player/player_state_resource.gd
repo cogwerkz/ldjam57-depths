@@ -53,6 +53,8 @@ func reset_defaults() -> void:
 	scanner_cooldown = 5.0
 	tractor_beam_range = 100.0
 	tractor_beam_collection_speed = 15.0
+	current_health = max_health
+	current_fuel = fuel_max
 
 func damage(amount: float) -> void:
 	current_health = max(0, current_health - amount)

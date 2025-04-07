@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=62 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://p2iqbtwh1b6e" path="res://assets/raw/Rock1.fbx" id="18_dmpwd"]
 [ext_resource type="Texture2D" uid="uid://spcu8p4dcyit" path="res://assets/raw/fuel_over.png" id="19_3eua4"]
 [ext_resource type="PackedScene" uid="uid://blo8h8j102lsq" path="res://assets/raw/Rock2.fbx" id="19_5igl3"]
+[ext_resource type="Script" uid="uid://vkxihtnt6u8i" path="res://arena/danger.gd" id="19_hoesm"]
 [ext_resource type="PackedScene" uid="uid://00xgp2rrb1np" path="res://assets/raw/Rock4.fbx" id="20_3gqn6"]
 [ext_resource type="PackedScene" uid="uid://bxb5tond80371" path="res://assets/raw/Rock6.fbx" id="21_0jp5i"]
 [ext_resource type="Texture2D" uid="uid://7ohc5rsqrdm8" path="res://assets/raw/signal_overl.png" id="21_loj0u"]
@@ -47,6 +48,8 @@
 [ext_resource type="Script" uid="uid://ct0yl08ioccxa" path="res://arena/global_state.gd" id="25_q3mki"]
 [ext_resource type="PackedScene" uid="uid://4b2v3q343hxo" path="res://assets/raw/Rock.fbx" id="26_qgirc"]
 [ext_resource type="Script" uid="uid://bj1l1kokcsuxs" path="res://arena/logbook_panel.gd" id="35_nqrx7"]
+[ext_resource type="Shader" uid="uid://naeieiwf7inn" path="res://arena/Noise.gdshader" id="38_nqrx7"]
+[ext_resource type="Script" uid="uid://t3reqyw8w5xh" path="res://arena/game_over.gd" id="40_3r4lv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -55,12 +58,12 @@ sky_energy_multiplier = 0.0
 ground_bottom_color = Color(2.10572e-08, 0.0748081, 0.139041, 1)
 ground_horizon_color = Color(0.328597, 0.448317, 0.508163, 1)
 
-[sub_resource type="Sky" id="Sky_05u1r"]
+[sub_resource type="Sky" id="Sky_m8cug"]
 sky_material = SubResource("ProceduralSkyMaterial_tsql1")
 
 [sub_resource type="Environment" id="Environment_kre3w"]
 background_mode = 2
-sky = SubResource("Sky_05u1r")
+sky = SubResource("Sky_m8cug")
 tonemap_mode = 4
 glow_enabled = true
 glow_bloom = 0.3
@@ -74,13 +77,13 @@ fog_depth_curve = 0.0824694
 [sub_resource type="SphereShape3D" id="SphereShape3D_1jian"]
 radius = 49.3508
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0yfs5"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_nqrx7"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p8eqr"]
 resource_local_to_scene = true
 shader = ExtResource("2_0yfs5")
-shader_parameter/subviewport_tex = SubResource("ViewportTexture_0yfs5")
+shader_parameter/subviewport_tex = SubResource("ViewportTexture_nqrx7")
 shader_parameter/ray_length = 1.0
 shader_parameter/ray_intensity = 0.4
 shader_parameter/light_source_scale = 0.4
@@ -95,10 +98,21 @@ shader = ExtResource("10_syall")
 shader_parameter/scroll_offset = 0.0
 shader_parameter/fade_width_normalized = 0.1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hoesm"]
+shader = ExtResource("38_nqrx7")
+shader_parameter/amount = 40.0
+shader_parameter/vignette_intensity = 1.0
+
 [sub_resource type="Resource" id="Resource_11wws"]
 script = ExtResource("17_xmuta")
 mode = 0
 textures = [[], []]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hoesm"]
+size = Vector3(600, 600, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3r4lv"]
+size = Vector3(400, 220, 400)
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("environment", "sun")]
 script = ExtResource("1_1ovjp")
@@ -320,10 +334,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -215.885, -59.8721, -208.558)
 [node name="Rock17" parent="Areas/The Great Arch/Items" instance=ExtResource("25_0ekom")]
 transform = Transform3D(0.290468, 0.956885, 0, -0.956885, 0.290468, 0, 0, 0, 1, -218.073, -56.6868, -192.362)
 
-[node name="MainCamera" type="Camera3D" parent="."]
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 current = true
 script = ExtResource("1_x3x3p")
 easing = 8.0
+player = NodePath("../Player/PlayerSubmarine")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="MainCamera"]
 remote_path = NodePath("../../SubViewportContainer/SubViewport/PostProcessCamera")
@@ -338,6 +353,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="LightRays" type="ColorRect" parent="Control"]
 material = SubResource("ShaderMaterial_p8eqr")
@@ -538,6 +554,56 @@ text = "Press RETURN to close"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GameOver" type="ColorRect" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+visible = false
+material = SubResource("ShaderMaterial_hoesm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.643137)
+script = ExtResource("40_3r4lv")
+player = NodePath("../../Player/PlayerSubmarine")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/GameOver"]
+custom_minimum_size = Vector2(640, 320)
+layout_mode = 2
+offset_left = 640.0
+offset_top = 380.0
+offset_right = 1280.0
+offset_bottom = 700.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GameOver/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOver/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOver/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game over!"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOver/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
+
 [node name="HTerrain" type="Node3D" parent="."]
 script = ExtResource("15_0bjfm")
 centered = true
@@ -557,5 +623,108 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = null
 shader_params/u_tile_reduction = null
 metadata/_custom_type_script = "uid://oujuluo7x3km"
+
+[node name="Coral6" parent="." instance=ExtResource("15_hoesm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.8215, -50.9366, 32.8581)
+
+[node name="Coral4" parent="." instance=ExtResource("13_m8cug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.6903, -52.8184, -22.2658)
+
+[node name="Coral1" parent="." instance=ExtResource("10_vcnyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.4713, -58.6398, -7.64949)
+
+[node name="Coral2" parent="." instance=ExtResource("11_31no7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.79591, -35.0941, -6.0238)
+
+[node name="Bounds" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("19_hoesm")
+player = NodePath("../Player/PlayerSubmarine")
+
+[node name="ColorRect" type="ColorRect" parent="Bounds"]
+visible = false
+material = SubResource("ShaderMaterial_hoesm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.643137)
+
+[node name="Label" type="Label" parent="Bounds/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.5
+offset_right = 20.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "Danger! Turn around!"
+
+[node name="CollisionBoxes" type="Node3D" parent="Bounds"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 260)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D"]
+shape = SubResource("BoxShape3D_hoesm")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 100, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D5"]
+shape = SubResource("BoxShape3D_hoesm")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -119, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D6"]
+shape = SubResource("BoxShape3D_hoesm")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -260)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D2"]
+shape = SubResource("BoxShape3D_hoesm")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -260, 0, -1.1365e-05)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D3"]
+shape = SubResource("BoxShape3D_hoesm")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 260, 0, 1.1365e-05)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D4"]
+shape = SubResource("BoxShape3D_hoesm")
+
+[node name="DangerAreas" type="Node3D" parent="Bounds"]
+
+[node name="Area3D" type="Area3D" parent="Bounds/DangerAreas"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/DangerAreas/Area3D"]
+shape = SubResource("BoxShape3D_3r4lv")
+debug_color = Color(0, 0.637527, 0.3909, 0.42)
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]

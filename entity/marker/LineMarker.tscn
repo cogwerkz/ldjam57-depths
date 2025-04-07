@@ -13,6 +13,7 @@ disable_receive_shadows = true
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_4a4c6"]
 
 [node name="LineMarker" type="Node3D"]
+top_level = true
 script = ExtResource("1_k1rt3")
 
 [node name="LineRenderer3D" type="MeshInstance3D" parent="."]

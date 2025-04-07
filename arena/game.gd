@@ -9,6 +9,11 @@ extends Node3D
 @export var environment: WorldEnvironment
 @export var sun: DirectionalLight3D
 
+func _ready() -> void:
+	$MainCamera.make_current()
+	State.get_player_state().reset_defaults()
+	State.get_player_state().emit_changed()
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
