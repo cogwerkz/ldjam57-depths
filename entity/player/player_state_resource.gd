@@ -27,7 +27,7 @@ class_name PlayerState
 @export_range(0, 100) var turret_hit_chance: float = 60.0
 
 # Scanner
-@export var scanner_range: float = 300.0
+@export var scanner_range: float = 150.0
 @export var scanner_decay: float = 10.0
 @export var scanner_cooldown: float = 5.0
 
@@ -48,7 +48,7 @@ func reset_defaults() -> void:
 	turret_range = 30.0
 	turret_cooldown = 0.5
 	turret_hit_chance = 60.0
-	scanner_range = 300.0
+	scanner_range = 150.0
 	scanner_decay = 10.0
 	scanner_cooldown = 5.0
 	tractor_beam_range = 100.0
