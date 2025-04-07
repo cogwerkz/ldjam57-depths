@@ -149,12 +149,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6416, -9.08806, 0)
 transform = Transform3D(-0.239652, 0, 0.970859, 0, 1, 0, -0.970859, 0, -0.239652, 0, -29.2519, 0)
 compass = NodePath("../../CanvasLayer/MarginContainer/VBoxContainer/Compass")
 
-[node name="PiranhaSub" parent="Player" instance=ExtResource("8_g07k2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.31691, -23.3043, 16.3459)
-
-[node name="Pufferfish" parent="Player" instance=ExtResource("9_nrjos")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0857, -20.7302, 9.93431)
-
 [node name="Pickups" type="Marker3D" parent="."]
 
 [node name="Pickup" parent="Pickups" instance=ExtResource("3_m1fsu")]

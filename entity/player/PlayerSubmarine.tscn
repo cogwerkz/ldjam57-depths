@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=39 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
@@ -13,6 +13,7 @@
 [ext_resource type="Shader" uid="uid://c1lk784eqw63w" path="res://entity/player/TrailShader.gdshader" id="8_dan0s"]
 [ext_resource type="PackedScene" uid="uid://ciwcjsbqbd7rp" path="res://assets/raw/turret_mount.glb" id="8_vv06u"]
 [ext_resource type="PackedScene" uid="uid://cwj5s2q8kkac6" path="res://entity/kitbash/indicator_light/IndicatorLight.tscn" id="9_sicxe"]
+[ext_resource type="AudioStream" uid="uid://u1twcrw0wps" path="res://assets/sfx/spaceEngineLow_002.ogg" id="14_63mmb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vby8d"]
 height = 4.5063
@@ -366,6 +367,12 @@ intensity = 3.0
 [node name="Tail" parent="Lights" instance=ExtResource("9_sicxe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8)
 light_phase_offset = -0.8
+
+[node name="Engine" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("14_63mmb")
+unit_size = 6.0
+pitch_scale = 0.6
+bus = &"Engine"
 
 [connection signal="area_entered" from="PickupDetector" to="." method="_on_pickup_detector_area_entered"]
 [connection signal="area_exited" from="PickupDetector" to="." method="_on_pickup_detector_area_exited"]

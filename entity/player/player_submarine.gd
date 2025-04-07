@@ -76,6 +76,8 @@ func _ready() -> void:
 	
 	pickup_detector.area_entered.connect(on_pickup)
 	
+	$Engine.play()
+	
 func current_state_updated() -> void:
 	pass	
 
@@ -161,6 +163,9 @@ func _physics_process(delta: float) -> void:
 			
 	apply_torque(transform.basis.y * (-yaw))
 	apply_torque(transform.basis.x * (-pitch))
+	
+	var playback_speed = 5.0 * max(0.1, linear_velocity.length() / current_state.max_speed)
+	$Engine.pitch_scale = playback_speed
 	
 	update_gui()
 
