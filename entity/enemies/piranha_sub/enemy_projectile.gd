@@ -16,6 +16,7 @@ func _ready() -> void:
 	body_entered.connect(on_hit)
 	look_at_from_position(Vector3.ZERO, projectile_velocity.normalized(), Vector3.UP)
 	top_level = true
+	$Shoot.play()
 
 func on_hit(body: Node3D) -> void:
 	if body.has_method("player_descriptor"):
@@ -40,5 +41,6 @@ func destroy() -> void:
 	$CollisionShape3D.set_deferred("disabled", true)
 	projectile_velocity = Vector3.ZERO
 	$GPUParticles3D.emitting = false
+	$Hit.play()
 	await $GPUParticles3D.finished
 	queue_free()

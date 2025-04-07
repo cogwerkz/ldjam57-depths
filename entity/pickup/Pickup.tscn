@@ -362,3 +362,5 @@ skeleton = NodePath("")
 transform = Transform3D(198.943, 0, 0, 0, -2.37159e-05, 198.943, 0, -198.943, -2.37159e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_d2rus")
 skeleton = NodePath("")
+
+[node name="SFXPickupEffect" type="AudioStreamPlayer3D" parent="."]
