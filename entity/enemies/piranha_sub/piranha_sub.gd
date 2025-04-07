@@ -1,15 +1,18 @@
 extends RigidBody3D
 
 const ENEMY_PROJECTILE := preload("res://entity/enemies/piranha_sub/EnemyProjectile.tscn")
+const EXPLOSION_FX := preload("res://effects/fx/ExplosionFx.tscn")
 
 const MAX_SPEED := 50.0
 const MAX_HEALTH := 50.0
 const PATROL_THRESHOLD := 5.0
 const WEAPON_COOLDOWN := 3.0
 const DAMAGE := 20.0
+const PURSUE_THRESHOLD := 20.0
+const KEEP_DISTANCE_RANGE := 6.0
 
 @export var health: float = MAX_HEALTH
-@export var pursue_range: float = 15.0
+@export var pursue_range: float = PURSUE_THRESHOLD
 
 @export var patrol_markers: Array[Marker3D]
 
@@ -30,7 +33,7 @@ var cooldown:= WEAPON_COOLDOWN
 func _physics_process(delta: float) -> void:
 	match current_state:
 		ActivityState.Patrol:
-			if player.global_position.distance_to(global_position) < pursue_range:
+			if player.global_position.distance_to(global_position) < pursue_range and player.current_state.is_alive():
 				current_state = ActivityState.Pursue
 				return
 				
@@ -49,7 +52,8 @@ func _physics_process(delta: float) -> void:
 			var diff := target_dir - current_dir
 			var new_dir := current_dir + diff.normalized() * 0.75 * delta
 			look_at_from_position(global_position, global_position + new_dir)
-			apply_force(new_dir.normalized() * 10.0 * delta, Vector3.ZERO)
+			apply_force(new_dir.normalized() * 5.0 * delta, Vector3.ZERO)
+			
 			if linear_velocity.length() > MAX_SPEED * 0.5:
 				linear_velocity = linear_velocity.normalized() * MAX_SPEED
 				
@@ -61,17 +65,25 @@ func _physics_process(delta: float) -> void:
 					cooldown = WEAPON_COOLDOWN
 			
 			var target_dir := player.global_position - global_position
+			var distance := target_dir.length()
 			var current_dir := -global_basis.z
 			var diff := target_dir - current_dir
 			var new_dir := current_dir + diff.normalized() * 0.75 * delta
 			look_at_from_position(global_position, global_position + new_dir)
-			apply_force(new_dir.normalized() * 30.0 * delta, Vector3.ZERO)
+			if distance > KEEP_DISTANCE_RANGE:
+				apply_force(new_dir.normalized() * 10.0 * delta, Vector3.ZERO)
+			else:
+				apply_force(new_dir.normalized() * -5.0 * delta, Vector3.ZERO)
+				
 			if linear_velocity.length() > MAX_SPEED:
 				linear_velocity = linear_velocity.normalized() * MAX_SPEED
 			if health < 0.25 * MAX_HEALTH:
 				current_state = ActivityState.Flee
 				return
 			if player.global_position.distance_to(global_position) > pursue_range:
+				current_state = ActivityState.Patrol
+				return
+			if !player.current_state.is_alive():
 				current_state = ActivityState.Patrol
 				return
 			
@@ -121,11 +133,14 @@ func take_damage(amount: float) -> void:
 		die()
 
 func die() -> void:
-	# TODO: FxManager emit boom effect
+	var fx := EXPLOSION_FX.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
+	FxManager.add_fx(fx)
+	fx.global_position = global_position
+	
 	$CollisionShape3D.set_deferred("disabled", true)
 	$Area3D/CollisionShape3D.set_deferred("disabled", true)
 	var rand_dir = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5))
-	var rand_force = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 30.0
+	var rand_force = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 2.0
 	var rand_torque = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 60.0
 	apply_force(rand_dir, rand_force)
 	apply_torque(rand_torque)

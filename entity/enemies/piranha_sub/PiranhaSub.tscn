@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://v2b48vpdivs2" path="res://effects/Thrust.tscn" id="4_52xir"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cugye"]
+radius = 0.9
+height = 4.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ka111"]
 radius = 30.0
@@ -21,7 +23,7 @@ shape = SubResource("CapsuleShape3D_cugye")
 debug_color = Color(0.860766, 0, 0.237732, 0.42)
 
 [node name="MeshContainer" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.5, 0)
 
 [node name="enemy_sub" parent="MeshContainer" instance=ExtResource("1_ka111")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6)
@@ -38,11 +40,11 @@ debug_color = Color(1, 0, 0, 0.419608)
 [node name="Lights" type="Marker3D" parent="."]
 
 [node name="IndicatorLight" parent="Lights" instance=ExtResource("3_5jupr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -2.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.45058e-09, -2.1)
 color = Color(12, 0, 0, 1)
 
 [node name="Thrust" parent="." instance=ExtResource("4_52xir")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9)
 
 [node name="ActionPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -1.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -1.9)

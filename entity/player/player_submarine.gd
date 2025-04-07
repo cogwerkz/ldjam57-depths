@@ -3,6 +3,8 @@ class_name PlayerSubmarine
 
 
 const MARKER := preload("res://entity/marker/PoiMarker.tscn")
+const LINE := preload("res://entity/marker/LineMarker.tscn")
+const EXPLOSION_FX := preload("res://effects/fx/ExplosionFx.tscn")
 
 @onready var camera: Camera3D = $Camera3D
 @onready var crosshair: TextureRect = $Gui/Crosshair
@@ -12,6 +14,7 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 @onready var scanner: Area3D = $Scanner
 @onready var scanner_collider: CollisionShape3D = $Scanner/CollisionShape3D
 @onready var scanner_sphere: MeshInstance3D = $Scanner/MeshInstance3D
+@onready var scanner_line_container: Node3D = $Scanner/Lines
 
 @onready var propellor_animator: AnimationPlayer = $Thrust/AnimationPlayer
 
@@ -42,11 +45,14 @@ func take_damage(amount: float) -> void:
 		die()
 
 func die() -> void:
-	# TODO: FxManager emit boom effect
+	var fx := EXPLOSION_FX.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
+	FxManager.add_fx(fx)
+	fx.global_position = global_position
+
 	$CollisionShape3D.set_deferred("disabled", true)
 	$Turret/Area3D/CollisionShape3D.set_deferred("disabled", true)
 	var rand_dir = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5))
-	var rand_force = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 30.0
+	var rand_force = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 2.0
 	var rand_torque = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 60.0
 	apply_force(rand_dir, rand_force)
 	apply_torque(rand_torque)
@@ -106,9 +112,9 @@ func _physics_process(delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	var acceleration := current_state.linear_acceleration * 60.0 * delta
-	var overdrive = 1.0
-	if Input.is_action_pressed('throttle_overdrive'):
-		overdrive = 4.0
+	var overdrive = 2.0
+	# if Input.is_action_pressed('throttle_overdrive'):
+	#dwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                                                                                                                                                                         	overdrive = 4.0
 	if current_state.current_fuel <= 0.01:
 		overdrive = 0.0
 	if Input.is_action_pressed('throttle_forward'):
@@ -228,7 +234,7 @@ func scan() -> void:
 	var sr = current_state.scanner_range
 	tween.tween_property(scanner_sphere, "scale", Vector3(sr, sr, sr), 3.0)
 	tween.tween_property(material, "shader_parameter/color2", Color.TRANSPARENT, 0.2)
-	await tween.finished	
+	await tween.finished
 	
 	for area in scanner.get_overlapping_areas():
 		if area is Pickup:
@@ -252,7 +258,7 @@ func scan() -> void:
 				compass.add_poi(pickup.global_position, pickup_type, current_state.scanner_decay)
 			else:
 				printerr("PlayerSubmarine: Compass node not assigned!")
-			
+	
 	is_scanning = false
 
 

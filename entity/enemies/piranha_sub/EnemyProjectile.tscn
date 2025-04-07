@@ -59,3 +59,6 @@ visibility_aabb = AABB(-4, -4, -4, 8, 8, 24)
 trail_lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_tgslg")
 draw_pass_1 = SubResource("SphereMesh_bh621")
+
+[node name="FxSpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)

@@ -1,10 +1,14 @@
 extends Area3D
 class_name Projectile
 
+const IMPACT_FX := preload("res://effects/fx/ImpactFx.tscn")
+
 signal hit_enemy(projectile: Projectile, enemy: Node3D)
 
 @export var life: float = 4.0
 @export var projectile_velocity: Vector3
+
+@onready var fx_spawn_point: Marker3D = $FxSpawnPoint
 
 var destroyed := false
 
@@ -16,6 +20,9 @@ func _ready() -> void:
 func on_hit(body: Node3D) -> void:
 	if body.has_method("enemy_descriptor"):
 		hit_enemy.emit(self, body)
+		var fx := IMPACT_FX.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
+		FxManager.add_fx(fx)
+		fx.global_position = fx_spawn_point.global_position
 
 func _physics_process(delta: float) -> void:
 	if destroyed:

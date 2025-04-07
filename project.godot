@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 State="*res://utils/state.gd"
 BiomUtils="*res://utils/biom_utils.gd"
+FxManager="*res://utils/fx_manager.gd"
 
 [display]
 
@@ -30,7 +31,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
+enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg", "res://addons/zylann.hterrain/plugin.cfg")
 
 [filesystem]
 
@@ -40,6 +41,7 @@ import/blender/enabled=false
 
 state=""
 player=""
+fx_manager=""
 
 [gui]
 

@@ -103,6 +103,8 @@ player_state = ExtResource("5_8s4g8")
 skill_tree = ExtResource("6_8s4g8")
 player = NodePath("../Player/PlayerSubmarine")
 
+[node name="FxManager" type="Node3D" parent="." groups=["fx_manager"]]
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
@@ -130,6 +132,10 @@ amount = 50
 
 [node name="PiranhaSub" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 2, -17)
+patrol_markers = [NodePath("../PatrolRoute/A"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A3")]
+
+[node name="PiranhaSub2" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 8.98847, 11.4517, -14.5948)
 patrol_markers = [NodePath("../PatrolRoute/A"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A3")]
 
 [node name="PatrolRoute" type="Node3D" parent="Enemies"]

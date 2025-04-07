@@ -44,6 +44,9 @@ func _ready() -> void:
 	indicator.top_level = true
 
 func _process(delta: float) -> void:
+	if not player.current_state.is_alive():
+		return
+	
 	tick -= delta
 	if tick <= 0.0:
 		tick = TURRET_TICK
@@ -80,9 +83,9 @@ func tick_turret() -> void:
 	if locked_target != null:
 		if global_position.distance_to(locked_target.global_position) > player.current_state.turret_range:
 			lock(null)
-	else:
-		# Finally, pick the new clossest target, if any
-		lock(possible_target)
+	
+	# Finally, pick the new clossest target, if any
+	lock(possible_target)
 		
 func lock(target: Node3D) -> void:
 	locked_target = target
