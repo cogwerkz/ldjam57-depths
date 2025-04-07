@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://civxmtuwakep8" path="res://assets/raw/crosshair.png" id="2_xs68m"]
 [ext_resource type="Texture2D" uid="uid://c34y5ght4fxfo" path="res://assets/raw/direction.png" id="3_f1t2n"]
 [ext_resource type="Texture2D" uid="uid://btskdn3i6epjr" path="res://assets/raw/bubble.png" id="5_x8ejc"]
-[ext_resource type="Shader" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
+[ext_resource type="Shader" uid="uid://c6aupc3mwlgn1" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
 [ext_resource type="AudioStream" uid="uid://ml4n8kk4eu0e" path="res://assets/sfx/radar-ping-306440.mp3" id="7_0uysx"]
 [ext_resource type="PackedScene" uid="uid://j6y3w7b7m3et" path="res://assets/raw/turret_cannon.glb" id="7_g8llj"]
 [ext_resource type="Script" uid="uid://d0cqbfjjq2mvy" path="res://entity/player/turret.gd" id="7_vv06u"]

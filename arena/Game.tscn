@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=68 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -172,9 +172,11 @@ transform = Transform3D(0.474657, 0, -0.880171, 0, 1, 0, 0.880171, 0, 0.474657, 
 
 [node name="PiranhaSub" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 2, -17)
+patrol_markers = [NodePath("../PatrolRoute/A"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A3")]
 
-[node name="PiranhaSub2" parent="Enemies" instance=ExtResource("8_g07k2")]
+[node name="PiranhaSub2" parent="Enemies" node_paths=PackedStringArray("patrol_markers") instance=ExtResource("8_g07k2")]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 8.98847, 11.4517, -14.5948)
+patrol_markers = [NodePath("../PatrolRoute/A3"), NodePath("../PatrolRoute/A2"), NodePath("../PatrolRoute/A")]
 
 [node name="PatrolRoute" type="Node3D" parent="Enemies"]
 
