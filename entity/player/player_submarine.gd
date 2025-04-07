@@ -254,7 +254,7 @@ func scan() -> void:
 	var sr = current_state.scanner_range
 	tween.tween_property(scanner_sphere, "scale", Vector3(sr, sr, sr), 3.0)
 	tween.tween_property(material, "shader_parameter/color2", Color.TRANSPARENT, 0.2)
-	await tween.finished
+	await get_tree().create_timer(1.5).timeout
 	
 	for area in scanner.get_overlapping_areas():
 		if area is Pickup:
