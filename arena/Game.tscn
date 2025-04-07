@@ -404,6 +404,17 @@ log_book_entry = "3"
 
 [node name="Gov" type="Node3D" parent="Areas"]
 
+[node name="Trigger" type="Area3D" parent="Areas/Gov"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 190.268, -56.527, 175.148)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("10_unpcd")
+biom = "Blacksite Aegir"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/Gov/Trigger"]
+shape = SubResource("SphereShape3D_1jian")
+
 [node name="Root Scene" parent="Areas/Gov" instance=ExtResource("28_6m87p")]
 transform = Transform3D(1, 0, 0, 0, 0.98928, 0.146031, 0, -0.146031, 0.98928, 186.148, -40.8751, 183.429)
 
