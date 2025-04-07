@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://cad4krsh3wyd8"]
+[gd_scene load_steps=38 format=3 uid="uid://cad4krsh3wyd8"]
 
 [ext_resource type="Script" uid="uid://bq6b30eup0a7w" path="res://entity/player/player_submarine.gd" id="1_vby8d"]
 [ext_resource type="PackedScene" uid="uid://x306rtslsbp5" path="res://assets/raw/submarine.glb" id="2_7ojpt"]
 [ext_resource type="Texture2D" uid="uid://civxmtuwakep8" path="res://assets/raw/crosshair.png" id="2_xs68m"]
+[ext_resource type="AudioStream" uid="uid://dohh7fs2l4pqn" path="res://assets/sfx/lowFrequency_explosion_000.ogg" id="3_3y3qp"]
 [ext_resource type="Texture2D" uid="uid://c34y5ght4fxfo" path="res://assets/raw/direction.png" id="3_f1t2n"]
 [ext_resource type="Texture2D" uid="uid://btskdn3i6epjr" path="res://assets/raw/bubble.png" id="5_x8ejc"]
 [ext_resource type="Shader" uid="uid://c6aupc3mwlgn1" path="res://entity/player/Scanner.gdshader" id="6_6lrfa"]
@@ -208,6 +209,10 @@ distance_fade_enabled = true
 distance_fade_length = 300.0
 spot_range = 400.0
 spot_angle_attenuation = 0.92682
+
+[node name="Explosion" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_3y3qp")
+bus = &"SFX"
 
 [node name="Gui" type="Control" parent="."]
 layout_mode = 3

@@ -55,6 +55,7 @@ func die() -> void:
 	var rand_torque = Vector3(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 60.0
 	apply_force(rand_dir, rand_force)
 	apply_torque(rand_torque)
+	$Explosion.play()
 	await get_tree().create_timer(2.0).timeout
 	game_over.emit()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

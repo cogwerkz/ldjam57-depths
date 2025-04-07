@@ -77,5 +77,6 @@ func _on_biom_changed(biom: String):
 	else:
 		biom_label.text = "Biome: %s" % biom
 	biom_label.visible_ratio = 0
-	if get_tree():
-		get_tree().create_tween().tween_property(biom_label, "visible_ratio", 1, 0.5)
+	if is_inside_tree():
+		if get_tree():
+			get_tree().create_tween().tween_property(biom_label, "visible_ratio", 1, 0.5)

@@ -100,5 +100,6 @@ func die() -> void:
 	fx.global_position = global_position
 	$CollisionShape3D.set_deferred("disabled", true)
 	$Area3D/CollisionShape3D.set_deferred("disabled", true)
+	$Explosion.play()
 	await get_tree().create_timer(2.0).timeout
 	queue_free()

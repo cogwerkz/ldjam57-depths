@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=4 uid="uid://bg4cmml18kkf"]
+[gd_scene load_steps=19 format=4 uid="uid://bg4cmml18kkf"]
 
 [ext_resource type="Script" uid="uid://gin4n0vnlslr" path="res://entity/enemies/pufferfish/pufferfish.gd" id="1_5wn2q"]
+[ext_resource type="AudioStream" uid="uid://dohh7fs2l4pqn" path="res://assets/sfx/lowFrequency_explosion_000.ogg" id="2_8fg4x"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wwsb0"]
 radius = 1.5
@@ -600,3 +601,7 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_ka111")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="Explosion" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_8fg4x")
+bus = &"SFX"
