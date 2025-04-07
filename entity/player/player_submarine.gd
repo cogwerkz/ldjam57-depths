@@ -18,6 +18,8 @@ const MARKER := preload("res://entity/marker/PoiMarker.tscn")
 @onready var engine1 = $Thrust/Source/GPUParticles3D
 @onready var engine2 = $Thrust/Source/GPUParticles3D2
 
+@onready var scanner_sfx = $Scanner/ScanSFX
+
 # Add reference to the compass node (assign in editor)
 @export var compass: Compass
 
@@ -211,6 +213,7 @@ func process_scanner(delta: float) -> void:
 			is_charged = true
 	
 func scan() -> void:
+	scanner_sfx.play()
 	scanner_charge_updated.emit(0.0)
 	is_scanning = true
 	is_charged = false
