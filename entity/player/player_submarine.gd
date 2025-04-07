@@ -186,7 +186,8 @@ func on_pickup(area: Area3D):
 			Pickup.PickupType.Ammo:
 				pass
 			Pickup.PickupType.LogBook:
-				pass
+				get_tree().paused = true
+				BiomUtils.logbook_discovered.emit(int(pickup.log_book_entry))
 		
 		var tween = get_tree().create_tween().parallel()
 		tween.tween_property(pickup, "global_position", global_position, 0.2)

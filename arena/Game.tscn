@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://j4iau7hya10u"]
+[gd_scene load_steps=56 format=3 uid="uid://j4iau7hya10u"]
 
 [ext_resource type="Script" uid="uid://c1tn6o2ovjrxj" path="res://arena/game.gd" id="1_1ovjp"]
 [ext_resource type="PackedScene" uid="uid://cad4krsh3wyd8" path="res://entity/player/PlayerSubmarine.tscn" id="1_05u1r"]
@@ -33,10 +33,20 @@
 [ext_resource type="Texture2D" uid="uid://dsqahgcvn8mvu" path="res://assets/raw/signall.png" id="17_8s4g8"]
 [ext_resource type="Texture2D" uid="uid://c4f2dxffsmrus" path="res://assets/raw/hp_over.png" id="17_q3mki"]
 [ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="17_xmuta"]
+[ext_resource type="PackedScene" uid="uid://p2iqbtwh1b6e" path="res://assets/raw/Rock1.fbx" id="18_dmpwd"]
 [ext_resource type="Texture2D" uid="uid://spcu8p4dcyit" path="res://assets/raw/fuel_over.png" id="19_3eua4"]
+[ext_resource type="PackedScene" uid="uid://blo8h8j102lsq" path="res://assets/raw/Rock2.fbx" id="19_5igl3"]
+[ext_resource type="PackedScene" uid="uid://00xgp2rrb1np" path="res://assets/raw/Rock4.fbx" id="20_3gqn6"]
+[ext_resource type="PackedScene" uid="uid://bxb5tond80371" path="res://assets/raw/Rock6.fbx" id="21_0jp5i"]
 [ext_resource type="Texture2D" uid="uid://7ohc5rsqrdm8" path="res://assets/raw/signal_overl.png" id="21_loj0u"]
+[ext_resource type="PackedScene" uid="uid://o6sduiufcnla" path="res://assets/raw/Rock10.fbx" id="22_6m87p"]
+[ext_resource type="PackedScene" uid="uid://b5ehw4m1wn7ge" path="res://assets/raw/Rock7.fbx" id="23_nrjos"]
+[ext_resource type="PackedScene" uid="uid://c7f65cw742ri3" path="res://assets/raw/Rock5.fbx" id="24_jr3of"]
 [ext_resource type="Texture2D" uid="uid://dlu8a0nk1oo0q" path="res://assets/raw/poi.png" id="24_m8cug"]
+[ext_resource type="PackedScene" uid="uid://dme5xr5ynbb6f" path="res://assets/raw/Rock3.fbx" id="25_0ekom"]
 [ext_resource type="Script" uid="uid://ct0yl08ioccxa" path="res://arena/global_state.gd" id="25_q3mki"]
+[ext_resource type="PackedScene" uid="uid://4b2v3q343hxo" path="res://assets/raw/Rock.fbx" id="26_qgirc"]
+[ext_resource type="Script" uid="uid://bj1l1kokcsuxs" path="res://arena/logbook_panel.gd" id="35_nqrx7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tsql1"]
 sky_top_color = Color(3.85046e-07, 0.404074, 0.579226, 1)
@@ -162,10 +172,11 @@ script = ExtResource("10_unpcd")
 biom = "Coral Valley"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/CoralValley/Trigger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.9121, -51.1206, 18.0392)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.9121, -51.1206, 0.637714)
 shape = SubResource("SphereShape3D_1jian")
 
 [node name="Items" type="Node3D" parent="Areas/CoralValley"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -24.6909, 0)
 
 [node name="Coral1" parent="Areas/CoralValley/Items" instance=ExtResource("10_vcnyp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.5843, -61.79, 0.415483)
@@ -176,38 +187,138 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.1794, -48.1554, 1.46783)
 [node name="Coral3" parent="Areas/CoralValley/Items" instance=ExtResource("12_unpcd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82.893, -44.4226, 20.279)
 
-[node name="Coral4" parent="Areas/CoralValley" instance=ExtResource("13_m8cug")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.2221, -44.1072, 10.4291)
+[node name="Coral4" parent="Areas/CoralValley/Items" instance=ExtResource("13_m8cug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.2221, -19.4163, 10.4291)
 
-[node name="Coral5" parent="Areas/CoralValley" instance=ExtResource("14_nqrx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9403, -55.5161, 13.4469)
+[node name="Coral5" parent="Areas/CoralValley/Items" instance=ExtResource("14_nqrx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9403, -30.8252, 13.4469)
 
-[node name="Coral6" parent="Areas/CoralValley" instance=ExtResource("15_hoesm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.9136, -53.4915, 17.8218)
+[node name="Coral6" parent="Areas/CoralValley/Items" instance=ExtResource("15_hoesm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.9136, -28.8006, 17.8218)
 
-[node name="Coral" parent="Areas/CoralValley" instance=ExtResource("16_3r4lv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.7784, -46.6526, 24.6535)
+[node name="Coral" parent="Areas/CoralValley/Items" instance=ExtResource("16_3r4lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.7784, -21.9617, 24.6535)
 
-[node name="Coral7" parent="Areas/CoralValley" instance=ExtResource("13_m8cug")]
-transform = Transform3D(-0.704473, 0, -0.709731, 0, 1, 0, 0.709731, 0, -0.704473, -91.9567, -59.4259, -23.3627)
+[node name="Coral7" parent="Areas/CoralValley/Items" instance=ExtResource("13_m8cug")]
+transform = Transform3D(-0.704473, 0, -0.709731, 0, 1, 0, 0.709731, 0, -0.704473, -91.9567, -34.735, -23.3627)
 
-[node name="Coral3" parent="Areas/CoralValley" instance=ExtResource("12_unpcd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6995, -61.7414, -7.57581)
+[node name="Coral8" parent="Areas/CoralValley/Items" instance=ExtResource("12_unpcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.6995, -37.0505, -7.57581)
 
-[node name="Coral2" parent="Areas/CoralValley" instance=ExtResource("11_31no7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.6156, -49.9513, -3.65519)
+[node name="Coral9" parent="Areas/CoralValley/Items" instance=ExtResource("11_31no7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.6156, -25.2604, -3.65519)
 
-[node name="Coral8" parent="Areas/CoralValley" instance=ExtResource("14_nqrx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3359, -59.2636, -10.6874)
+[node name="Coral10" parent="Areas/CoralValley/Items" instance=ExtResource("14_nqrx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3359, -34.5727, -10.6874)
 
-[node name="Coral1" parent="Areas/CoralValley" instance=ExtResource("10_vcnyp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2958, -55.8664, 13.285)
+[node name="Coral11" parent="Areas/CoralValley/Items" instance=ExtResource("10_vcnyp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.2958, -31.1755, 13.285)
 
-[node name="Coral9" parent="Areas/CoralValley" instance=ExtResource("14_nqrx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.4863, -53.7002, 8.16469)
+[node name="Coral12" parent="Areas/CoralValley/Items" instance=ExtResource("14_nqrx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.4863, -29.0093, 8.16469)
 
-[node name="Coral10" parent="Areas/CoralValley" instance=ExtResource("12_unpcd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.1033, -43.9174, -34.8703)
+[node name="Pickup" parent="Areas/CoralValley" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.4174, -45.1619, 2.2457)
+type = 3
+log_book_entry = "1"
+
+[node name="Pickup2" parent="Areas/CoralValley" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218.603, -66.1, -198.185)
+type = 3
+log_book_entry = "2"
+
+[node name="The Great Arch" type="Node3D" parent="Areas"]
+
+[node name="Trigger" type="Area3D" parent="Areas/The Great Arch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.494, -74.942, -200.089)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("10_unpcd")
+biom = "The Great Arch"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Areas/The Great Arch/Trigger"]
+shape = SubResource("SphereShape3D_1jian")
+
+[node name="Items" type="Node3D" parent="Areas/The Great Arch"]
+
+[node name="Rock1" parent="Areas/The Great Arch/Items" instance=ExtResource("18_dmpwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -228.873, -75.6045, -175.18)
+
+[node name="Rock2" parent="Areas/The Great Arch/Items" instance=ExtResource("19_5igl3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.748, -68.5482, -193.555)
+
+[node name="Rock23" parent="Areas/The Great Arch/Items" instance=ExtResource("19_5igl3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.748, -77.7157, -149.578)
+
+[node name="Rock3" parent="Areas/The Great Arch/Items" instance=ExtResource("19_5igl3")]
+transform = Transform3D(1.51176, 0, 0, 0, 1.04579, 0, 0, 0, 1.61934, -220.161, -76.3793, -183.685)
+
+[node name="Rock24" parent="Areas/The Great Arch/Items" instance=ExtResource("19_5igl3")]
+transform = Transform3D(1.51176, 0, 0, 0, 1.04579, 0, 0, 0, 1.61934, -184.674, -68.2832, -157.772)
+
+[node name="Rock4" parent="Areas/The Great Arch/Items" instance=ExtResource("20_3gqn6")]
+transform = Transform3D(0.681398, 0.731913, 0, -0.731913, 0.681398, 0, 0, 0, 1, -236.147, -71.3799, -183.844)
+
+[node name="Rock25" parent="Areas/The Great Arch/Items" instance=ExtResource("20_3gqn6")]
+transform = Transform3D(0.681398, 0.731913, 0, -0.731913, 0.681398, 0, 0, 0, 1, -173.042, -48.2856, -199.505)
+
+[node name="Rock6" parent="Areas/The Great Arch/Items" instance=ExtResource("21_0jp5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -214.047, -60.8269, -231.813)
+
+[node name="Rock10" parent="Areas/The Great Arch/Items" instance=ExtResource("22_6m87p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -216.245, -78.5937, -178.373)
+
+[node name="Rock7" parent="Areas/The Great Arch/Items" instance=ExtResource("23_nrjos")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.525, -67.0857, -181.428)
+
+[node name="Rock11" parent="Areas/The Great Arch/Items" instance=ExtResource("22_6m87p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -237.801, -68.0546, -211.775)
+
+[node name="Rock18" parent="Areas/The Great Arch/Items" instance=ExtResource("20_3gqn6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.232, -60.4744, -208.325)
+
+[node name="Rock19" parent="Areas/The Great Arch/Items" instance=ExtResource("18_dmpwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219.717, -69.0448, -202.805)
+
+[node name="Rock20" parent="Areas/The Great Arch/Items" instance=ExtResource("18_dmpwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -205.679, -60.9132, -206.599)
+
+[node name="Rock21" parent="Areas/The Great Arch/Items" instance=ExtResource("18_dmpwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -207.308, -60.4992, -207.442)
+
+[node name="Rock22" parent="Areas/The Great Arch/Items" instance=ExtResource("18_dmpwd")]
+transform = Transform3D(2.33242, 0, 0.348408, 0, 1, 0, -0.866957, 0, 0.937343, -210.346, -60.1663, -207.111)
+
+[node name="Rock8" parent="Areas/The Great Arch/Items" instance=ExtResource("23_nrjos")]
+transform = Transform3D(1, 0, 0, 0, -0.414804, 0.909911, 0, -0.909911, -0.414804, -220.455, -65.4093, -205.468)
+
+[node name="Rock5" parent="Areas/The Great Arch/Items" instance=ExtResource("24_jr3of")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.601, -67.3479, -220.224)
+
+[node name="Rock12" parent="Areas/The Great Arch/Items" instance=ExtResource("22_6m87p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200.115, -59.6413, -213.173)
+
+[node name="Rock9" parent="Areas/The Great Arch/Items" instance=ExtResource("25_0ekom")]
+transform = Transform3D(-0.836592, -0.547826, 0, 0.547826, -0.836592, 0, 0, 0, 1, -214.436, -68.4818, -190.715)
+
+[node name="Rock13" parent="Areas/The Great Arch/Items" instance=ExtResource("19_5igl3")]
+transform = Transform3D(0.907411, 0.420244, 0, -0.420244, 0.907411, 0, 0, 0, 1, -218.476, -66.2295, -191.527)
+
+[node name="Rock14" parent="Areas/The Great Arch/Items" instance=ExtResource("21_0jp5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -197.972, -62.7041, -205.626)
+
+[node name="Rock" parent="Areas/The Great Arch/Items" instance=ExtResource("26_qgirc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -204.388, -61.5819, -202.856)
+
+[node name="Rock15" parent="Areas/The Great Arch/Items" instance=ExtResource("26_qgirc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -217.097, -60.5998, -201.063)
+
+[node name="Rock16" parent="Areas/The Great Arch/Items" instance=ExtResource("24_jr3of")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -215.885, -59.8721, -208.558)
+
+[node name="Rock17" parent="Areas/The Great Arch/Items" instance=ExtResource("25_0ekom")]
+transform = Transform3D(0.290468, 0.956885, 0, -0.956885, 0.290468, 0, 0, 0, 1, -218.073, -56.6868, -192.362)
 
 [node name="MainCamera" type="Camera3D" parent="."]
 current = true
@@ -367,6 +478,66 @@ offset_top = 170.0
 offset_right = -357.0
 offset_bottom = -187.0
 
+[node name="LogbookPanel" type="Panel" parent="CanvasLayer"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -555.5
+offset_top = -380.0
+offset_right = 555.5
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("35_nqrx7")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/LogbookPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LogbookPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/LogbookPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="TextLabel" type="RichTextLabel" parent="CanvasLayer/LogbookPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]LOGBOOK 1 – \"INITIAL SURVEY\"[/b]  
+[i]Location: Coral Valley – Inside a sunken survey pod tangled in bioluminescent coral[/i]
+
+[b]Date:[/b] March 5, 2039  
+[b]Author:[/b] Dr. Liane Voss
+
+“Preliminary scans confirm the anomaly is artificial. The architecture… it’s older than anything we’ve found on land. Not Atlantean—something older. These glyphs, they seem to resonate, literally. We picked up vibrations even before the scans.
+
+HQ told us to keep quiet. Full comms blackout. They redirected the research team from Site Omega. We're not alone down here anymore.
+
+The source of the signal appears to originate from a [b]cluster of rock formations northwest of Coral Valley[/b], beyond the thermal vents. But be cautious—our last probe returned damaged… as if something [i]intercepted[/i] it.”
+"
+
+[node name="Label3" type="Label" parent="CanvasLayer/LogbookPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Press RETURN to close"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HTerrain" type="Node3D" parent="."]
 script = ExtResource("15_0bjfm")
 centered = true
@@ -386,17 +557,5 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = null
 shader_params/u_tile_reduction = null
 metadata/_custom_type_script = "uid://oujuluo7x3km"
-
-[node name="Coral6" parent="." instance=ExtResource("15_hoesm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.8215, -50.9366, 32.8581)
-
-[node name="Coral4" parent="." instance=ExtResource("13_m8cug")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.6903, -52.8184, -22.2658)
-
-[node name="Coral1" parent="." instance=ExtResource("10_vcnyp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.4713, -58.6398, -7.64949)
-
-[node name="Coral2" parent="." instance=ExtResource("11_31no7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.79591, -35.0941, -6.0238)
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]
