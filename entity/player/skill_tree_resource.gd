@@ -58,6 +58,27 @@ var skills = {
 					"max_speed" : 5.0
 				},
 				"description": "Increases maximum speed by 5 units."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"max_speed" : 5.0
+				},
+				"description": "Increases maximum speed by 5 units."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"max_speed" : 5.0
+				},
+				"description": "Increases maximum speed by 5 units."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"max_speed" : 5.0
+				},
+				"description": "Increases maximum speed by 5 units."
 			}
 		]
 	},
@@ -72,6 +93,20 @@ var skills = {
 					"max_health" : 5.0
 				},
 				"description": "Increases maximum hull health by 5 points."
+			},
+			{
+				"cost": 2,
+				"effects": {
+					"max_health" : 10.0
+				},
+				"description": "Increases maximum hull health by 10 points."
+			},
+			{
+				"cost": 3,
+				"effects": {
+					"max_health" : 20.0
+				},
+				"description": "Increases maximum hull health by 20 points."
 			}
 		]
 	},
@@ -100,6 +135,20 @@ var skills = {
 					"turret_hit_chance" : 5.0 
 				},
 				"description": "Increases turret hit chance by 5%."
+			},
+			{
+				"cost": 2,
+				"effects": {
+					"turret_hit_chance" : 15.0 
+				},
+				"description": "Increases turret hit chance by 15%."
+			},
+			{
+				"cost": 4,
+				"effects": {
+					"turret_hit_chance" : 30.0 
+				},
+				"description": "Increases turret hit chance by 30%."
 			}
 		]
 	},
@@ -128,6 +177,27 @@ var skills = {
 					"turret_max_ammo" : 5.0
 				},
 				"description": "Increases maximum turret ammo capacity by 5 rounds."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"turret_max_ammo" : 5.0
+				},
+				"description": "Increases maximum turret ammo capacity by 5 rounds."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"turret_max_ammo" : 5.0
+				},
+				"description": "Increases maximum turret ammo capacity by 5 rounds."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"turret_max_ammo" : 5.0
+				},
+				"description": "Increases maximum turret ammo capacity by 5 rounds."
 			}
 		]
 	},
@@ -139,9 +209,30 @@ var skills = {
 			{
 				"cost": 1,
 				"effects": {
-					"scanner_range" : 5.0
+					"scanner_range" : 10.0
 				},
-				"description": "Increases scanner detection range by 5 units."
+				"description": "Increases scanner detection range by 10 units."
+			},
+			{
+				"cost": 1,
+				"effects": {
+					"scanner_range" : 10.0
+				},
+				"description": "Increases scanner detection range by 10 units."
+			},
+			{
+				"cost": 2,
+				"effects": {
+					"scanner_range" : 10.0
+				},
+				"description": "Increases scanner detection range by 10 units."
+			},
+			{
+				"cost": 2,
+				"effects": {
+					"scanner_range" : 10.0
+				},
+				"description": "Increases scanner detection range by 10 units."
 			}
 		]
 	},
