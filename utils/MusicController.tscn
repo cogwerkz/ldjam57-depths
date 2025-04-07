@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://ccdr0jrmjjlu1" path="res://assets/raw/bg.mp3" id="2_oifss"]
 
 [node name="MusicController" type="Node"]
+process_mode = 3
 script = ExtResource("1_6fpmu")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
