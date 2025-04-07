@@ -207,6 +207,7 @@ func on_pickup(area: Area3D):
 				get_tree().paused = true
 				BiomUtils.logbook_discovered.emit(int(pickup.log_book_entry))
 		
+		$PickupDetector/SFXPickupEffect.play()
 		var tween = get_tree().create_tween().parallel()
 		tween.tween_property(pickup, "global_position", global_position, 0.2)
 		tween.tween_property(pickup, "scale", Vector3(0.1, 0.1, 0.1), 0.2)
