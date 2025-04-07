@@ -41,6 +41,17 @@ text = "[center]CREDITS
 
 [b]Dark Depths[/b]
 By Domagoj Cerjan & Kristijan Drača
+
+
 Made for Ludum Dare 57
 
 [/center]"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect/MarginContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 26
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+text = "Press RETURN to exit"

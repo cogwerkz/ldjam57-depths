@@ -49,7 +49,7 @@ func _ready() -> void:
 	BiomUtils.logbook_discovered.connect(_show_logbook)
 
 func _show_logbook(logbook_id: int):
-	is_last_logbook == logbook_id == 4
+	is_last_logbook = logbook_id == 4
 	if !log_books.has(logbook_id):
 		printerr("Nema ti tog logbooka!")
 		return
@@ -62,6 +62,7 @@ func _show_logbook(logbook_id: int):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		if (is_last_logbook):
+			get_tree().change_scene_to_file("res://credits.tscn")
 			return
 		visible = false
 		get_tree().paused = false

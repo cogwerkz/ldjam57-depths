@@ -359,12 +359,18 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_constants/separation = 10
 metadata/_edit_use_anchors_ = true
 
 [node name="NewGame" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "New Game"
+
+[node name="Credits" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Credits"
 
 [node name="Quit" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 texture_filter = 1

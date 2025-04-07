@@ -141,6 +141,7 @@ shadow_enabled = true
 environment = SubResource("Environment_kre3w")
 
 [node name="Player" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6416, -9.08806, 0)
 
 [node name="PlayerSubmarine" parent="Player" node_paths=PackedStringArray("compass") instance=ExtResource("1_05u1r")]
 transform = Transform3D(-0.239652, 0, 0.970859, 0, 1, 0, -0.970859, 0, -0.239652, 0, -29.2519, 0)
@@ -764,5 +765,10 @@ collision_layer = 3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/DangerAreas/Area3D"]
 shape = SubResource("BoxShape3D_3r4lv")
 debug_color = Color(0, 0.637527, 0.3909, 0.42)
+
+[node name="Pickup" parent="." instance=ExtResource("3_m1fsu")]
+transform = Transform3D(0.024851, 0, 0.999691, 0, 1, 0, -0.999691, 0, 0.024851, 179.101, -38.8096, 183.765)
+type = 3
+log_book_entry = "4"
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]
