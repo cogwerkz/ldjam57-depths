@@ -15,8 +15,9 @@ func _ready() -> void:
 	State.get_player_state().emit_changed()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().quit()
+	if !OS.has_feature("web"):
+		if event.is_action_pressed("ui_cancel"):
+			get_tree().quit()
 
 	if event.is_action_pressed("upgrades"):
 		skill_tree_panel.visible = !skill_tree_panel.visible

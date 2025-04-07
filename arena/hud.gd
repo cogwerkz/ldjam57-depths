@@ -73,9 +73,9 @@ func _on_scanner_ready():
 
 func _on_biom_changed(biom: String):
 	if biom == "":
-		biom_label.text = "Biom: Unknown"
+		biom_label.text = "Biome: Unknown"
 	else:
-		biom_label.text = "Biom: %s" % biom
+		biom_label.text = "Biome: %s" % biom
 	biom_label.visible_ratio = 0
 	if get_tree():
 		get_tree().create_tween().tween_property(biom_label, "visible_ratio", 1, 0.5)

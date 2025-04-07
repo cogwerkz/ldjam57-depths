@@ -14,6 +14,7 @@ var destroyed := false
 
 func _ready() -> void:
 	body_entered.connect(on_hit)
+	area_entered.connect(on_hit)
 	look_at_from_position(Vector3.ZERO, projectile_velocity.normalized(), Vector3.UP)
 	top_level = true
 

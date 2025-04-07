@@ -78,10 +78,20 @@ func tick_turret() -> void:
 			if distance_to_possible_target < 0.0 or distance < distance_to_possible_target:
 				distance_to_possible_target = distance
 				possible_target = target
+				
+	for target in target_finder.get_overlapping_areas():
+		if target.has_method("enemy_descriptor"):
+			var distance = global_position.distance_to(target.global_position)
+			if distance_to_possible_target < 0.0 or distance < distance_to_possible_target:
+				distance_to_possible_target = distance
+				possible_target = target
 
 	# Loose lock if target too far away
 	if locked_target != null:
 		if global_position.distance_to(locked_target.global_position) > player.current_state.turret_range:
+			if possible_target == locked_target:
+				possible_target = null
+			locked_target = null
 			lock(null)
 	
 	# Finally, pick the new clossest target, if any
