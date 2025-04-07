@@ -2,6 +2,8 @@ extends Panel
 
 @onready var text = $MarginContainer/VBoxContainer/TextLabel
 
+var is_last_logbook = false
+
 var log_books = {
 	1: {
 		"text": "[b]LOGBOOK 1 – \"INITIAL SURVEY\"[/b]\n\n" +
@@ -47,6 +49,7 @@ func _ready() -> void:
 	BiomUtils.logbook_discovered.connect(_show_logbook)
 
 func _show_logbook(logbook_id: int):
+	is_last_logbook == logbook_id == 4
 	if !log_books.has(logbook_id):
 		printerr("Nema ti tog logbooka!")
 		return
@@ -58,5 +61,7 @@ func _show_logbook(logbook_id: int):
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
+		if (is_last_logbook):
+			return
 		visible = false
 		get_tree().paused = false
