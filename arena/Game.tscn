@@ -216,8 +216,32 @@ transform = Transform3D(0.843757, 0, -0.536725, 0, 1, 0, 0.536725, 0, 0.843757, 
 [node name="SchoolOfFish" parent="Fish" instance=ExtResource("10_6m87p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5474, -23.4561, 0)
 
+[node name="SchoolOfFish8" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(0.675127, 0, -0.737702, 0, 1, 0, 0.737702, 0, 0.675127, -109.062, -0.681042, 80.45)
+
+[node name="SchoolOfFish9" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(-0.480805, 0, -0.876828, 0, 1, 0, 0.876828, 0, -0.480805, 23.3295, 9.95095, 60.8046)
+
+[node name="SchoolOfFish10" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(-0.982845, 0, -0.184432, 0, 1, 0, 0.184432, 0, -0.982845, -171.399, -25.0703, -26.6444)
+
 [node name="SchoolOfFish2" parent="Fish" instance=ExtResource("10_6m87p")]
 transform = Transform3D(0.597793, 0, -0.80165, 0.0608183, 0.997118, 0.0453524, 0.79934, -0.0758663, 0.59607, -57.3816, -48.8388, -0.109573)
+
+[node name="SchoolOfFish3" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(0.597793, 0, -0.80165, 0.0608183, 0.997118, 0.0453524, 0.79934, -0.0758663, 0.59607, -155.687, -37.5515, 121.9)
+
+[node name="SchoolOfFish4" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(-0.865093, -0.136099, -0.482796, -0.0534599, 0.982022, -0.181037, 0.498755, -0.130804, -0.856816, -135.464, -25.2284, -101.422)
+
+[node name="SchoolOfFish5" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(0.534046, 0.181308, 0.825785, -0.0534599, 0.982022, -0.181037, -0.843763, 0.0525359, 0.534138, 91.8213, -5.6422, 134.514)
+
+[node name="SchoolOfFish6" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(0.951954, 0.104866, 0.287725, -0.0534599, 0.982022, -0.181037, -0.301537, 0.156958, 0.940446, 123.987, -5.6422, 180.332)
+
+[node name="SchoolOfFish7" parent="Fish" instance=ExtResource("10_6m87p")]
+transform = Transform3D(-0.913861, 0.0249606, 0.405258, -0.0534599, 0.982022, -0.181037, -0.402491, -0.187108, -0.896097, 132.564, -5.6422, 144.515)
 
 [node name="Areas" type="Node3D" parent="."]
 
