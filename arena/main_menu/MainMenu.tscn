@@ -15,7 +15,7 @@
 [ext_resource type="Shader" uid="uid://corko8ytv0xqw" path="res://entity/player/GodRays.gdshader" id="10_ebix7"]
 [ext_resource type="Script" uid="uid://c8yoc788wd6p8" path="res://entity/player/light_rays.gd" id="11_n8lqu"]
 [ext_resource type="Script" uid="uid://oujuluo7x3km" path="res://addons/zylann.hterrain/hterrain.gd" id="12_4sh7d"]
-[ext_resource type="Resource" uid="uid://ddg2tqd370pa0" path="res://terrein/data.hterrain" id="13_6mgnt"]
+[ext_resource type="Resource" path="res://terrein/data.hterrain" id="13_6mgnt"]
 [ext_resource type="Script" uid="uid://ck2jfcyega1io" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="14_ifpp6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1l253"]

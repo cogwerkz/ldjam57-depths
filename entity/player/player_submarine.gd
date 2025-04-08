@@ -264,7 +264,7 @@ func scan() -> void:
 			var pickup: Pickup = area
 			var descriptor: Dictionary = pickup.pickup_descriptor()
 			# --- Create screen marker ---
-			var marker = MARKER.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+			var marker = MARKER.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
 			marker.text = descriptor.name # Use name from descriptor
 			marker.life = current_state.scanner_decay
 			marker.anchor = self
