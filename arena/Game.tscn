@@ -115,10 +115,10 @@ mode = 0
 textures = [[], []]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hoesm"]
-size = Vector3(600, 600, 60)
+size = Vector3(600, 600, 38)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3r4lv"]
-size = Vector3(450, 220, 450)
+size = Vector3(470.7, 220, 468)
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("environment", "sun")]
 script = ExtResource("1_1ovjp")
@@ -859,6 +859,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.663757, -1.80658, 1.00488)
 shape = SubResource("BoxShape3D_hoesm")
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
@@ -883,6 +884,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
 shape = SubResource("BoxShape3D_hoesm")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
@@ -891,6 +893,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/CollisionBoxes/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.92608e-07, 0, 11.2696)
 shape = SubResource("BoxShape3D_hoesm")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="Bounds/CollisionBoxes"]
@@ -908,6 +911,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.720853, 0.0213737, 0.34551
 collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/DangerAreas/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.35, 0, -9)
 shape = SubResource("BoxShape3D_3r4lv")
 debug_color = Color(0, 0.637527, 0.3909, 0.42)
 
