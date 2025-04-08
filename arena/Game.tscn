@@ -152,12 +152,71 @@ compass = NodePath("../../CanvasLayer/MarginContainer/VBoxContainer/Compass")
 [node name="Pickups" type="Marker3D" parent="."]
 
 [node name="Pickup" parent="Pickups" instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -6)
+transform = Transform3D(0.024851, 0, 0.999691, 0, 1, 0, -0.999691, 0, 0.024851, 179.101, -38.8096, 183.765)
+type = 3
+log_book_entry = "4"
 
 [node name="Pickup2" parent="Pickups" instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4, 3.3, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.2521, -41.772, 21.4794)
+
+[node name="Pickup3" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.467, -46.7424, -30.507)
+
+[node name="Pickup4" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -181.242, -51.0531, -92.4282)
 type = 2
-amount = 50
+
+[node name="Pickup5" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.648, -70.9006, -161.497)
+
+[node name="Pickup7" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219.256, -44.102, -101.184)
+type = 1
+amount = 10
+
+[node name="Pickup8" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -199.587, -41.6469, -33.2012)
+
+[node name="Pickup9" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.768, -7.56479, 55.4452)
+type = 2
+amount = 10
+
+[node name="Pickup10" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.089, -37.2387, 163.917)
+
+[node name="Pickup11" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -139.372, -34.8335, 150.195)
+
+[node name="Pickup12" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.0344, -7.4428, 197.417)
+type = 1
+amount = 10
+
+[node name="Pickup13" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2941, -2.56857, 155.399)
+
+[node name="Pickup14" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.6325, -38.4686, 183.732)
+type = 2
+amount = 10
+
+[node name="Pickup15" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.652, -24.0791, 152.168)
+type = 4
+
+[node name="Pickup16" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.762, -37.4384, 172.781)
+type = 4
+amount = 20
+
+[node name="Pickup17" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.997, -33.1369, 154.423)
+type = 2
+amount = 10
+
+[node name="Pickup18" parent="Pickups" instance=ExtResource("3_m1fsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.684, -25.8359, 188.448)
 
 [node name="Enemies" type="Marker3D" parent="."]
 
@@ -845,81 +904,11 @@ shape = SubResource("BoxShape3D_hoesm")
 [node name="DangerAreas" type="Node3D" parent="Bounds"]
 
 [node name="Area3D" type="Area3D" parent="Bounds/DangerAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.720853, 0.0213737, 0.345512)
 collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bounds/DangerAreas/Area3D"]
 shape = SubResource("BoxShape3D_3r4lv")
 debug_color = Color(0, 0.637527, 0.3909, 0.42)
-
-[node name="Pickup" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(0.024851, 0, 0.999691, 0, 1, 0, -0.999691, 0, 0.024851, 179.101, -38.8096, 183.765)
-type = 3
-log_book_entry = "4"
-
-[node name="Pickup2" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67.2521, -41.772, 21.4794)
-
-[node name="Pickup3" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.467, -46.7424, -30.507)
-
-[node name="Pickup4" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -181.242, -51.0531, -92.4282)
-type = 2
-
-[node name="Pickup5" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.648, -70.9006, -161.497)
-
-[node name="Pickup6" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -228.013, -72.4852, -174.6)
-type = 2
-
-[node name="Pickup7" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219.256, -44.102, -101.184)
-type = 1
-amount = 10
-
-[node name="Pickup8" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -199.587, -41.6469, -33.2012)
-
-[node name="Pickup9" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.768, -7.56479, 55.4452)
-type = 2
-amount = 10
-
-[node name="Pickup10" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.089, -37.2387, 163.917)
-
-[node name="Pickup11" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -139.372, -34.8335, 150.195)
-
-[node name="Pickup12" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.0344, -7.4428, 197.417)
-type = 1
-amount = 10
-
-[node name="Pickup13" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.2941, -2.56857, 155.399)
-
-[node name="Pickup14" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.6325, -38.4686, 183.732)
-type = 2
-amount = 10
-
-[node name="Pickup15" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.652, -24.0791, 152.168)
-type = 4
-
-[node name="Pickup16" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.762, -37.4384, 172.781)
-type = 4
-amount = 20
-
-[node name="Pickup17" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.997, -33.1369, 154.423)
-type = 2
-amount = 10
-
-[node name="Pickup18" parent="." instance=ExtResource("3_m1fsu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.684, -25.8359, 188.448)
 
 [connection signal="visibility_changed" from="CanvasLayer/SkillTreePanel" to="." method="_on_skill_tree_panel_visibility_changed"]
