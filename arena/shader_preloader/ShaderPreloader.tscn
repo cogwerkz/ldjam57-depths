@@ -1,0 +1,87 @@
+[gd_scene load_steps=18 format=3 uid="uid://djjss6kkncnm6"]
+
+[ext_resource type="PackedScene" uid="uid://cwj5s2q8kkac6" path="res://entity/kitbash/indicator_light/IndicatorLight.tscn" id="1_7qngp"]
+[ext_resource type="Script" uid="uid://cxbpwtk7cyae2" path="res://arena/shader_preloader/shader_preloader.gd" id="1_gkkxt"]
+[ext_resource type="Script" uid="uid://ct0yl08ioccxa" path="res://arena/global_state.gd" id="2_augsq"]
+[ext_resource type="PackedScene" uid="uid://d0phrftrgsgm7" path="res://entity/marker/LineMarker.tscn" id="2_nsa2x"]
+[ext_resource type="PackedScene" uid="uid://buuvl2lynwwv5" path="res://entity/marker/PoiMarker.tscn" id="3_1pq6e"]
+[ext_resource type="Resource" uid="uid://dha7wi7lftjpi" path="res://resources/player_state.tres" id="3_s0j5t"]
+[ext_resource type="Resource" uid="uid://bi5c8rvnv8ael" path="res://resources/skill_tree.tres" id="4_irwmt"]
+[ext_resource type="PackedScene" uid="uid://8gaqkkdaka2t" path="res://entity/marker/TargetIndicator.tscn" id="4_w8x53"]
+[ext_resource type="PackedScene" uid="uid://d2qplnx88ayhy" path="res://entity/pickup/Pickup.tscn" id="5_gbafw"]
+[ext_resource type="PackedScene" uid="uid://dfnptne37rtqk" path="res://entity/moons.tscn" id="6_gmoi2"]
+[ext_resource type="PackedScene" uid="uid://bqs8peheyatx1" path="res://entity/fish/Fish.tscn" id="7_1ndga"]
+[ext_resource type="PackedScene" uid="uid://bg4cmml18kkf" path="res://entity/enemies/pufferfish/Pufferfish.tscn" id="8_w8x53"]
+[ext_resource type="PackedScene" uid="uid://bkqiu07ceqvxd" path="res://entity/enemies/piranha_sub/PiranhaSub.tscn" id="9_gbafw"]
+[ext_resource type="PackedScene" uid="uid://cg46b4r1k4mvm" path="res://entity/enemies/piranha_sub/EnemyProjectile.tscn" id="10_gmoi2"]
+[ext_resource type="PackedScene" uid="uid://1ev1g75bkyth" path="res://entity/player/Projectile.tscn" id="11_gbafw"]
+[ext_resource type="PackedScene" uid="uid://fwcf745tdlha" path="res://effects/fx/ExplosionFx.tscn" id="12_1ndga"]
+[ext_resource type="PackedScene" uid="uid://duu4o7385hb2e" path="res://effects/fx/ImpactFx.tscn" id="13_gkkxt"]
+
+[node name="ShaderPreloader" type="Node3D"]
+script = ExtResource("1_gkkxt")
+
+[node name="GlobalState" type="Node" parent="." node_paths=PackedStringArray("player") groups=["state"]]
+script = ExtResource("2_augsq")
+player_state = ExtResource("3_s0j5t")
+skill_tree = ExtResource("4_irwmt")
+player = NodePath("")
+
+[node name="IndicatorLight" parent="." instance=ExtResource("1_7qngp")]
+
+[node name="LineMarker" parent="." instance=ExtResource("2_nsa2x")]
+
+[node name="PoiMarker" parent="." instance=ExtResource("3_1pq6e")]
+
+[node name="TargetIndicator" parent="." instance=ExtResource("4_w8x53")]
+
+[node name="Pickup" parent="." instance=ExtResource("5_gbafw")]
+
+[node name="Moons" parent="." instance=ExtResource("6_gmoi2")]
+
+[node name="Fish" parent="." instance=ExtResource("7_1ndga")]
+preloader = true
+
+[node name="Pufferfish" parent="." instance=ExtResource("8_w8x53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.66728, 0, 0)
+
+[node name="PiranhaSub" parent="." instance=ExtResource("9_gbafw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48421, 0, 0)
+
+[node name="EnemyProjectile" parent="." instance=ExtResource("10_gmoi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.07736)
+
+[node name="Projectile" parent="." instance=ExtResource("11_gbafw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18133, 0, -5.99637)
+
+[node name="effects" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3966, 4.76837e-07, -9.15871)
+
+[node name="ExplosionFx" parent="effects" instance=ExtResource("12_1ndga")]
+
+[node name="ImpactFx" parent="effects" instance=ExtResource("13_gkkxt")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.5
+offset_right = 20.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Compiling shaders..."
+metadata/_edit_use_anchors_ = true

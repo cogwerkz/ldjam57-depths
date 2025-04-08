@@ -16,5 +16,6 @@ func _ready() -> void:
 	queue_free()
 	
 func _process(_delta: float) -> void:
-	var distance = anchor.global_position.distance_to(global_position)
+	var pos: Vector3 = anchor.global_position if anchor != null else Vector3.ZERO
+	var distance = pos.distance_to(global_position)
 	label.text = "%s\n%.2fm" % [text, distance]

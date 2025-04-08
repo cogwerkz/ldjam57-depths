@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ldjam57-depths"
-run/main_scene="uid://cxywcx7khaw4v"
+run/main_scene="uid://djjss6kkncnm6"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
