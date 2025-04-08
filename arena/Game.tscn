@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://c7bffe8hm3pcb" path="res://assets/raw/heath.png" id="15_p28hi"]
 [ext_resource type="Texture2D" uid="uid://coawo5rec6e1u" path="res://assets/raw/hp.png" id="15_trfv1"]
 [ext_resource type="PackedScene" uid="uid://dmcmx62iq8f00" path="res://assets/raw/Coral.fbx" id="16_3r4lv"]
-[ext_resource type="Resource" path="res://terrein/data.hterrain" id="16_guibl"]
+[ext_resource type="Resource" uid="uid://ddg2tqd370pa0" path="res://terrein/data.hterrain" id="16_guibl"]
 [ext_resource type="Texture2D" uid="uid://twq3xsi8ywat" path="res://assets/raw/fuel.png" id="16_p28hi"]
 [ext_resource type="Texture2D" uid="uid://dsqahgcvn8mvu" path="res://assets/raw/signall.png" id="17_8s4g8"]
 [ext_resource type="Texture2D" uid="uid://c4f2dxffsmrus" path="res://assets/raw/hp_over.png" id="17_q3mki"]
