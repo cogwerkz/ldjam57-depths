@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="SkillTree" load_steps=2 format=3 uid="uid://bi5c8rvnv8ael"]
-
-[ext_resource type="Script" uid="uid://7ro7qnlxtkct" path="res://entity/player/skill_tree_resource.gd" id="1_xgbtl"]
-
-[resource]
-script = ExtResource("1_xgbtl")
-metadata/_custom_type_script = "uid://7ro7qnlxtkct"
