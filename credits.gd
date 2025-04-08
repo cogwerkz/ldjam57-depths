@@ -1,6 +1,7 @@
 extends Control
 
 func _ready() -> void:
+	get_tree().paused = false
 	await get_tree().create_timer(1).timeout
 	get_tree().create_tween().tween_property($ColorRect/MarginContainer/RichTextLabel, "visible_ratio", 1, 3)
 	

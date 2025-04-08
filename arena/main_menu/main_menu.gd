@@ -1,6 +1,7 @@
 extends Node3D
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$Node3D/MainCamera.make_current()
 	if OS.has_feature("web"):
 		$CanvasLayer/MarginContainer/VBoxContainer/Quit.visible = false
