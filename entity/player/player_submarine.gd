@@ -147,6 +147,9 @@ func _physics_process(delta: float) -> void:
 
 	if mouse_deltas.length() > 0:
 		should_auto_level = false
+	
+	if OS.has_feature("web"):
+		mouse_deltas *= 0.5
 		
 	var yaw = mouse_deltas.x / crosshair.position.x * 100000.0 * delta
 	var pitch = mouse_deltas.y / crosshair.position.y * 100000.0 * delta
