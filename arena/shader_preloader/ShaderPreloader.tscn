@@ -21,11 +21,10 @@
 [node name="ShaderPreloader" type="Node3D"]
 script = ExtResource("1_gkkxt")
 
-[node name="GlobalState" type="Node" parent="." node_paths=PackedStringArray("player") groups=["state"]]
+[node name="GlobalState" type="Node" parent="." groups=["state"]]
 script = ExtResource("2_augsq")
 player_state = ExtResource("3_s0j5t")
 skill_tree = ExtResource("4_irwmt")
-player = NodePath("")
 
 [node name="IndicatorLight" parent="." instance=ExtResource("1_7qngp")]
 
