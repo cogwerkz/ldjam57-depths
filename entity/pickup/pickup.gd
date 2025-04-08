@@ -20,6 +20,7 @@ const NAMES = {
 	PickupType.Fuel: "Fuel",
 	PickupType.Ammo: "Ammo",
 	PickupType.LogBook: "Lost Log Book",
+	PickupType.Health: "Health",
 }
 
 @export var type: PickupType = PickupType.Science

@@ -200,7 +200,7 @@ func on_pickup(area: Area3D):
 			Pickup.PickupType.Science:
 				skill_tree.add_science_points(descriptor.get("amount", 1))
 			Pickup.PickupType.Fuel:
-				pass
+				current_state.current_fuel += 20
 			Pickup.PickupType.Ammo:
 				pass
 			Pickup.PickupType.LogBook:

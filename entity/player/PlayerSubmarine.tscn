@@ -379,6 +379,7 @@ light_phase_offset = -0.8
 stream = ExtResource("14_63mmb")
 unit_size = 6.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [connection signal="area_entered" from="PickupDetector" to="." method="_on_pickup_detector_area_entered"]
 [connection signal="area_exited" from="PickupDetector" to="." method="_on_pickup_detector_area_exited"]
